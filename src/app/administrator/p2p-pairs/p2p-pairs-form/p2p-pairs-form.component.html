@@ -1,0 +1,121 @@
+<section class="sect-partners">
+    <div class="container">
+      <div class="layout-container">
+        <div class="layout">
+          <div class="sect-partners-block">
+            <div class="headline align-left">{{data != '' ? 'Edit' : 'Add'}} P2P Pairs</div>
+            <form [formGroup]="form" (ngSubmit)="formSubmitHandler()">
+                <div class="" fxLayoutGap="-10px">
+                    <div
+                    fxLayout="row"
+                    fxLayoutGap="20px"
+                    fxLayoutAlign="start center"
+                    class="outer-row"
+                    >
+                    <div class="inner-row">
+                        <label class="form-label">From Currency</label>
+                        <mat-form-field appearance="outline">
+                            <mat-select (selectionChange)="setToCurrency($event.value)" [disabled]="data!=''" placeholder="From Currency" formControlName="fromCurrency" [compareWith]="compareItems" required>
+                                <mat-option *ngFor="let obj of currency" [value]="obj._id">{{obj.currencySymbol}} - {{obj.basecoin}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    </div>
+                    <div
+                    fxLayout="row"
+                    fxLayoutGap="20px"
+                    fxLayoutAlign="start center"
+                    class="outer-row"
+                    >
+                    <div class="inner-row">
+                        <label class="form-label">To Currency</label>
+                        <mat-form-field appearance="outline">
+                            <mat-select [disabled]="data!=''" placeholder="To Currency" formControlName="toCurrency" [compareWith]="compareItems" required>
+                                <mat-option *ngFor="let obj of currency1" [value]="obj._id">{{obj.currencySymbol}} - {{obj.basecoin}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    </div>
+                 
+                    <div
+                        fxLayout="row"
+                        fxLayoutGap="20px"
+                        fxLayoutAlign="start center"
+                        class="outer-row"
+                    >
+                        <div class="inner-row">
+                            <label class="form-label">Minimum Trade</label>
+                            <mat-form-field appearance="outline">
+                            <input
+                                type="number"
+                                matInput
+                                formControlName="minTrade"
+                                placeholder="Minimum Trade"
+                                required
+                            />
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div
+                        fxLayout="row"
+                        fxLayoutGap="20px"
+                        fxLayoutAlign="start center"
+                        class="outer-row"
+                    >
+                        <div class="inner-row">
+                            <label class="form-label">Maximum Trade</label>
+                            <mat-form-field appearance="outline">
+                            <input
+                            type="number"
+                                matInput
+                                formControlName="maxTrade"
+                                placeholder="Maximum Trade"
+                                required
+                            />
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div
+                    fxLayout="row"
+                    fxLayoutGap="20px"
+                    fxLayoutAlign="start center"
+                    class="outer-row"
+                    >
+                    <div class="inner-row">
+                        <label class="form-label">Status</label>
+                        <mat-form-field appearance="outline">
+                            <mat-select placeholder="Status" formControlName="status" [compareWith]="compareItems" required>
+                                <mat-option value="1">Active</mat-option>
+                                <mat-option value="0">De-Active</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    </div>
+
+                    <div class="flot-rt">
+                        <button
+                        (click)="closeDialog()"
+                        mat-button
+                        type="button"
+                        class="btn-cance mrg-rightval"
+                        >
+                        Cancel
+                        </button>
+                        <button
+                        mat-button
+                        type="submit"
+                        [disabled]="form.invalid || isLoading"
+                        class="btn-save"
+                        >
+                        {{data != '' ? 'Edit' : 'Add'}} Pair
+                        </button>
+                    </div>
+                </div>
+  
+                
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>

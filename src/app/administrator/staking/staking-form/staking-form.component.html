@@ -1,0 +1,132 @@
+<section class="sect-partners">
+    <div class="container">
+      <div class="layout-container">
+        <div class="layout">
+          <div class="sect-partners-block">
+            <div class="headline align-left">{{_id != 1 ? 'Edit' : 'Add'}} Staking</div>
+            <form [formGroup]="form" (ngSubmit)="formSubmitHandler()">
+                <div class="" fxLayoutGap="-10px" *ngIf="isLoading1">
+                    <div
+                    fxLayout="row"
+                    fxLayoutGap="5px"
+                    fxLayoutAlign="start center"
+                    class="outer-row"
+                    >
+                    <div class="inner-row">
+                        <label class="form-label">Staking Currency</label>
+                        <mat-form-field appearance="outline">
+                            <mat-select [disabled]="_id != 1" placeholder="Staking Currency" formControlName="currencyId" [compareWith]="compareItems" required>
+                                <mat-option *ngFor="let obj of currency" [value]="obj._id">{{obj.currencySymbol}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    </div>
+                    <div
+                    fxLayout="row"
+                    fxLayoutGap="20px"
+                    fxLayoutAlign="start center"
+                    class="outer-row"
+                    >
+                    <div class="inner-row">
+                        <label class="form-label">Maturity Days</label>
+                        <mat-form-field appearance="outline">
+                        <input
+                            matInput
+                            formControlName="maturityDays"
+                            placeholder="Maturity Days"
+                            required
+                        />
+                        </mat-form-field>
+                    </div>
+                    </div>
+                    <div
+                    fxLayout="row"
+                    fxLayoutGap="20px"
+                    fxLayoutAlign="start center"
+                    class="outer-row"
+                    >
+                    <div class="inner-row">
+                        <label class="form-label">Status</label>
+                        <mat-form-field appearance="outline">
+                            <mat-select placeholder="Status" formControlName="status" [compareWith]="compareItems" required>
+                                <mat-option value="1">Active</mat-option>
+                                <mat-option value="0">De-Active</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    </div>
+                    <div>
+                        <div>
+                        <h2>Packages
+                        <div class="flot-rt">
+                            <button
+                            mat-button
+                            type="button"
+                            class="button-cls add-btn vert-texttopalign"
+                            (click)="addPackage()"
+                            >
+                            Add New Package
+                            </button>
+                        </div></h2>
+                    </div>
+                        <div *ngFor="let lev of level;let i = index;">
+                            <h1>Package {{i+1}}<div class="flot-rt">
+                                <button
+                                mat-button
+                                type="button"
+                                class="button-red add-btn vert-texttopalign"
+                                (click)="removePackage(i)"
+                                >
+                                Remove Package
+                                </button>
+                            </div></h1>
+                            <div
+                            fxLayout="row"
+                            fxLayoutGap="20px"
+                            fxLayoutAlign="start center"
+                            class="outer-row"
+                            *ngFor="let param of params"
+                            >
+                            <div class="inner-row">
+                                <label class="form-label">{{param.title}}</label>
+                                    <mat-form-field appearance="outline">
+                                        <input
+                                            type="text"
+                                            matInput
+                                            formControlName="{{i+param.key}}"
+                                            placeholder="{{param.title}}"
+                                            required
+                                        />
+                                    </mat-form-field>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flot-rt">
+                        <button
+                        (click)="closeDialog()"
+                        mat-button
+                        type="button"
+                        class="btn-cance mrg-rightval"
+                        >
+                        Cancel
+                        </button>
+                        <button
+                        mat-button
+                        type="submit"
+                        [disabled]="form.invalid || isLoading"
+                        class="btn-save"
+                        >
+                        {{_id != 1 ? 'Edit' : 'Add'}} Staking
+                        </button>
+                    </div>
+                </div>
+  
+                
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>

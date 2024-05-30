@@ -1,0 +1,141 @@
+<section class="sect-partners">
+    <div class="container">
+      <div class="layout-container">
+        <div class="layout">
+          <div class="sect-partners-block">
+            <div class="headline align-left">My Profile</div>
+            <form [formGroup]="form" (ngSubmit)="formSubmitHandler()">
+                <div class="" fxLayoutGap="-10px">
+                    <div
+                    fxLayout="row"
+                    fxLayoutGap="5px"
+                    fxLayoutAlign="start center"
+                    class="outer-row"
+                    >
+                    <div class="inner-row">
+                        <label class="form-label">Name</label>
+                        <mat-form-field appearance="outline">
+                        <input
+                            matInput
+                            formControlName="name"
+                            placeholder="Name"
+                            required
+                        />
+                        </mat-form-field>
+                    </div>
+                    </div>
+                    <div
+                    fxLayout="row"
+                    fxLayoutGap="20px"
+                    fxLayoutAlign="start center"
+                    class="outer-row"
+                    >
+                    <div class="inner-row">
+                        <label class="form-label">Profile</label>
+                        <mat-form-field appearance="outline">
+                            <ngx-mat-file-input
+                            valuePlaceholder="Upload Flag"
+                            (change)="onlogoURIChange($event)"
+                            ></ngx-mat-file-input>
+                            <mat-icon matSuffix>folder</mat-icon>
+                        </mat-form-field>
+                        <img class="image-cls user-icon" *ngIf="data.profile!=''" mat-card-image src="{{ data.profile }}" alt="" />
+                    </div>
+                    </div>
+
+                    <div class="flot-rt">
+                        <button
+                        mat-button
+                        type="submit"
+                        [disabled]="form.invalid || isLoading"
+                        class="btn-save"
+                        >
+                        Update
+                        </button>
+                    </div>
+                </div>
+            </form>
+            </div>
+            <div class="sect-partners-block">
+                <div class="headline align-left">Change Password</div>
+            <form [formGroup]="form1" (ngSubmit)="formSubmitHandler1()">
+                <div class="" fxLayoutGap="-10px">
+                    <div
+                    fxLayout="row"
+                    fxLayoutGap="5px"
+                    fxLayoutAlign="start center"
+                    class="outer-row"
+                    >
+                    <div class="inner-row">
+                        <label class="form-label">Old Password</label>
+                        <mat-form-field appearance="outline">
+                        <input
+                            matInput
+                            formControlName="oldPassword"
+                            placeholder="Old Password"
+                            type="password"
+                            required
+                        />
+                        </mat-form-field>
+                    </div>
+                    </div>
+                    <div
+                    fxLayout="row"
+                    fxLayoutGap="5px"
+                    fxLayoutAlign="start center"
+                    class="outer-row"
+                    >
+                    <div class="inner-row">
+                        <label class="form-label">New Password</label>
+                        <mat-form-field appearance="outline">
+                        <input
+                            matInput
+                            formControlName="newPassword"
+                            placeholder="New Password"
+                            type="password"
+                            required
+                        />
+                        </mat-form-field>
+                    </div>
+                    </div>
+                    <div
+                    fxLayout="row"
+                    fxLayoutGap="5px"
+                    fxLayoutAlign="start center"
+                    class="outer-row"
+                    >
+                    <div class="inner-row">
+                        <label class="form-label">Confirm New Password</label>
+                        <mat-form-field appearance="outline">
+                        <input
+                            matInput
+                            formControlName="confirmNewPassword"
+                            placeholder="Confirm New Password"
+                            type="password"
+                            required
+                        />
+                        <mat-error *ngIf="form1.hasError('required')">
+                           
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    </div>
+
+
+                    <div class="flot-rt">
+                        <button
+                        mat-button
+                        type="submit"
+                        [disabled]="form1.invalid || isLoading"
+                        class="btn-save"
+                        >
+                        Change Password
+                        </button>
+                    </div>
+                </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>

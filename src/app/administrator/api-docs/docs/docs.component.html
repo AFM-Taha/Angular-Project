@@ -1,0 +1,95 @@
+<section class="sect-one">
+  <div class="container">
+    <div class="layout-container">
+      <div class="layout">
+        <div class="sect-one-block">
+          <div
+            class="sect-container"
+            fxLayout="column"
+            fxLayout.sm="column"
+            fxLayout.xs="column"
+            fxLayoutGap="20px"
+          >
+            <div
+              class="sect container-12"
+              fxLayout="column"
+              fxLayout.sm="column"
+              fxLayout.xs="column"
+              fxLayoutGap="10px"
+            >
+              <div class="headline align-left mrg-botval">
+                Blogs
+                <div class="flot-rt">
+                  <button
+                    mat-button
+                    type="button"
+                    class="button-cls add-btn vert-texttopalign"
+                    (click)="addDocs()"
+                  >
+                    Add Blogs
+                  </button>
+                </div>
+              </div>
+              <div class="example-container mat-elevation-z8">
+                <mat-table [dataSource]="docsTbl" matSort>
+                  <ng-container matColumnDef="name">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>
+                      Blog Title
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row" data-label="topic"
+                      ><span class="mobile-label">Blog Title:</span>
+                      {{ row.name }}
+                    </mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="dateTime">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>
+                      Date Added
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row" data-label="dateTime"
+                      ><span class="mobile-label">Date Added:</span>
+                      {{ row.dateTime | date : "MMM dd, y" }}
+                    </mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="action">
+                    <mat-header-cell *matHeaderCellDef>
+                      Action
+                    </mat-header-cell>
+                    <mat-cell
+                      *matCellDef="let element; let i = index"
+                      data-label="action"
+                    >
+                      <span
+                        class="material-icons crs-ptr"
+                        (click)="editDocs(element._id)"
+                      >
+                        edit
+                      </span>
+                      <span
+                        class="material-icons crs-ptr"
+                        (click)="deleteDocs(element._id)"
+                      >
+                        delete
+                      </span>
+                    </mat-cell>
+                  </ng-container>
+
+                  <mat-header-row
+                    *matHeaderRowDef="displayedColumns"
+                  ></mat-header-row>
+                  <mat-row *matRowDef="let row; columns: displayedColumns">
+                  </mat-row>
+                </mat-table>
+
+                <mat-paginator
+                  [pageSizeOptions]="[5, 10, 25, 100]"
+                ></mat-paginator>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,84 @@
+<section class="sect-one">
+  <div class="container">
+    <div class="layout-container">
+      <div class="layout">
+        <div class="sect-one-block">
+          <div class="sect-container" fxLayout="column" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="20px">
+            <div class="sect container-12" fxLayout="column" fxLayout.sm="column" fxLayout.xs="column"
+              fxLayoutGap="0px">
+              <div class="headline align-left">Manual Balance Updation</div>
+              <form [formGroup]="form" (ngSubmit)="formSubmitHandler()">
+                <div class="mrg-topval mrg-botval">
+                  <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center" class="outer-row">
+                    <div class="inner-row">
+                      <label class="form-label">User Email</label>
+                      <mat-form-field appearance="outline">
+                        <input matInput formControlName="userEmail" placeholder="User Email" required />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+
+                <div style="width: 165px;" class="widthStatus1">
+                  <div class="inner-row">
+                    <label class="form-label">Wallet Type</label>
+                    <mat-form-field appearance="outline">
+                      <mat-select placeholder="Wallet Type" formControlName="walletType" [compareWith]="compareItems">
+                        <mat-option value="mainWallet">Main Wallet</mat-option>
+                        <mat-option value="p2pWallet">P2P Wallet</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div class="mrg-topval mrg-botval">
+                  <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center" class="outer-row">
+                    <div class="inner-row">
+                      <label class="form-label">Amount(Add/Deduct)</label>
+                      <mat-form-field appearance="outline">
+                        <input matInput formControlName="userAmount" placeholder="User Amount" required />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="mrg-topval mrg-botval">
+                  <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center" class="outer-row">
+                    <div class="inner-row">
+                      <label class="form-label">Decription(Balance Updation Table)</label>
+                      <mat-form-field appearance="outline">
+                        <input matInput formControlName="userDecription" placeholder="Decription(Type)" required />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+
+
+
+                <div style="width: 165px;" class="widthStatus">
+                  <div class="inner-row">
+                    <label class="form-label">Currency</label>
+                    <mat-form-field appearance="outline">
+                      <mat-select placeholder="Type"   formControlName="currencyId" [compareWith]="compareItems">
+                        <mat-option value="">Select Currency</mat-option>
+                        <mat-option  *ngFor="let cur of currencies" value="{{cur._id}}">
+                          {{cur.currencySymbol}}{{cur.basecoin != 'Coin' ? ' - '+cur.basecoin : ''}}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div class="flot-rt">
+                  <button mat-button type="submit" [disabled]="form.invalid || isLoading" class="btn-save">
+                    Update Balance
+                  </button>
+                </div>
+              </form>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,128 @@
+<section class="sect-transaction">
+    <div class="container">
+      <div class="layout-container">
+        <div class="layout">
+          <div class="sect-transaction-block">
+            <div class="">
+              <div class="prev-pagediv">
+                <button
+                  mat-button
+                  class="mat-button btn-back flot-rt"
+                  (click)="backRedirectBtn()"
+                >
+                  <mat-icon>arrow_left_alt</mat-icon>Back
+                </button>
+              </div>
+            </div>
+  
+            <div class="width-100" *ngIf="!isLoading">
+              <div class="headline align-left mrg-botval">
+                Staking History Details
+              </div>
+  
+              <div
+                fxLayout="row"
+                fxLayoutGap="20px"
+                fxLayoutAlign="start center"
+                class="outer-row space1"
+              >
+                <div>Username :</div>
+                <div>{{stakingDetails.userId.username}}</div>
+              </div>
+
+              <div
+                fxLayout="row"
+                fxLayoutGap="20px"
+                fxLayoutAlign="start center"
+                class="outer-row space1"
+              >
+                <div>Email :</div>
+                <div>{{stakingDetails.userId.email}}</div>
+              </div>
+
+              <div
+                fxLayout="row"
+                fxLayoutGap="20px"
+                fxLayoutAlign="start center"
+                class="outer-row space1"
+              >
+                <div>Amount :</div>
+                <div>{{stakingDetails.amount}} {{stakingDetails.currency}}</div>
+              </div>
+
+              <div
+                fxLayout="row"
+                fxLayoutGap="20px"
+                fxLayoutAlign="start center"
+                class="outer-row space1"
+              >
+                <div>Currency :</div>
+                <div>{{stakingDetails.currency}}</div>
+              </div>
+
+              <div
+                fxLayout="row"
+                fxLayoutGap="20px"
+                fxLayoutAlign="start center"
+                class="outer-row space1"
+              >
+                <div>Staking Id :</div>
+                <div>{{stakingDetails._id}}</div>
+              </div>
+              <div class="sect container-12" fxLayout="column" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="10px">
+                <h1>Bonus History</h1>
+                  <div class="example-container mat-elevation-z8">
+                      <mat-table [dataSource]="stakingTbl">
+                        <!-- ID Column -->
+                        <ng-container matColumnDef="createdDate">
+                          <mat-header-cell *matHeaderCellDef>
+                            Bonus Date
+                          </mat-header-cell>
+                          <mat-cell class="link-clr crs-ptr" *matCellDef="let row" data-label="createdDate"
+                            ><span class="mobile-label">Bonus Date:</span>
+                            <span>{{ row.createdDate | date:"MMM dd, y, HH:mm:ss"}}</span></mat-cell
+                          >
+                        </ng-container>
+      
+      
+                        <ng-container matColumnDef="bonus">
+                          <mat-header-cell *matHeaderCellDef>
+                              Bonus
+                          </mat-header-cell>
+                          <mat-cell *matCellDef="let row" data-label="bonus"
+                            ><span class="mobile-label">Bonus:</span>
+                            {{ row.bonus }}
+                          </mat-cell>
+                        </ng-container>
+      
+      
+                        <ng-container matColumnDef="currency">
+                          <mat-header-cell *matHeaderCellDef>
+                            Currency
+                          </mat-header-cell>
+                          <mat-cell *matCellDef="let row" data-label="currency"
+                            ><span class="mobile-label">Currency:</span>
+                            {{ row.currency }}
+                          </mat-cell>
+                        </ng-container>
+      
+                        
+      
+                        <mat-header-row
+                          *matHeaderRowDef="displayedColumns"
+                        ></mat-header-row>
+                        <mat-row *matRowDef="let row; columns: displayedColumns">
+                        </mat-row>
+                      </mat-table>
+      
+                      <!-- <mat-paginator
+                        [pageSizeOptions]="[5, 10, 25, 100]"
+                      ></mat-paginator> -->
+                  </div>                 
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>

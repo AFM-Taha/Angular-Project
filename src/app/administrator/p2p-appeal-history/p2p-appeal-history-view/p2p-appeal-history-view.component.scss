@@ -1,0 +1,65 @@
+.widthStatus {
+  width: 20%;
+}
+
+.widthStatusButton {
+  margin-top: 20px;
+}
+
+.chatImage {
+  width: 310px;
+}
+
+.chatMessage {
+  width: 410px;
+}
+
+.example-card {
+  max-width: 400px;
+  border: azure;
+  border-style: groove;
+  /* border-radius: 17%; */
+  border-top-right-radius: 17%;
+  border-bottom-left-radius: 17%;
+  margin-top: 10px;
+
+
+}
+.window{
+  width: 400px;
+  // display: block;
+  // margin-left: auto;
+  // margin-right: auto;
+}
+
+.example-header-image {
+  background-image: url('../../../../assets/images/chatUser.jpeg');
+  background-size: cover;
+
+}
+
+.chatMargin {
+  margin-top: 10px;
+}
+
+.sellerId {
+  background: linear-gradient(135deg, #5fde82 0%,#80dca1 100%);
+  border-bottom-right-radius: 22px !important;
+  border-top-left-radius: 22px !important;
+  padding: 13px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  width: 55%;
+  float: right;
+}
+
+.buyerid {
+  background: linear-gradient(135deg, #2196f3 0%,#63b4f7 100%);
+  border-bottom-right-radius: 22px !important;
+  border-top-left-radius: 22px !important;
+  padding: 13px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  float: left;
+  width: 86%;
+}

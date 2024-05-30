@@ -1,0 +1,466 @@
+<section class="sect-partners">
+    <div class="container">
+      <div class="layout-container">
+        <div class="layout">
+          <div class="sect-partners-block">
+            <div class="headline align-left">{{_id != 1 ? 'Edit' : 'Add'}} Currency</div>
+            <form [formGroup]="form" (ngSubmit)="formSubmitHandler()">
+                <div class="" fxLayoutGap="-10px">
+                    <div
+                    fxLayout="row"
+                    fxLayoutGap="5px"
+                    fxLayoutAlign="start center"
+                    class="outer-row"
+                    >
+                    <div class="inner-row">
+                        <label class="form-label">Currency Name</label>
+                        <mat-form-field appearance="outline">
+                        <input
+                            [readonly]="_id != 1"
+                            matInput
+                            formControlName="currencyName"
+                            placeholder="Currency Name"
+                            required
+                        />
+                        </mat-form-field>
+                    </div>
+                    </div>
+                    <div
+                    fxLayout="row"
+                    fxLayoutGap="20px"
+                    fxLayoutAlign="start center"
+                    class="outer-row"
+                    >
+                    <div class="inner-row">
+                        <label class="form-label">Symbol</label>
+                        <mat-form-field appearance="outline">
+                        <input
+                            [readonly]="_id != 1"
+                            matInput
+                            formControlName="currencySymbol"
+                            placeholder="Symbol"
+                            required
+                        />
+                        </mat-form-field>
+                    </div>
+                    </div>
+                    <div
+                        fxLayout="row"
+                        fxLayoutGap="20px"
+                        fxLayoutAlign="start center"
+                        class="outer-row"
+                        >
+                        <div class="inner-row">
+                            <label class="form-label">Currency Symbol Code</label>
+                            <mat-form-field appearance="outline">
+                            <input
+                                matInput
+                                formControlName="currencySymbolCode"
+                                placeholder="Currency Symbol Code"
+                                required
+                            />
+                            </mat-form-field>
+                        </div>
+                        </div>
+                    <div
+                    fxLayout="row"
+                    fxLayoutGap="20px"
+                    fxLayoutAlign="start center"
+                    class="outer-row"
+                    >
+                    <div class="inner-row">
+                        <label class="form-label">Currency Type(Fiat/Crypto)</label>
+                        <mat-form-field appearance="outline">
+                            <mat-select placeholder="Currency Type" formControlName="curnType" [compareWith]="compareItems" required>
+                                <mat-option value="Fiat">Fiat</mat-option>
+                                <mat-option value="Crypto">Crypto</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    </div>
+                    <div
+                    fxLayout="row"
+                    fxLayoutGap="20px"
+                    fxLayoutAlign="start center"
+                    class="outer-row"
+                    >
+                    <div class="inner-row">
+                        <label class="form-label">Base Coin (Select Coin if Not a Token)</label>
+                        <mat-form-field appearance="outline">
+                            <mat-select placeholder="Base Coin" formControlName="basecoin" [compareWith]="compareItems" required>
+                                <mat-option value="Coin">Coin</mat-option>
+                                <mat-option value="ERC20">ERC20</mat-option>
+                                <mat-option value="TRC20">TRC20</mat-option>
+                                <mat-option value="BEP20">BEP20</mat-option>
+                                <mat-option value="MATIC20">MATIC20</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    </div>
+                    <div
+                    fxLayout="row"
+                    fxLayoutGap="20px"
+                    fxLayoutAlign="start center"
+                    class="outer-row"
+                    >
+                    <div class="inner-row">
+                        <label class="form-label">Decimal Point</label>
+                        <mat-form-field appearance="outline">
+                        <input
+                            matInput
+                            formControlName="decimal"
+                            placeholder="Decimal Point"
+                            required
+                        />
+                        </mat-form-field>
+                    </div>
+                    </div>
+                    <div
+                    fxLayout="row"
+                    fxLayoutGap="20px"
+                    fxLayoutAlign="start center"
+                    class="outer-row"
+                    >
+                    <div class="inner-row">
+                        <label class="form-label">Contract Address</label>
+                        <mat-form-field appearance="outline">
+                        <input
+                            matInput
+                            formControlName="contractAddress"
+                            placeholder="Contract Address"
+                        />
+                        </mat-form-field>
+                    </div>
+                    </div>
+                    <div
+                    fxLayout="row"
+                    fxLayoutGap="20px"
+                    fxLayoutAlign="start center"
+                    class="outer-row"
+                    >
+                    <div class="inner-row">
+                        <label class="form-label">Coingekko API ID (Enter API ID or NA) Ex: UTI token API ID is Unitec-exchange
+                        </label>
+                        <mat-form-field appearance="outline">
+                        <input
+                            matInput
+                            formControlName="apiid"
+                            placeholder="API ID"
+                            required
+                        />
+                        </mat-form-field>
+                    </div>
+                    </div>
+                    <div
+                    fxLayout="row"
+                    fxLayoutGap="20px"
+                    fxLayoutAlign="start center"
+                    class="outer-row"
+                    >
+                    <div class="inner-row">
+                        <label class="form-label">Deposit Status</label>
+                        <mat-form-field appearance="outline">
+                            <mat-select placeholder="Deposit Status" formControlName="depositEnable" [compareWith]="compareItems" required>
+                                <mat-option value="1">Active</mat-option>
+                                <mat-option value="0">De-Active</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    </div>
+            
+                    <div
+                    fxLayout="row"
+                    fxLayoutGap="20px"
+                    fxLayoutAlign="start center"
+                    class="outer-row"
+                    >
+                    <div class="inner-row">
+                        <label class="form-label">Withdraw Status</label>
+                        <mat-form-field appearance="outline">
+                            <mat-select placeholder="Withdraw Status" formControlName="withdrawEnable" [compareWith]="compareItems" required>
+                                <mat-option value="1">Enable</mat-option>
+                                <mat-option value="0">Disable</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    </div>
+                    <div
+                    fxLayout="row"
+                    fxLayoutGap="20px"
+                    fxLayoutAlign="start center"
+                    class="outer-row"
+                    >
+                    <div class="inner-row">
+                        <label class="form-label">Auto Withdraw</label>
+                        <mat-form-field appearance="outline">
+                            <mat-select placeholder="Auto Withdraw" formControlName="autoWithdraw" [compareWith]="compareItems" required>
+                                <mat-option value="1">Enable</mat-option>
+                                <mat-option value="0">Disable</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    </div>
+                    <div
+                    fxLayout="row"
+                    fxLayoutGap="20px"
+                    fxLayoutAlign="start center"
+                    class="outer-row"
+                    >
+                    <div class="inner-row">
+                        <label class="form-label">P2P Wallet</label>
+                        <mat-form-field appearance="outline">
+                            <mat-select placeholder="Transfer Status" formControlName="transferEnable" [compareWith]="compareItems" required>
+                                <mat-option value="1">Active</mat-option>
+                                <mat-option value="0">De-Active</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    </div>
+                    <!-- <div
+                    fxLayout="row"
+                    fxLayoutGap="20px"
+                    fxLayoutAlign="start center"
+                    class="outer-row"
+                    >
+                    <div class="inner-row">
+                        <label class="form-label">Staking Wallet to Main Wallet Transfer Status</label>
+                        <mat-form-field appearance="outline">
+                            <mat-select placeholder="StakingTransfer Status" formControlName="stakingTransferEnable" [compareWith]="compareItems" required>
+                                <mat-option value="1">Active</mat-option>
+                                <mat-option value="0">De-Active</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    </div> -->
+                    <div
+                    fxLayout="row"
+                    fxLayoutGap="20px"
+                    fxLayoutAlign="start center"
+                    class="outer-row"
+                    >
+                    <div class="inner-row">
+                        <label class="form-label">Deposit Tag Content (Fill For XRP tag and other Memo needed coins else leave empty)</label>
+                        <mat-form-field appearance="outline">
+                            <input
+                                type="text"
+                                matInput
+                                formControlName="tagContent"
+                                placeholder="Tag Content"
+                            />
+                        </mat-form-field>
+                    </div>
+                    </div>
+                    <div
+                    fxLayout="row"
+                    fxLayoutGap="20px"
+                    fxLayoutAlign="start center"
+                    class="outer-row"
+                    >
+                    <div class="inner-row">
+                        <label class="form-label">Deposit Notes</label>
+                        <mat-form-field appearance="outline">
+                            <input
+                                type="text"
+                                matInput
+                                formControlName="depositNotes"
+                                placeholder="Deposit Notes"
+                            />
+                        </mat-form-field>
+                    </div>
+                    </div>
+                    <div
+                    fxLayout="row"
+                    fxLayoutGap="20px"
+                    fxLayoutAlign="start center"
+                    class="outer-row"
+                    >
+                    <div class="inner-row">
+                        <label class="form-label">Withdraw Notes</label>
+                        <mat-form-field appearance="outline">
+                            <input
+                                type="text"
+                                matInput
+                                formControlName="withdrawNotes"
+                                placeholder="Withdraw Notes"
+                            />
+                        </mat-form-field>
+                    </div>
+                    </div>
+                    <div
+                    fxLayout="row"
+                    fxLayoutGap="20px"
+                    fxLayoutAlign="start center"
+                    class="outer-row"
+                    >
+                    <div class="inner-row">
+                        <label class="form-label">USD Value</label>
+                        <mat-form-field appearance="outline">
+                        <input
+                        type="number"
+                            matInput
+                            formControlName="USDvalue"
+                            placeholder="USD Value"
+                            required
+                        />
+                        </mat-form-field>
+                    </div>
+                    </div>
+                    <div
+                    fxLayout="row"
+                    fxLayoutGap="20px"
+                    fxLayoutAlign="start center"
+                    class="outer-row"
+                    >
+                    <div class="inner-row">
+                        <label class="form-label">Status</label>
+                        <mat-form-field appearance="outline">
+                            <mat-select placeholder="Status" formControlName="status" [compareWith]="compareItems" required>
+                                <mat-option value="1">Active</mat-option>
+                                <mat-option value="0">De-Active</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    </div>
+                    <div
+                    fxLayout="row"
+                    fxLayoutGap="20px"
+                    fxLayoutAlign="start center"
+                    class="outer-row"
+                    >
+                    <div class="inner-row">
+                        <label class="form-label">Site Decimal</label>
+                        <mat-form-field appearance="outline">
+                        <input
+                            matInput
+                            formControlName="siteDecimal"
+                            placeholder="Site Decimal"
+                            required
+                        />
+                        </mat-form-field>
+                    </div>
+                    </div>
+
+                    <div
+                    fxLayout="row"
+                    fxLayoutGap="20px"
+                    fxLayoutAlign="start center"
+                    class="outer-row"
+                    >
+                    <div class="inner-row">
+                        <label class="form-label">Icon</label>
+                        <mat-form-field appearance="outline">
+                            <input
+                                matInput
+                                formControlName="image"
+                                placeholder="logoURI"
+                            />
+                            </mat-form-field>
+                            <div>(or)</div>
+                        <mat-form-field appearance="outline">
+                            <ngx-mat-file-input
+                            valuePlaceholder="Upload Flag"
+                            (change)="onlogoURIChange($event)"
+                            ></ngx-mat-file-input>
+                            <mat-icon matSuffix>folder</mat-icon>
+                        </mat-form-field>
+                    </div>
+                    </div>
+                  
+                        <h1>Fees</h1>
+                        <div
+                        fxLayout="row"
+                        fxLayoutGap="20px"
+                        fxLayoutAlign="start center"
+                        class="outer-row"
+                        >
+                        <div class="inner-row">
+                            <label class="form-label">Fees Type</label>
+                            <mat-form-field appearance="outline">
+                                <mat-select placeholder="Fees Type" formControlName="{{'feetype'}}" [compareWith]="compareItems" required>
+                                    <mat-option value="1">Percentage</mat-option>
+                                    <mat-option value="0">Flat</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        </div>
+                        <div
+                        fxLayout="row"
+                        fxLayoutGap="20px"
+                        fxLayoutAlign="start center"
+                        class="outer-row"
+                        >
+                        <div class="inner-row">
+                            <label class="form-label">Withdraw Fees</label>
+                            <mat-form-field appearance="outline">
+                            <input
+                            type="number"
+                                matInput
+                                formControlName="{{'fees'}}"
+                                placeholder="Fees"
+                                required
+                            />
+                            </mat-form-field>
+                        </div>
+                        </div>
+                        <div
+                        fxLayout="row"
+                        fxLayoutGap="20px"
+                        fxLayoutAlign="start center"
+                        class="outer-row"
+                        >
+
+                        <div class="inner-row">
+                            <label class="form-label">Minimum Deposit Amount</label>
+                            <mat-form-field appearance="outline">
+                            <input
+                            type="number"
+                                matInput
+                                formControlName="{{'mindepamt'}}"
+                                placeholder="Minimum Deposit Amount"
+                                required
+                            />
+                            </mat-form-field>
+                        </div>
+
+                        <div class="inner-row">
+                            <label class="form-label">Minimum Withdraw Amount</label>
+                            <mat-form-field appearance="outline">
+                            <input
+                            type="number"
+                                matInput
+                                formControlName="{{'minwithamt'}}"
+                                placeholder="Minimum Withdraw Amount"
+                                required
+                            />
+                            </mat-form-field>
+                        </div>
+                        </div>
+             
+
+                    <div class="flot-rt">
+                        <button
+                        (click)="closeDialog()"
+                        mat-button
+                        type="button"
+                        class="btn-cance mrg-rightval"
+                        >
+                        Cancel
+                        </button>
+                        <button
+                        mat-button
+                        type="submit"
+                        [disabled]="form.invalid || isLoading"
+                        class="btn-save"
+                        >
+                        {{_id != 1 ? 'Edit' : 'Add'}} Currency
+                        </button>
+                    </div>
+                </div>
+  
+                
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>

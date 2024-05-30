@@ -1,0 +1,352 @@
+<section class="sect-partners">
+    <div class="container">
+      <div class="layout-container">
+        <div class="layout">
+          <div class="sect-partners-block">
+            <div class="headline align-left">{{data != '' ? 'Edit' : 'Add'}} Pairs</div>
+            <form [formGroup]="form" (ngSubmit)="formSubmitHandler()">
+                <div class="" fxLayoutGap="-10px">
+                    <div
+                    fxLayout="row"
+                    fxLayoutGap="20px"
+                    fxLayoutAlign="start center"
+                    class="outer-row"
+                    >
+                    <div class="inner-row">
+                        <label class="form-label">From Currency</label>
+                        <mat-form-field appearance="outline">
+                            <mat-select (selectionChange)="setToCurrency($event.value)" [disabled]="data!=''" placeholder="From Currency" formControlName="fromCurrency" [compareWith]="compareItems" required>
+                                <mat-option *ngFor="let obj of currency" [value]="obj._id">{{obj.currencySymbol}} - {{obj.basecoin}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    </div>
+                    <div
+                    fxLayout="row"
+                    fxLayoutGap="20px"
+                    fxLayoutAlign="start center"
+                    class="outer-row"
+                    >
+                    <div class="inner-row">
+                        <label class="form-label">To Currency</label>
+                        <mat-form-field appearance="outline">
+                            <mat-select [disabled]="data!=''" placeholder="To Currency" formControlName="toCurrency" [compareWith]="compareItems" required>
+                                <mat-option *ngFor="let obj of currency1" [value]="obj._id">{{obj.currencySymbol}} - {{obj.basecoin}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    </div>
+                    <div
+                    fxLayout="row"
+                    fxLayoutGap="20px"
+                    fxLayoutAlign="start center"
+                    class="outer-row"
+                    >
+                    <div class="inner-row">
+                        <label class="form-label">Minimum Trade Total</label>
+                        <mat-form-field appearance="outline">
+                        <input
+                        type="number"
+                            matInput
+                            formControlName="minTrade"
+                            placeholder="Minimum Trade"
+                            required
+                        />
+                        </mat-form-field>
+                    </div>
+                    </div>
+                    <div
+                    fxLayout="row"
+                    fxLayoutGap="20px"
+                    fxLayoutAlign="start center"
+                    class="outer-row"
+                    >
+                    <div class="inner-row">
+                        <label class="form-label">Maker Fee (%)</label>
+                        <mat-form-field appearance="outline">
+                        <input
+                        type="number"
+                            matInput
+                            formControlName="makerFee"
+                            placeholder="Maker Fee (%)"
+                            required
+                        />
+                        </mat-form-field>
+                    </div>
+                    </div>
+                    <div
+                    fxLayout="row"
+                    fxLayoutGap="20px"
+                    fxLayoutAlign="start center"
+                    class="outer-row"
+                    >
+                    <div class="inner-row">
+                        <label class="form-label">Taker Fee (%)</label>
+                        <mat-form-field appearance="outline">
+                        <input
+                        type="number"
+                            matInput
+                            formControlName="takerFee"
+                            placeholder="Taker Fee (%)"
+                            required
+                        />
+                        </mat-form-field>
+                    </div>
+                    </div>
+                    <div
+                        fxLayout="row"
+                        fxLayoutGap="20px"
+                        fxLayoutAlign="start center"
+                        class="outer-row"
+                    >
+                        <div class="inner-row">
+                            <label class="form-label">Maker With KYC</label>
+                            <mat-form-field appearance="outline">
+                            <input
+                            type="number"
+                                matInput
+                                formControlName="makerFeeWithKYC"
+                                placeholder="Maker With KYC"
+                                required
+                            />
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div
+                        fxLayout="row"
+                        fxLayoutGap="20px"
+                        fxLayoutAlign="start center"
+                        class="outer-row"
+                    >
+                        <div class="inner-row">
+                            <label class="form-label">Taker With KYC</label>
+                            <mat-form-field appearance="outline">
+                            <input
+                            type="number"
+                                matInput
+                                formControlName="takerFeeWithKYC"
+                                placeholder="Taker With KYC"
+                                required
+                            />
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div
+                    fxLayout="row"
+                    fxLayoutGap="20px"
+                    fxLayoutAlign="start center"
+                    class="outer-row"
+                    >
+                        <div class="inner-row">
+                            <label class="form-label">Market Price</label>
+                            <mat-form-field appearance="outline">
+                            <input
+                            type="number"
+                                matInput
+                                formControlName="marketPrice"
+                                placeholder="Market Price"
+                                required
+                            />
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div
+                    fxLayout="row"
+                    fxLayoutGap="20px"
+                    fxLayoutAlign="start center"
+                    class="outer-row"
+                    >
+                        <div class="inner-row">
+                            <label class="form-label">Auto Order Execution</label>
+                            <mat-form-field appearance="outline">
+                                <mat-select placeholder="Auto Order Execution" formControlName="autoOrderExecute" [compareWith]="compareItems" required>
+                                    <mat-option value="1" (click)="changeStatus('1')">Enable</mat-option>
+                                    <mat-option value="0" (click)="changeStatus('0')">Disable</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div
+                    fxLayout="row"
+                    fxLayoutGap="20px"
+                    fxLayoutAlign="start center"
+                    class="outer-row"
+                    *ngIf="data.autoOrderExecute == '1'"
+                    >
+                        <div class="inner-row">
+                            <label class="form-label">Auto Trade Order</label>
+                            <mat-form-field appearance="outline">
+                                <mat-select placeholder="Auto Trade Order" formControlName="autoTradeOrder" [compareWith]="compareItems" required>
+                                    <mat-option value="1">Enable</mat-option>
+                                    <mat-option value="0">Disable</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <!-- <div
+                    fxLayout="row"
+                    fxLayoutGap="20px"
+                    fxLayoutAlign="start center"
+                    class="outer-row"
+                    >
+                    <div class="inner-row">
+                        <label class="form-label">Market Status</label>
+                        <mat-form-field appearance="outline">
+                            <mat-select placeholder="Market Status" formControlName="marketStatus" [compareWith]="compareItems" required>
+                                <mat-option value="1">Enable</mat-option>
+                                <mat-option value="0">Disable</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    </div>
+                    <div
+                    fxLayout="row"
+                    fxLayoutGap="20px"
+                    fxLayoutAlign="start center"
+                    class="outer-row"
+                    >
+                    <div class="inner-row">
+                        <label class="form-label">Market Price Change Percentage(-10 for increase & 10 for decrease)</label>
+                        <mat-form-field appearance="outline">
+                        <input
+                        type="number"
+                            matInput
+                            formControlName="changePercentage"
+                            placeholder="Market Price Change Percentage(-10 for increase & 10 for decrease)"
+                            required
+                        />
+                        </mat-form-field>
+                    </div>
+                    </div>
+                    <div
+                    fxLayout="row"
+                    fxLayoutGap="20px"
+                    fxLayoutAlign="start center"
+                    class="outer-row"
+                    >
+                    <div class="inner-row">
+                        <label class="form-label">BOT Buy & Sell Order Status</label>
+                        <mat-form-field appearance="outline">
+                            <mat-select placeholder="BOT Buy & Sell Order Status" formControlName="enableBuySell" [compareWith]="compareItems" required>
+                                <mat-option value="1">Enable</mat-option>
+                                <mat-option value="0">Disable</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    </div>
+                    <div
+                    fxLayout="row"
+                    fxLayoutGap="20px"
+                    fxLayoutAlign="start center"
+                    class="outer-row"
+                    >
+                    <div class="inner-row">
+                        <label class="form-label">BOT Trade History Status</label>
+                        <mat-form-field appearance="outline">
+                            <mat-select placeholder="BOT Trade History Status" formControlName="enableTradeHistory" [compareWith]="compareItems" required>
+                                <mat-option value="1">Enable</mat-option>
+                                <mat-option value="0">Disable</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    </div>
+                    <div
+                    fxLayout="row"
+                    fxLayoutGap="20px"
+                    fxLayoutAlign="start center"
+                    class="outer-row"
+                    >
+                    <div class="inner-row">
+                        <label class="form-label">Buy/Sell & Trade History Volume Market Status</label>
+                        <mat-form-field appearance="outline">
+                            <mat-select placeholder="Buy/Sell & Trade History Volume Market Status" formControlName="enableVolumeStatus" [compareWith]="compareItems" required>
+                                <mat-option value="1">Enable</mat-option>
+                                <mat-option value="0">Disable</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    </div>
+                    <div
+                    fxLayout="row"
+                    fxLayoutGap="20px"
+                    fxLayoutAlign="start center"
+                    class="outer-row"
+                    >
+                    <div class="inner-row">
+                        <label class="form-label">Order Data Minimum (Buy/Sell & Trade History Volume)</label>
+                        <mat-form-field appearance="outline">
+                        <input
+                        type="number"
+                            matInput
+                            formControlName="orderDataMin"
+                            placeholder="Order Data Minimum (Buy/Sell & Trade History Volume)"
+                            required
+                        />
+                        </mat-form-field>
+                    </div>
+                    </div>
+                    <div
+                    fxLayout="row"
+                    fxLayoutGap="20px"
+                    fxLayoutAlign="start center"
+                    class="outer-row"
+                    >
+                        <div class="inner-row">
+                            <label class="form-label">Order Data Maximum (Buy/Sell & Trade History Volume)</label>
+                            <mat-form-field appearance="outline">
+                            <input
+                                type="number"
+                                matInput
+                                formControlName="orderDataMax"
+                                placeholder="Order Data Maximum (Buy/Sell & Trade History Volume)"
+                                required
+                            />
+                            </mat-form-field>
+                        </div>
+                    </div> -->
+                    <div
+                    fxLayout="row"
+                    fxLayoutGap="20px"
+                    fxLayoutAlign="start center"
+                    class="outer-row"
+                    >
+                    <div class="inner-row">
+                        <label class="form-label">Status</label>
+                        <mat-form-field appearance="outline">
+                            <mat-select placeholder="Status" formControlName="status" [compareWith]="compareItems" required>
+                                <mat-option value="1" >Active</mat-option>
+                                <mat-option value="0">De-Active</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    </div>
+
+                    <div class="flot-rt">
+                        <button
+                        (click)="closeDialog()"
+                        mat-button
+                        type="button"
+                        class="btn-cance mrg-rightval"
+                        >
+                        Cancel
+                        </button>
+                        <button
+                        mat-button
+                        type="submit"
+                        [disabled]="form.invalid || isLoading"
+                        class="btn-save"
+                        >
+                        {{data != '' ? 'Edit' : 'Add'}} Pair
+                        </button>
+                    </div>
+                </div>
+  
+                
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>

@@ -1,0 +1,264 @@
+<mat-nav-list class="sidebar-mat-expansion-panel">
+  <mat-accordion *ngFor="let link of links">
+    <mat-expansion-panel routerLinkActive="activehyp" [expanded]="true" *ngIf="link.value">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-list-item  [routerLinkActiveOptions]="{exact: true}">
+              <mat-icon class="sidebar-icon">{{ link.icon }}</mat-icon>
+              <a>{{ link.name }}</a>
+          </mat-list-item>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <div *ngFor="let Sublink of link.value">
+        <a [routerLink]="[Sublink.url]" class="crs-ptr"><mat-list-item routerLinkActive="activehyp" [routerLinkActiveOptions]="{exact: true}">
+            {{ Sublink.name }}
+        </mat-list-item></a>
+      </div>
+      
+    </mat-expansion-panel>
+
+    <a [routerLink]="[link.url]" class="crs-ptr" routerLinkActive="activehyp" [routerLinkActiveOptions]="{exact: true}">
+      <mat-expansion-panel [expanded]="true" *ngIf="!link.value">
+        <mat-panel-title class="adj1">
+          <mat-list-item>
+              <mat-icon class="sidebar-icon">{{ link.icon }}</mat-icon>
+              {{ link.name }}
+          </mat-list-item>
+        </mat-panel-title>
+    </mat-expansion-panel></a>
+
+  </mat-accordion>
+</mat-nav-list>
+
+<!-- <mat-nav-list class="sidebar-mat-expansion-panel">
+  <mat-accordion *ngFor="let link of links">
+    <mat-expansion-panel routerLinkActive="activehyp" [expanded]="true" *ngIf="link.value">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-list-item  [routerLinkActiveOptions]="{exact: true}">
+              <mat-icon class="sidebar-icon">{{ link.icon }}</mat-icon>
+              <a>{{ link.name }}</a>
+          </mat-list-item>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <div *ngFor="let Sublink of link.value">
+        <a [routerLink]="[Sublink.url]" class="crs-ptr"><mat-list-item routerLinkActive="activehyp" [routerLinkActiveOptions]="{exact: true}">
+            {{ Sublink.name }}
+        </mat-list-item></a>
+      </div>
+      
+    </mat-expansion-panel>
+
+    <a [routerLink]="[link.url]" class="crs-ptr" routerLinkActive="activehyp" [routerLinkActiveOptions]="{exact: true}"><mat-expansion-panel [expanded]="true" *ngIf="!link.value">
+        <mat-panel-title class="adj1">
+          <mat-list-item>
+              <mat-icon class="sidebar-icon">{{ link.icon }}</mat-icon>
+              {{ link.name }}
+          </mat-list-item>
+        </mat-panel-title>
+    </mat-expansion-panel></a>
+
+  </mat-accordion>
+  
+  
+</mat-nav-list> -->
+
+
+<!--<mat-nav-list>
+  <mat-accordion>
+    <mat-panel-title>
+      <a [routerLink]="['./']"><mat-list-item routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+        <div fxLayout="row" fxLayoutAlign="space-between">
+          <mat-icon>dashboard</mat-icon>
+          Dashboard
+        </div>
+      </mat-list-item></a>
+    </mat-panel-title>
+  </mat-accordion>
+
+  <mat-accordion>
+    <mat-expansion-panel [expanded]="true">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-list-item>
+            <div fxLayout="row" fxLayoutAlign="space-between">
+              <mat-icon>note_add</mat-icon>
+              For Digital Assets
+            </div>
+          </mat-list-item>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <a [routerLink]="['./nominate-beneficiary']"
+        ><mat-list-item routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+          <div fxLayout="row" fxLayoutAlign="space-between">
+            Nominate Beneficiary
+          </div>
+        </mat-list-item></a
+      >
+    </mat-expansion-panel>
+  </mat-accordion>
+
+  <mat-accordion>
+    <mat-expansion-panel [expanded]="true">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-list-item>
+            <div fxLayout="row" fxLayoutAlign="space-between">
+              <mat-icon>note_add</mat-icon>
+              For Traditional Assets
+            </div>
+          </mat-list-item>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <a [routerLink]="['./conventional-will']"
+        ><mat-list-item routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+          <div fxLayout="row" fxLayoutAlign="space-between">
+            Conventional WILL
+          </div>
+        </mat-list-item></a
+      >
+      <a [routerLink]="['./islamic-will']"
+        ><mat-list-item routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+          <div fxLayout="row" fxLayoutAlign="space-between">Islamic WILL</div>
+        </mat-list-item></a
+      >
+    </mat-expansion-panel>
+  </mat-accordion>
+
+  <mat-accordion>
+    <mat-expansion-panel [expanded]="true">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-list-item>
+            <div fxLayout="row" fxLayoutAlign="space-between">
+              <mat-icon>visibility</mat-icon>
+              View
+            </div>
+          </mat-list-item>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <a [routerLink]="['./nominate-beneficiary-list']"
+        ><mat-list-item routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+          <div fxLayout="row" fxLayoutAlign="space-between">My Nominations</div>
+        </mat-list-item></a
+      >
+      <a [routerLink]="['./traditional-will']"
+        ><mat-list-item routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+          <div fxLayout="row" fxLayoutAlign="space-between">My WILL</div>
+        </mat-list-item></a
+      >
+      <a [routerLink]="['./orders']"
+        ><mat-list-item routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+          <div fxLayout="row" fxLayoutAlign="space-between">My Order</div>
+        </mat-list-item></a
+      >
+    </mat-expansion-panel>
+  </mat-accordion>
+
+  <!-- <mat-accordion>
+    <mat-expansion-panel [expanded]="true">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-list-item>
+            <div fxLayout="row" fxLayoutAlign="space-between">
+              <mat-icon>lock</mat-icon>
+              Vault
+            </div>
+          </mat-list-item>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <a [routerLink]="['./document-list']"
+        ><mat-list-item routerLinkActive="active">
+          <div fxLayout="row" fxLayoutAlign="space-between">My Documents</div>
+        </mat-list-item></a
+      >
+    </mat-expansion-panel>
+  </mat-accordion> --
+
+  <mat-accordion>
+    <mat-expansion-panel [expanded]="true">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-list-item>
+            <div fxLayout="row" fxLayoutAlign="space-between">
+              <mat-icon>manage_accounts</mat-icon>
+              Manage
+            </div>
+          </mat-list-item>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <a [routerLink]="['./beneficiaries']"
+        ><mat-list-item routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+          <div fxLayout="row" fxLayoutAlign="space-between">
+            My Beneficiaries
+          </div>
+        </mat-list-item></a
+      >
+      <a [routerLink]="['./trustedpeople']"
+        ><mat-list-item routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+          <div fxLayout="row" fxLayoutAlign="space-between">
+            My Trusted Person
+          </div>
+        </mat-list-item></a
+      >
+      <a [routerLink]="['./witnesses']"
+        ><mat-list-item routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+          <div fxLayout="row" fxLayoutAlign="space-between">My Witnesses</div>
+        </mat-list-item></a
+      >
+      <a [routerLink]="['./executor']"
+        ><mat-list-item routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+          <div fxLayout="row" fxLayoutAlign="space-between">My Executors</div>
+        </mat-list-item></a
+      >
+    </mat-expansion-panel>
+  </mat-accordion>
+
+  <!-- <mat-accordion>
+    <mat-expansion-panel [expanded]="true">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-list-item>
+            <div fxLayout="row" fxLayoutAlign="space-between">
+              <mat-icon>support</mat-icon>
+              Proof of Life
+            </div>
+          </mat-list-item>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <a [routerLink]="['./config-list']"
+        ><mat-list-item routerLinkActive="active">
+          <div fxLayout="row" fxLayoutAlign="space-between">Config Trigger</div>
+        </mat-list-item></a
+      >
+    </mat-expansion-panel>
+  </mat-accordion> --
+
+  <mat-accordion>
+    <mat-panel-title>
+      <a [routerLink]="['./mywallet']"
+        ><mat-list-item routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+          <div fxLayout="row" fxLayoutAlign="space-between">
+            <mat-icon>account_balance_wallet</mat-icon>
+            My Wallet
+          </div>
+        </mat-list-item></a
+      >
+    </mat-panel-title>
+  </mat-accordion>
+
+  <mat-accordion>
+    <mat-panel-title>
+      <a [routerLink]="['./myreferral']"
+        ><mat-list-item routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+          <div fxLayout="row" fxLayoutAlign="space-between">
+            <mat-icon>share</mat-icon>
+            Refer & Earn
+          </div>
+        </mat-list-item></a
+      >
+    </mat-panel-title>
+  </mat-accordion>
+</mat-nav-list>--->

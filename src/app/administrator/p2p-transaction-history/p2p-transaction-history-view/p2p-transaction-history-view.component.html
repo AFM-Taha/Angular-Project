@@ -1,0 +1,238 @@
+<section class="sect-transaction">
+  <div class="container">
+    <div class="layout-container">
+      <div class="layout">
+        <div class="sect-transaction-block">
+          <div class="">
+            <div class="prev-pagediv">
+              <button
+              mat-button
+              class="mat-button btn-back flot-rt"
+              (click)="backRedirectBtn()"
+            >
+              <mat-icon>arrow_left_alt</mat-icon>Back
+            </button>
+            </div>
+          </div>
+          <div class="width-100" *ngIf="!isLoading">
+            <div class="headline align-left mrg-botval">
+              P2P Transaction Details
+            </div>
+            <div
+              fxLayout="row"
+              fxLayoutGap="20px"
+              fxLayoutAlign="start center"
+              class="outer-row space1"
+            >
+              <div>Buyer Name:</div>
+              <div>{{p2ptransactionDetails && p2ptransactionDetails[0] && p2ptransactionDetails[0].buyerEmail}}</div>
+            </div>
+
+            <div
+              fxLayout="row"
+              fxLayoutGap="20px"
+              fxLayoutAlign="start center"
+              class="outer-row space1"
+            >
+              <div>Seller Name :</div>
+              <div>{{p2ptransactionDetails && p2ptransactionDetails[0] && p2ptransactionDetails[0].sellerEmail}}</div>
+            </div>
+
+            <div
+              fxLayout="row"
+              fxLayoutGap="20px"
+              fxLayoutAlign="start center"
+              class="outer-row space1"
+            >
+              <div>Price :</div>
+              <div>
+                {{p2ptransactionDetails && p2ptransactionDetails[0] && p2ptransactionDetails[0].price}}
+                {{p2ptransactionDetails && p2ptransactionDetails[0] && p2ptransactionDetails[0].toCurrency}}
+              </div>
+            </div>
+
+            <div
+            fxLayout="row"
+            fxLayoutGap="20px"
+            fxLayoutAlign="start center"
+            class="outer-row space1"
+          >
+            <div>USDT Price :</div>
+            <div>
+              {{p2ptransactionDetails && p2ptransactionDetails[0] && p2ptransactionDetails[0].totalPrice}}
+              {{p2ptransactionDetails && p2ptransactionDetails[0] && p2ptransactionDetails[0].fromCurrency}}
+            </div>
+          </div>
+          <div
+            fxLayout="row"
+            fxLayoutGap="20px"
+            fxLayoutAlign="start center"
+            class="outer-row space1"
+          >
+            <div>Order No :</div>
+            <div>
+              {{p2ptransactionDetails && p2ptransactionDetails[0] && p2ptransactionDetails[0].orderNo}}
+            </div>
+          </div>
+          <div
+            fxLayout="row"
+            fxLayoutGap="20px"
+            fxLayoutAlign="start center"
+            class="outer-row space1"
+          >
+            <div>Order Type :</div>
+            <div>
+              {{p2ptransactionDetails && p2ptransactionDetails[0] && p2ptransactionDetails[0].orderType}}
+            </div>
+          </div>
+          <div
+            fxLayout="row"
+            fxLayoutGap="20px"
+            fxLayoutAlign="start center"
+            class="outer-row space1"
+          >
+            <div>Status :</div>
+            <div>
+              {{
+                (p2ptransactionDetails && p2ptransactionDetails[0] && p2ptransactionDetails[0].status == 1) ? 
+                'Completed' :
+                (p2ptransactionDetails && p2ptransactionDetails[0] && p2ptransactionDetails[0].status == 2) ? 
+                'Cancelled' : 'Processing'}}
+            </div>
+          </div>
+          <div
+            fxLayout="row"
+            fxLayoutGap="20px"
+            fxLayoutAlign="start center"
+            class="outer-row space1"
+            *ngIf="p2ptransactionDetails && p2ptransactionDetails[0] && p2ptransactionDetails[0].status == 3"
+          >
+            <div>Cancel Order :</div>
+            <div>
+              <input (change)="setUserReason($event.target.value)"
+                  placeholder="Enter the reason"
+              />
+           </div>
+            <div>
+              <button 
+                *ngIf="p2ptransactionDetails && p2ptransactionDetails[0] && p2ptransactionDetails[0].status == 3"
+                mat-button (click)="cancelOrder()"
+                type="button" class="button-red"
+              >
+                Cancel Order
+              </button>
+            </div>
+          </div>
+          </div><br/>
+
+          <div class="width-100" *ngIf="!isLoading">
+            <div class="headline align-left mrg-botval">
+              P2P Order Details
+            </div>
+            <div
+              fxLayout="row"
+              fxLayoutGap="20px"
+              fxLayoutAlign="start center"
+              class="outer-row space1"
+            >
+              <div>Pair Name:</div>
+              <div>{{p2porderDetails && p2porderDetails.pairName}}</div>
+            </div>
+
+            <div
+              fxLayout="row"
+              fxLayoutGap="20px"
+              fxLayoutAlign="start center"
+              class="outer-row space1"
+            >
+              <div>Available :</div>
+              <div>
+                {{p2porderDetails && p2porderDetails.usdtPrice}}
+                {{p2ptransactionDetails && p2ptransactionDetails[0] && p2ptransactionDetails[0].fromCurrency}}
+              </div>
+            </div>
+
+            <div
+              fxLayout="row"
+              fxLayoutGap="20px"
+              fxLayoutAlign="start center"
+              class="outer-row space1"
+             >
+            <div>Price :</div>
+            <div>
+              {{p2porderDetails && p2porderDetails.price}} {{p2ptransactionDetails && p2ptransactionDetails[0] && p2ptransactionDetails[0].toCurrency}}
+            </div>
+          </div>
+          <div
+            fxLayout="row"
+            fxLayoutGap="20px"
+            fxLayoutAlign="start center"
+            class="outer-row space1"
+          >
+          <div>Payment Method :</div>
+          <div>
+            {{p2porderDetails && p2porderDetails.paymentNames}}
+          </div>
+        </div>
+          <div
+            fxLayout="row"
+            fxLayoutGap="20px"
+            fxLayoutAlign="start center"
+            class="outer-row space1"
+          >
+            <div>Order No :</div>
+            <div>
+              {{p2ptransactionDetails && p2ptransactionDetails[0] && p2ptransactionDetails[0].orderNo}}
+            </div>
+          </div>
+          <div
+            fxLayout="row"
+            fxLayoutGap="20px"
+            fxLayoutAlign="start center"
+            class="outer-row space1"
+          >
+            <div>Order Type :</div>
+            <div>
+              {{p2ptransactionDetails && p2ptransactionDetails[0] && p2ptransactionDetails[0].orderType}}
+            </div>
+          </div>
+          <div
+          fxLayout="row"
+          fxLayoutGap="20px"
+          fxLayoutAlign="start center"
+          class="outer-row space1"
+        >
+          <div>Order Status</div>
+          <div>
+            {{p2porderDetails && p2porderDetails.orderMode}}
+          </div>
+        </div>
+          <div
+            fxLayout="row"
+            fxLayoutGap="20px"
+            fxLayoutAlign="start center"
+            class="outer-row space1"
+          >
+            <div>Country residency :</div>
+             <div *ngFor="let option of p2pcountryDetails">
+              <!-- {{option}} -->
+              <div *ngIf="option.length == 250">
+                <div>
+                  All Regions
+                </div>
+              </div>
+              <div  *ngIf="250 > option.length" class="countrylist">
+                <div *ngFor="let details of option">
+                  {{ details.label}}  
+                </div>
+              </div>
+            
+          
+            </div>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,110 @@
+<section class="login">
+  <div class="container">
+    <div class="layout-container">
+      <div class="layout">
+        <div class="login-block">
+          <div class="login-logo">
+            <img
+              class="image-cls"
+              mat-card-image
+              src="{{ siteSettings.siteLogo }}"
+              alt=""
+            />
+          </div>
+          <div class="logo-moto">{{ siteSettings.siteName }}</div>
+          <form [formGroup]="form" (ngSubmit)="formSubmitHandler()">
+            <div class="login-form" fxLayout="column" fxLayoutGap="5px">
+              <div
+                fxLayout="column"
+                fxLayoutGap="0px"
+                fxLayoutAlign="start"
+                *ngIf="!otpShow"
+              >
+                <label class="form-label">Email ID:</label>
+                <mat-form-field appearance="outline">
+                  <input
+                    matInput
+                    formControlName="email"
+                    required
+                    placeholder="info@example.com"
+                  />
+                  <mat-icon matSuffix>person_outline</mat-icon>
+                </mat-form-field>
+              </div>
+              <div
+                fxLayout="column"
+                fxLayoutGap="0px"
+                fxLayoutAlign="start"
+                *ngIf="!otpShow"
+              >
+                <label class="form-label">Password:</label>
+                <mat-form-field appearance="outline">
+                  <input
+                    type="{{ password }}"
+                    matInput
+                    formControlName="password"
+                    required
+                    placeholder="*********"
+                  />
+                  <mat-icon (click)="togglePassword()" matSuffix
+                    >visibility</mat-icon
+                  >
+                </mat-form-field>
+              </div>
+              <div
+                fxLayout="column"
+                fxLayoutGap="0px"
+                fxLayoutAlign="start"
+                *ngIf="otpShow"
+              >
+                <label class="form-label">Enter OTP:</label>
+                <mat-form-field appearance="outline">
+                  <input
+                    matInput
+                    formControlName="otp"
+                    required
+                    placeholder="otp"
+                  />
+                  <mat-icon matSuffix>pin</mat-icon>
+                </mat-form-field>
+              </div>
+              <div
+                class="forgot-lnk"
+                fxLayout="row"
+                fxLayoutGap="10px"
+                fxLayoutAlign="start center"
+              >
+                <a
+                  class="hyperlink-clr crs-ptr mrg-lftauto"
+                  routerLink="/forgot-password"
+                  >Forgot Password?</a
+                >
+              </div>
+              <div
+                fxLayout="row"
+                fxLayoutGap="10px"
+                fxLayoutAlign="start center"
+              >
+                <button
+                  mat-button
+                  type="submit"
+                  [disabled]="form.invalid || isLoading"
+                  class="button-cls login-btn"
+                  style="width: 100%"
+                >
+                  Login
+                </button>
+              </div>
+            </div>
+          </form>
+          <div class="login-copyright">
+            <p>
+              Copyright {{ year }} - {{ siteSettings.siteName }} Inc. All Rights
+              Reserved
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

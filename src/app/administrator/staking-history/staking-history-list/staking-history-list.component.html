@@ -1,0 +1,295 @@
+<section class="sect-one">
+  <div class="container">
+    <div class="layout-container">
+      <div class="layout">
+        <div class="sect-one-block">
+          <div class="sect-container" fxLayout="column" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="20px">
+            <div class="sect container-12" fxLayout="column" fxLayout.sm="column" fxLayout.xs="column"
+              fxLayoutGap="10px">
+              <div class="headline align-left mrg-botval">Staking History List
+              </div>
+              <form [formGroup]="form" (ngSubmit)="filterTable()">
+                <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center" class="outer-row">
+                  <div class="widthStatus">
+                    <div class="inner-row">
+                      <label class="form-label">User Name / Email Address</label>
+                      <mat-form-field appearance="outline">
+                        <input
+                            matInput
+                            formControlName="searchQuery"
+                            placeholder="User Name / Email Address"
+                        />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="widthStatus">
+                    <div class="inner-row">
+                      <label class="form-label">Referral User Name / Email Address</label>
+                      <mat-form-field appearance="outline">
+                        <input
+                            matInput
+                            formControlName="searchQuery1"
+                            placeholder="Referral User Name / Referral Email Address"
+                        />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div style="width: 165px;" class="widthStatus">
+                    <div class="inner-row">
+                      <label class="form-label">Staking History Status</label>
+                      <mat-form-field appearance="outline">
+                        <mat-select placeholder="Transaction Status" formControlName="status"
+                          [compareWith]="compareItems">
+                          <mat-option value="">All Staking History</mat-option>
+                          <mat-option value="1">Closed</mat-option>
+                          <mat-option value="0">Active</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <!-- <div style="width: 165px;" class="widthStatus">
+                    <div class="inner-row">
+                      <label class="form-label">Currency</label>
+                      <mat-form-field appearance="outline">
+                        <mat-select placeholder="Type" formControlName="currency" [compareWith]="compareItems">
+                          <mat-option value="">All Staking History</mat-option>
+                          <mat-option *ngFor="let cur of currencies" value="{{cur.currencySymbol}}">
+                            {{cur.currencySymbol}}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div> -->
+                  <!-- <div style="width: 165px;" class="widthStatus">
+                    <div class="inner-row">
+                      <label class="form-label">Staking Return Date</label>
+                      <mat-form-field appearance="outline">
+                        <input type="date" matInput
+                        formControlName="maturityDate"
+                        placeholder="Staking Return Date" />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div style="width: 165px;" class="widthStatus">
+                    <div class="inner-row">
+                      <label class="form-label">Next Bonus Date</label>
+                      <mat-form-field appearance="outline">
+                        <input type="date" matInput
+                        formControlName="nextBonusDay"
+                        placeholder="Next Bonus Date" />
+                      </mat-form-field>
+                    </div>
+                  </div> -->
+                  <div style="width: 250px;" class="widthStatus1">
+                    <mat-form-field appearance="fill">
+                      <mat-label>Staking Return Date</mat-label>
+                      <mat-date-range-input [rangePicker]="picker" >
+                        <input  matInput matStartDate placeholder="Start date" formControlName="maturityfrom">
+                        <input  matInput matEndDate placeholder="End date" formControlName="maturityto" >
+                      </mat-date-range-input>
+                      <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+                      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                      <mat-date-range-picker #picker></mat-date-range-picker>
+                    </mat-form-field>
+                  </div>
+                  <div style="width: 250px;" class="widthStatus1">
+                    <mat-form-field appearance="fill">
+                      <mat-label>Next Bonus Date</mat-label>
+                      <mat-date-range-input [rangePicker]="picker1" >
+                        <input  matInput matStartDate placeholder="Start date" formControlName="Bonusfrom">
+                        <input  matInput matEndDate placeholder="End date" formControlName="Bonusto" >
+                      </mat-date-range-input>
+                      <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+                      <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                      <mat-date-range-picker #picker1></mat-date-range-picker>
+                    </mat-form-field>
+                  </div>
+                  <div style="width: 165px;" class="widthStatus">
+                    <div class="inner-row">
+                      <label class="form-label">Staking Package</label>
+                      <mat-form-field appearance="outline">
+                        <mat-select placeholder="Staking Package" formControlName="selectPackage"
+                          [compareWith]="compareItems">
+                          <mat-option value="">All Staking Package</mat-option>
+                          <mat-option *ngFor="let packageName of stakePackagesList" value="{{packageName.pack}}">{{packageName.pack}}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="widthStatusButton">
+                    <button mat-button type="submit" class="btn-save">
+                      Filter Staking History
+                    </button>
+                  </div>
+                  <div class="widthStatusButton">
+                    <button mat-button (click)="ExportToCsv()" type="button" class="btn-save">
+                      Export CSV
+                    </button>
+                  </div>
+                  <div class="widthStatusButton">
+                    <button mat-button matTooltip="Refresh" mat-icon-button (click)="refresh()" class="btn-save">
+                      <mat-icon>refresh</mat-icon>
+                    </button>
+                  </div>
+                  <div class="widthStatusButton">
+                    <div style="font-weight: 500;">Active Staking Amount : {{totalActiveStaking | number:'1.2-2'}}</div>
+                  </div>
+                  <div class="widthStatusButton">
+                    <div style="font-weight: 500;">Active Bonus Credited : {{totalActiveBonus | number:'1.2-2'}}</div>
+                  </div>
+                  <div class="widthStatusButton">
+                    <div style="font-weight: 500;">Closed Staking Amount : {{totalClosedStaking | number:'1.2-2'}}</div>
+                  </div>
+                  <div class="widthStatusButton">
+                    <div style="font-weight: 500;">Closed Bonus Credited : {{totalClosedBonus | number:'1.2-2'}}</div>
+                  </div>
+                </div>
+              </form>
+              <div class="example-container mat-elevation-z8">
+                <mat-table [dataSource]="stakingTbl.data.length > 0 && 
+                  stakingTbl.filteredData.length > 0 ? stakingTbl:emptyData" matSort>
+                  <!-- ID Column -->
+                  <ng-container matColumnDef="createdDate">
+                    <mat-header-cell *matHeaderCellDef>
+                      Staking Date
+                    </mat-header-cell>
+                    <mat-cell class="link-clr crs-ptr" *matCellDef="let row" data-label="createdDate"><span
+                        class="mobile-label">Staking Date:</span>
+                      <span>{{ row.createdDate | date:"MMM dd, y, HH:mm:ss"}}</span>
+                    </mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="username">
+                    <mat-header-cell *matHeaderCellDef>
+                      User Name
+                    </mat-header-cell>
+                    <mat-cell class="link-clr crs-ptr" *matCellDef="let row" data-label="username"><span
+                        class="mobile-label">User Name:</span>
+                      <span>{{ row.userId.username }}</span>
+                    </mat-cell>
+                  </ng-container>
+
+
+                  <ng-container matColumnDef="email">
+                    <mat-header-cell *matHeaderCellDef>
+                      Email
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row" data-label="email"><span class="mobile-label">Email:</span>
+                      {{ row.userId.email }}
+                    </mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="currency">
+                    <mat-header-cell *matHeaderCellDef>
+                      Currency
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row" data-label="currency"><span class="mobile-label">Currency:</span>
+                      {{ row.currency}}
+                    </mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="amount">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>
+                      Amount
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row; let i= index" data-label="amount"><span    class="mobile-label">Amount:</span>
+                     {{ row.amount |number:'1.2-2' }} 
+                    </mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="bonus">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>
+                      Profit
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row" data-label="bonus"><span class="mobile-label">Profit:</span>
+                      {{ row.bonus |number:'1.4-4' }}
+                    </mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="package">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>
+                      Package Name
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row" data-label="package"><span class="mobile-label">Package Name:</span>
+                      {{ row.package.packageName }}
+                    </mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="lastBonusDay">
+                    <mat-header-cell *matHeaderCellDef>
+                      Next Profit Date
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row; let i = index" data-label="action">
+                      <span class="mobile-label">Next Profit Date:</span>
+                      {{(row.maturityDate > row.nextBonusDay ?
+                        (row.nextBonusDay | date:"MMM dd, y, HH:mm:ss") : '-')}}
+                    </mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="maturityDate">
+                    <mat-header-cell *matHeaderCellDef>
+                      Return Date
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row; let i = index" data-label="action"><span class="mobile-label">Return
+                        Date:</span>
+                      {{ row.maturityDate | date:"MMM dd, y, HH:mm:ss" }}
+                    </mat-cell>
+                  </ng-container>
+                  <!-- <ng-container matColumnDef="profitAmount">
+                    <mat-header-cell *matHeaderCellDef>
+                      Profit Amount
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row; let i = index" data-label="action">
+                      <span class="mobile-label">Profit Amount:</span>
+                    {{this.stakarray[i].amount*(this.stakarray[i].package.interest/100) |number:'1.4-4'}}
+                    </mat-cell>
+                  </ng-container> -->
+                  <ng-container matColumnDef="status">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>
+                      Status
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row" data-label="status"><span class="mobile-label">Status:</span>
+                      {{row.status == 1 ? 'Closed' : 'Active'}}
+                    </mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="action">
+                    <mat-header-cell *matHeaderCellDef>
+                      Action
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let element; let i = index" data-label="action">
+                      <span class="material-icons crs-ptr" (click)="viewStaking(element._id)">
+                        preview
+                      </span>
+                    </mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="empty-row">
+                    <mat-cell *matCellDef="let element">
+                     <span >  No Record Found</span>
+                    </mat-cell>
+                  </ng-container>
+
+                  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                  <mat-row *matRowDef="let row; columns: stakingTbl.data.length > 0 && 
+                                    stakingTbl.filteredData.length > 0 ? displayedColumns: ['empty-row']">
+                  </mat-row>
+                </mat-table>
+                <mat-paginator #paginator
+                [length]="length"
+                [pageSize]=10
+                [pageSizeOptions]="[5, 10, 25, 100]"
+                (page)="changepage($event)">
+              </mat-paginator>
+                <!-- <button (click)="backpage()" [disabled]=" buttonDisabled " >
+                  <mat-icon>arrow_backward_ios</mat-icon> Back Page
+                </button>
+                &nbsp;
+                <button (click)="nextPage()" [disabled]=" len === 0"  >
+                  <mat-icon>arrow_forward</mat-icon> Next Page
+                </button> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

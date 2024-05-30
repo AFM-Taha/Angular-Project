@@ -1,0 +1,271 @@
+<section class="sect-transaction">
+  <div class="container">
+    <div class="layout-container">
+      <div class="layout">
+        <div class="sect-transaction-block">
+          <div class="">
+            <div class="prev-pagediv">
+              <button
+              mat-button
+              class="mat-button btn-back flot-rt"
+              (click)="backRedirectBtn()"
+            >
+              <mat-icon>arrow_left_alt</mat-icon>Back
+            </button>
+            </div>
+          </div>
+          <div class="width-100" *ngIf="!isLoading">
+            <div class="headline align-left mrg-botval">
+              P2P Orders Details
+            </div>
+            <div
+              fxLayout="row"
+              fxLayoutGap="20px"
+              fxLayoutAlign="start center"
+              class="outer-row space1"
+            >
+              <div>User Name:</div>
+              <div>{{ p2pordersDetails && p2pordersDetails[0] && p2pordersDetails[0].username}}</div>
+            </div>
+
+            <div
+              fxLayout="row"
+              fxLayoutGap="20px"
+              fxLayoutAlign="start center"
+              class="outer-row space1"
+            >
+              <div>E-Mail :</div>
+              <div>{{ p2pordersDetails && p2pordersDetails[0] && p2pordersDetails[0].email }}</div>
+            </div>
+
+            <div
+              fxLayout="row"
+              fxLayoutGap="20px"
+              fxLayoutAlign="start center"
+              class="outer-row space1"
+            >
+              <div>Pair :</div>
+              <div>
+                {{ p2pordersDetails && p2pordersDetails[0] && p2pordersDetails[0].pairName }}
+              </div>
+            </div>
+
+            <div
+              fxLayout="row"
+              fxLayoutGap="20px"
+              fxLayoutAlign="start center"
+              class="outer-row space1"
+            >
+              <div>Price :</div>
+              <div>
+                {{ p2pordersDetails && p2pordersDetails[0] && p2pordersDetails[0].price }}
+                {{ p2pordersDetails && p2pordersDetails[0] && p2pordersDetails[0].toCurrencySymbol }}
+              </div>
+          </div>
+
+            <div
+              fxLayout="row"
+              fxLayoutGap="20px"
+              fxLayoutAlign="start center"
+              class="outer-row space1"
+          >
+            <div>Available :</div>
+            <div>
+              {{p2pordersDetails && p2pordersDetails[0] && p2pordersDetails[0].usdtPrice}}
+              {{p2pordersDetails && p2pordersDetails[0] && p2pordersDetails[0].fromCurrencySymbol}}
+            </div>
+          </div>
+          <div
+            fxLayout="row"
+            fxLayoutGap="20px"
+            fxLayoutAlign="start center"
+            class="outer-row space1"
+        >
+          <div>Payment method :</div>
+          <div>
+            {{p2pordersDetails && p2pordersDetails[0] && p2pordersDetails[0].paymentNames}}
+          </div>
+        </div>
+          <div
+            fxLayout="row"
+            fxLayoutGap="20px"
+            fxLayoutAlign="start center"
+            class="outer-row space1"
+          >
+            <div>Limit :</div>
+            <div>
+              {{p2pordersDetails && p2pordersDetails[0] && p2pordersDetails[0].fromCurrencySymbolCode}}
+              {{p2pordersDetails && p2pordersDetails[0] && p2pordersDetails[0].minAmt}} -
+              {{p2pordersDetails && p2pordersDetails[0] && p2pordersDetails[0].fromCurrencySymbolCode}}
+              {{p2pordersDetails && p2pordersDetails[0] && p2pordersDetails[0].maxAmt}}
+            </div>
+          </div>
+          <div
+            fxLayout="row"
+            fxLayoutGap="20px"
+            fxLayoutAlign="start center"
+            class="outer-row space1"
+          >
+            <div>Payment Time Limit :</div>
+            <div>
+              {{p2pordersDetails && p2pordersDetails[0] && p2pordersDetails[0].timeLimit}} Minutes
+            </div>
+          </div>
+          <div
+            fxLayout="row"
+            fxLayoutGap="20px"
+            fxLayoutAlign="start center"
+            class="outer-row space1"
+          >
+            <div>Order Type :</div>
+            <div>
+              {{p2pordersDetails && p2pordersDetails[0] && p2pordersDetails[0].orderType == 'buy' ? 'Buy' : 'Sell'}}
+            </div>
+          </div>
+          <div
+            fxLayout="row"
+            fxLayoutGap="20px"
+            fxLayoutAlign="start center"
+            class="outer-row space1"
+          >
+            <div>Price Type :</div>
+            <div>
+              {{p2pordersDetails && p2pordersDetails[0] && p2pordersDetails[0].priceType}}
+            </div>
+          </div>
+          <div
+            fxLayout="row"
+            fxLayoutGap="20px"
+            fxLayoutAlign="start center"
+            class="outer-row space1"
+          >
+            <div>Remarks :</div>
+            <div>
+              {{
+                p2pordersDetails && p2pordersDetails[0] && p2pordersDetails[0].remarks != "" ?
+                p2pordersDetails && p2pordersDetails[0] && p2pordersDetails[0].remarks
+                :
+                '_'
+              }}
+            </div>
+          </div>
+          <div
+            fxLayout="row"
+            fxLayoutGap="20px"
+            fxLayoutAlign="start center"
+            class="outer-row space1"
+          >
+            <div>Auto replay :</div>
+            <div>
+              {{
+                p2pordersDetails && p2pordersDetails[0] && p2pordersDetails[0].autoreply != "" ?
+                p2pordersDetails && p2pordersDetails[0] && p2pordersDetails[0].autoreply
+                :
+                '_'
+              }}
+            </div>
+          </div>
+          <div
+            fxLayout="row"
+            fxLayoutGap="20px"
+            fxLayoutAlign="start center"
+            class="outer-row space1"
+          >
+            <div>Counter Party Condition</div>
+          </div>
+          <div
+            fxLayout="row"
+            fxLayoutGap="20px"
+            fxLayoutAlign="start center"
+            class="outer-row space1"
+          >
+            <div>Complete KYC :</div>
+            <div>
+              {{p2pordersDetails && p2pordersDetails[0] && p2pordersDetails[0].kycStatus == true ? "Enable" : "Disable"}}
+            </div>
+          </div>
+          <div
+            fxLayout="row"
+            fxLayoutGap="20px"
+            fxLayoutAlign="start center"
+            class="outer-row space1"
+          >
+            <div>Registered Status:</div>
+            <div>
+              {{p2pordersDetails && p2pordersDetails[0] && p2pordersDetails[0].registeredStatus == true ? "Enable" : "Disable"}}
+            </div>
+          </div>
+          <div
+            fxLayout="row"
+            fxLayoutGap="20px"
+            fxLayoutAlign="start center"
+            class="outer-row space1"
+          >
+            <div>Registered Days:</div>
+            <div>
+              {{p2pordersDetails && p2pordersDetails[0] && p2pordersDetails[0].registeredDays}} days
+            </div>
+          </div>
+          <div
+            fxLayout="row"
+            fxLayoutGap="20px"
+            fxLayoutAlign="start center"
+            class="outer-row space1"
+          >
+            <div>Holding more than status:</div>
+            <div>
+              {{p2pordersDetails && p2pordersDetails[0] && p2pordersDetails[0].holdingStatus == true ? "Enable" : "Disable"}}
+            </div>
+          </div>
+          <div
+            fxLayout="row"
+            fxLayoutGap="20px"
+            fxLayoutAlign="start center"
+            class="outer-row space1"
+          >
+            <div>Holding more than price:</div>
+            <div>
+              {{p2pordersDetails && p2pordersDetails[0] && p2pordersDetails[0].holdingBTC}} USDT
+            </div>
+          </div>
+          <div
+            fxLayout="row"
+            fxLayoutGap="20px"
+            fxLayoutAlign="start center"
+            class="outer-row space1"
+          >
+            <div>Order Mode :</div>
+            <div>
+              {{p2pordersDetails && p2pordersDetails[0] && p2pordersDetails[0].orderMode}}
+            </div>
+          </div>
+          <div
+            fxLayout="row"
+            fxLayoutGap="20px"
+            fxLayoutAlign="start center"
+            class="outer-row space1"
+          >
+            <div>Status :</div>
+            <div>
+              {{
+                p2pordersDetails && p2pordersDetails[0] && p2pordersDetails[0].status == 1 ? 
+                'Active' 
+                :
+                p2pordersDetails && p2pordersDetails[0] && p2pordersDetails[0].status == 2 ? 
+                'Deleted' 
+                :
+                p2pordersDetails && p2pordersDetails[0] && p2pordersDetails[0].status == 0 ?
+                 'De-Active'
+                 :
+                 "-"
+                }}
+            </div>
+          </div>
+
+          </div><br/>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

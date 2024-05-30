@@ -1,0 +1,315 @@
+<section class="sect-dashboard">
+    <div class="container">
+      <div class="layout-container">
+        <div class="layout">
+          <div class="sect-dashboard-block">
+            <div class="sect-container">
+              <div class="sect container-12">
+                <!-- <div class="typography-headline mrg-topval mrg-botval">
+                  Dashboard
+                </div>
+                <form [formGroup]="form" (ngSubmit)="searchDashboard()">
+                  <div
+                    class="justify-content"
+                    fxLayout="row"
+                    fxLayout.sm="column"
+                    fxLayoutGap="20px"
+                  >
+                    <div style="width: 250px;" class="widthStatus1">
+                      <mat-form-field appearance="fill">
+                        <mat-label class="form-label">Get Details</mat-label>
+                        <mat-date-range-input [rangePicker]="picker"  >
+                          <input  matInput matStartDate placeholder="Start date" formControlName="fromdate">
+                          <input  matInput matEndDate placeholder="End date" formControlName="todate" >
+                        </mat-date-range-input>
+                        <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-date-range-picker #picker></mat-date-range-picker>
+                      </mat-form-field>
+                    
+                    </div>
+                    <div style="width: 850px;" class="widthStatus1">
+                      <button mat-button type="submit" class="btn-save">
+                        Get Details
+                      </button>
+                    </div>
+                  </div>
+                </form> -->
+                <div
+                  class="outer-wrapdiv-flex mrg-topval"
+                  fxLayout="row"
+                  fxLayout.sm="column"
+                  fxLayoutGap="20px"
+                >
+                  <div
+                    class="inner-wrapdiv-flex border-box"
+                    fxFlex.md="50"
+                    fxFlex.sm="100"
+                    fxFlex.xs="100"
+                    (click)="navigateLink('/dashboard/users-list', '?kycstatus=0', 'Users')"
+                  >
+                    <div
+                      class="justify-content"
+                      fxLayout="row"
+                      fxLayout.sm="column"
+                      fxLayoutGap="20px"
+                    >
+                      <div>
+                        <div>
+                          <span class="material-icons count-box"
+                            >account_tree</span
+                          >
+                        </div>
+                        <div class="description">KYC Approval - Pending Users Count</div>
+                      </div>
+                      <div class="mrg-btauto">
+                        <img *ngIf="loader" class="imgLoaderDash" src="../../../assets/images/teamphoto-loading.webp">
+                        <div  *ngIf="!loader" class="dash-count">{{dashboardCount.kycPendingUsers}}</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="inner-wrapdiv-flex border-box"
+                    fxFlex.md="50"
+                    fxFlex.sm="100"
+                    fxFlex.xs="100"
+                    (click)="navigateLink('/dashboard/users-list', '?bankstatus=0', 'Users')"
+                  >
+                    <div
+                      class="justify-content"
+                      fxLayout="row"
+                      fxLayout.sm="column"
+                      fxLayoutGap="20px"
+                    >
+                      <div>
+                        <div>
+                          <span class="material-icons count-box"
+                            >account_tree</span
+                          >
+                        </div>
+                        <div class="description">Bank Approval - Pending Users Count</div>
+                      </div>
+                      <div class="mrg-btauto">
+                        <img *ngIf="loader" class="imgLoaderDash" src="../../../assets/images/teamphoto-loading.webp">
+                        <div *ngIf="!loader" class="dash-count">{{dashboardCount.bankPendingUsers}}</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="inner-wrapdiv-flex border-box"
+                    fxFlex.md="50"
+                    fxFlex.sm="100"
+                    fxFlex.xs="100"
+                    (click)="navigateLink('/dashboard/transactions-list', '?type=Deposit&&status=0', 'Transactions')"
+                  >
+                    <div
+                      class="justify-content"
+                      fxLayout="row"
+                      fxLayout.sm="column"
+                      fxLayoutGap="20px"
+                    >
+                      <div>
+                        <div>
+                          <span class="material-icons count-box"
+                            >account_tree</span
+                          >
+                        </div>
+                        <div class="description">Deposit - Pending Count</div>
+                      </div>
+                      <div class="mrg-btauto">
+                        <img *ngIf="loader" class="imgLoaderDash" src="../../../assets/images/teamphoto-loading.webp">
+                        <div *ngIf="!loader" class="dash-count">{{dashboardCount.depositPendingUsers}}</div>
+                      </div>
+                    </div>
+                    
+                  </div>
+                  <div
+                    class="inner-wrapdiv-flex border-box"
+                    fxFlex.md="50"
+                    fxFlex.sm="100"
+                    fxFlex.xs="100"
+                    (click)="navigateLink('/dashboard/transactions-list', '?type=Withdraw&&status=0', 'Transactions')"
+                  >
+                    <div
+                      class="justify-content"
+                      fxLayout="row"
+                      fxLayout.sm="column"
+                      fxLayoutGap="20px"
+                    >
+                      <div>
+                        <div>
+                          <span class="material-icons count-box"
+                            >account_tree</span
+                          >
+                        </div>
+                        <div class="description">Withdraw - Pending Count</div>
+                      </div>
+                      <div class="mrg-btauto">
+                        <img *ngIf="loader" class="imgLoaderDash" src="../../../assets/images/teamphoto-loading.webp">
+                        <div  *ngIf="!loader" class="dash-count">{{dashboardCount.withdrawPendingUsers}}</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div
+                    class="inner-wrapdiv-flex border-box"
+                    fxFlex.md="50"
+                    fxFlex.sm="100"
+                    fxFlex.xs="100"
+                    (click)="navigateLink('/dashboard/buyorder-list', '?status=2', 'BuyOrder')"
+                  >
+                    <div
+                      class="justify-content"
+                      fxLayout="row"
+                      fxLayout.sm="column"
+                      fxLayoutGap="20px"
+                    >
+                      <div>
+                        <div>
+                          <span class="material-icons count-box"
+                            >account_tree</span
+                          >
+                        </div>
+                        <div class="description">BuyOrder List - Pending Count</div>
+                      </div>
+                      <div class="mrg-btauto">
+                        <img *ngIf="loader" class="imgLoaderDash" src="../../../assets/images/teamphoto-loading.webp">
+                        <div  *ngIf="!loader" class="dash-count">{{dashboardCount.buycryptoPendingUsers}}</div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+                <div class="typography-headline mrg-topval mrg-botval">
+                  Pending Admin Move Count
+                  <div class="flot-rt">
+                    <button mat-button (click)="getDashboardData()" type="button" class="button-cls">
+                      Refresh Data
+                    </button>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <button mat-button (click)="adminMove('token')" type="button" class="button-cls">
+                      Admin Token Move
+                    </button>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <button mat-button (click)="adminMove('coin')" type="button" class="button-red">
+                      Admin Coin Move
+                    </button>
+                  </div>
+                </div>
+                <div
+                class="outer-wrapdiv-flex mrg-topval"
+                fxLayout="row"
+                fxLayout.sm="column"
+                fxLayoutGap="20px"
+              >
+                <div
+                  class="inner-wrapdiv-flex border-box"
+                  fxFlex.md="50"
+                  fxFlex.sm="100"
+                  fxFlex.xs="100"
+                >
+                  <div
+                    class="justify-content"
+                    fxLayout="row"
+                    fxLayout.sm="column"
+                    fxLayoutGap="20px"
+                  >
+                    <div>
+                      <div>
+                      <img src="https://res.cloudinary.com/cryptobiz-exchange7/image/upload/v1652799973/currency/BNB.webp">
+                        
+                      </div>
+                      <div class="description">BNB-Pending Move Count</div>
+                    </div>
+                    <div class="mrg-btauto">
+                      <img *ngIf="loader" class="imgLoaderDash" src="../../../assets/images/teamphoto-loading.webp">
+                      <div *ngIf="!loader" class="dash-count"><span class="margingDiv">COIN : </span><span class="divDashFloat">{{dashboardCount.adminMoveDashCount.BnbCoin}} </span></div>
+                      <div *ngIf="!loader" class="dash-count"><span class="margingDiv">TOKEN: </span><span class="divDashFloat">{{dashboardCount.adminMoveDashCount.BnbToken}} </span></div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="inner-wrapdiv-flex border-box"
+                  fxFlex.md="50"
+                  fxFlex.sm="100"
+                  fxFlex.xs="100"
+                >
+                  <div
+                    class="justify-content"
+                    fxLayout="row"
+                    fxLayout.sm="column"
+                    fxLayoutGap="20px"
+                  >
+                    <div>
+                      <div>
+                      <img src="https://res.cloudinary.com/cryptobiz-exchange7/image/upload/v1652799973/currency/ETH.webp">
+                        
+                      </div>
+                      <div class="description">ETH-Pending Move Count</div>
+                    </div>
+                    <div class="mrg-btauto">
+                      <img *ngIf="loader" class="imgLoaderDash" src="../../../assets/images/teamphoto-loading.webp">
+                      <div *ngIf="!loader" class="dash-count"><span class="margingDiv">COIN : </span><span class="divDashFloat">{{dashboardCount.adminMoveDashCount.EthCoin}} </span></div>
+                      <div *ngIf="!loader" class="dash-count"><span class="margingDiv">TOKEN: </span><span class="divDashFloat">{{dashboardCount.adminMoveDashCount.EthToken}} </span></div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                class="inner-wrapdiv-flex border-box"
+                fxFlex.md="50"
+                fxFlex.sm="100"
+                fxFlex.xs="100"
+              >
+                <div
+                  class="justify-content"
+                  fxLayout="row"
+                  fxLayout.sm="column"
+                  fxLayoutGap="20px"
+                >
+                  <div>
+                    <div>
+                    <img src="https://res.cloudinary.com/cryptobiz-exchange7/image/upload/v1652799973/currency/MATIC.webp">
+                      
+                    </div>
+                    <div class="description">MATIC-Pending Move Count</div>
+                  </div>
+                  <div class="mrg-btauto">
+                    <img *ngIf="loader" class="imgLoaderDash" src="../../../assets/images/teamphoto-loading.webp">
+                    <div *ngIf="!loader" class="dash-count"><span class="margingDiv">COIN : </span><span class="divDashFloat">{{dashboardCount.adminMoveDashCount.MaticCoin}} </span></div>
+                    <div *ngIf="!loader" class="dash-count"><span class="margingDiv">TOKEN: </span><span class="divDashFloat">{{dashboardCount.adminMoveDashCount.MaticToken}} </span></div>
+                  </div>
+                </div>
+              </div>
+              <div
+              class="inner-wrapdiv-flex border-box"
+              fxFlex.md="50"
+              fxFlex.sm="100"
+              fxFlex.xs="100"
+            >
+              <div
+                class="justify-content"
+                fxLayout="row"
+                fxLayout.sm="column"
+                fxLayoutGap="20px"
+              >
+                <div>
+                  <div>
+                  <img src="https://res.cloudinary.com/cryptobiz-exchange7/image/upload/v1652799973/currency/TRX.webp">
+                    
+                  </div>
+                  <div class="description">TRX-Pending Move Count</div>
+                </div>
+                <div class="mrg-btauto">
+                  <img *ngIf="loader" class="imgLoaderDash" src="../../../assets/images/teamphoto-loading.webp">
+                  <div *ngIf="!loader" class="dash-count"><span class="margingDiv">COIN : </span><span class="divDashFloat">{{dashboardCount.adminMoveDashCount.TrxCoin}} </span></div>
+                  <div *ngIf="!loader" class="dash-count"><span class="margingDiv">TOKEN: </span><span class="divDashFloat">{{dashboardCount.adminMoveDashCount.TrxToken}} </span></div>
+                </div>
+              </div>
+            </div>
+              </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  

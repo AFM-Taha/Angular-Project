@@ -1,0 +1,141 @@
+<section class="sect-partners">
+  <div class="container">
+    <div class="layout-container">
+      <div class="layout">
+        <div class="sect-partners-block">
+          <div class="headline align-left"> CMS</div>
+            <form [formGroup]="form" (ngSubmit)="formSubmitHandler()">
+              <div class="" fxLayoutGap="-10px">
+              <div fxLayout="row"
+                fxLayoutGap="20px"
+                fxLayoutAlign="start center"
+                class="outer-row"
+              >
+              <div class="inner-row">
+                  <label class="form-label">Link</label>
+                  <mat-form-field appearance="outline">
+                  <input
+                      type="text"
+                      matInput
+                      formControlName="link"
+                      placeholder="Link"
+                  />
+                  </mat-form-field>
+              </div>
+              </div>
+                <div fxLayout="row"
+                  fxLayoutGap="20px"
+                  fxLayoutAlign="start center"
+                  class="outer-row"
+                >
+                <div class="inner-row">
+                    <label class="form-label">Title</label>
+                    <mat-form-field appearance="outline">
+                    <input
+                        type="text"
+                        matInput
+                        formControlName="title"
+                        placeholder="Title"
+                    />
+                    </mat-form-field>
+                </div>
+                </div>
+                <div
+                  fxLayout="row"
+                  fxLayoutGap="20px"
+                  fxLayoutAlign="start center"
+                  class="outer-row"
+                  >
+                  <div class="inner-row">
+                      <label class="form-label">Icon</label>
+                      <mat-form-field appearance="outline">
+                          <input
+                              matInput
+                              formControlName="image"
+                              placeholder="logoURI"
+                          />
+                          </mat-form-field>
+                          <div>(or)</div>
+                      <mat-form-field appearance="outline">
+                          <ngx-mat-file-input
+                          valuePlaceholder="Upload Flag"
+                          formControlName="imageData"
+                          (change)="onlogoURIChange($event)"
+                          ></ngx-mat-file-input>
+                          <mat-icon matSuffix>folder</mat-icon>
+                      </mat-form-field>
+                  </div>
+                  </div>
+                  <div
+                  fxLayout="row"
+                  fxLayoutGap="20px"
+                  fxLayoutAlign="start center"
+                  class="outer-row"
+                >
+                <!-- <div style="width: 165px;" class="widthStatus1"> -->
+                  <div class="inner-row" >
+                    <label class="form-label">Identify</label>
+                    <mat-form-field appearance="outline" >
+                      <mat-select *ngIf="!data" placeholder="Select Identify" formControlName="identify" [compareWith]="compareItems" >
+                        <mat-option value="adBanner" >Ad banner</mat-option >
+                        <mat-option value="our-benefits" >Our benefits</mat-option >
+                        <mat-option value="how-p2p-works" >How-p2p-works</mat-option >
+                        <mat-option value="advantagesofP2P" >Advantages of P2P</mat-option >
+                        <mat-option value="CMS" >CMS</mat-option >
+                      </mat-select>
+                      <input
+                        *ngIf="data"
+                        type="text"
+                        matInput
+                        formControlName="identify"
+                        placeholder="identify"
+                        readonly="true"
+                      />
+                    </mat-form-field>
+                  </div>
+                <!-- </div> -->
+                </div>
+                  <div
+                  fxLayout="row"
+                  fxLayoutGap="20px"
+                  fxLayoutAlign="start center"
+                  class="outer-row"
+                  >
+                  <div class="inner-row">
+                      <label class="form-label">Description</label>
+                      <div class="mrg-botval">
+                        <ckeditor
+                          (ready)="onReady($event)"
+                          [editor]="editor"
+                          [config]="editorConfig"
+                          formControlName="description"
+                        ></ckeditor>
+                      </div>
+                  </div>
+                  </div>
+              
+                <div class="flot-rt">
+                  <button
+                  (click)="closeDialog()"
+                  mat-button
+                  type="button"
+                  class="btn-cance mrg-rightval"
+                  >
+                  Cancel
+                  </button>
+                  <button
+                  mat-button
+                  type="submit"
+                  [disabled]="form.invalid || isLoading"
+                  class="btn-save"
+                  >
+                  {{data != '' ? 'Edit' : 'Add'}} Cms
+                  </button>
+                </div>
+              </div>
+            </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,141 @@
+<section class="sect-one">
+    <div class="container">
+      <div class="layout-container">
+        <div class="layout">
+          <div class="sect-one-block">
+            <div class="sect-container" fxLayout="column" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="20px">
+              <div class="sect container-12" fxLayout="column" fxLayout.sm="column" fxLayout.xs="column"
+                fxLayoutGap="10px">
+                <div class="headline align-left mrg-botval">P2P Blocked Users List
+                </div>
+                <form [formGroup]="form" (ngSubmit)="filterTable()">
+                  <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center" class="outer-row">
+                    <div style="width: 165px;" class="widthStatus1">
+                      <div class="inner-row">
+                        <label class="form-label">Blocked Status</label>
+                        <mat-form-field appearance="outline">
+                          <mat-select placeholder="Blocked Status" formControlName="status" [compareWith]="compareItems">
+                            <mat-option value="">All Status</mat-option>
+                            <mat-option value="blocked">Blocked</mat-option>
+                            <mat-option value="unblocked">UnBlocked</mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div style="width: 250px;" class="widthStatus1">
+                      <mat-form-field appearance="fill">
+                        <mat-label>Enter Blocked Date</mat-label>
+                        <mat-date-range-input [rangePicker]="picker" >
+                          <input  matInput matStartDate placeholder="Start date" formControlName="fromdate">
+                          <input  matInput matEndDate placeholder="End date" formControlName="todate" >
+                        </mat-date-range-input>
+                        <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-date-range-picker #picker></mat-date-range-picker>
+                      </mat-form-field>
+                    </div>
+                    <div class="widthStatusButton">
+                      <button mat-button type="submit" class="btn-save">
+                        Filter Blocked History
+                      </button>
+                    </div>
+                    <div class="widthStatusButton">
+                      <button mat-button (click)="ExportToCsv()" type="button" class="btn-save">
+                        Export CSV
+                      </button>
+                    </div>
+                    <div>
+                      <button mat-button matTooltip="Refresh" mat-icon-button (click)="refresh()" class="btn-save">
+                      <mat-icon>refresh</mat-icon>
+                      </button>
+                   </div>
+                  </div>
+                </form>
+                <div class="example-container mat-elevation-z8">
+                  <mat-table [dataSource]="p2pblockedUsersTbl.data.length > 0 && 
+                    p2pblockedUsersTbl.filteredData.length > 0 ? p2pblockedUsersTbl:emptyData" matSort>               
+                    <ng-container matColumnDef="createdDate">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header>
+                        Blocked Date
+                      </mat-header-cell>
+                      <mat-cell class="" *matCellDef="let row" data-label="createdDate"
+                        ><span class="mobile-label"> Blocked Date:</span>
+                        <span>{{ row.createdDate | date:"MMM dd, y, HH:mm:ss" }}</span></mat-cell
+                      >
+                    </ng-container>
+                    <ng-container matColumnDef="Email">
+                      <mat-header-cell *matHeaderCellDef>
+                       Blocker User Email
+                      </mat-header-cell>
+                      <mat-cell class="link-clr crs-ptr" *matCellDef="let row" data-label="Email">
+                        <span class="mobile-label">Blocker User Email:</span>
+                        {{ row.blockerUserDet.email}}
+                      </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="AdvertisorEmail">
+                      <mat-header-cell *matHeaderCellDef>
+                        Blocked User Email
+                      </mat-header-cell>
+                      <mat-cell class="link-clr crs-ptr" *matCellDef="let row" data-label="AdvertisorEmail">
+                        <span class="mobile-label">Blocked User Email:</span>
+                        {{ row.blockedUserDet.email}}
+                      </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="reason">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header>
+                        reason
+                      </mat-header-cell>
+                      <mat-cell *matCellDef="let row" data-label="reason"><span class="mobile-label">reason:</span>
+                        {{ row.reason }}
+                      </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="status">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header>
+                        Status
+                      </mat-header-cell>
+                      <!-- <mat-cell *matCellDef="let row" data-label="status"><span class="mobile-label">Status:</span>
+                        {{row.status == 1 ? "Blocked" : "UnBlocked"}}
+                      </mat-cell> -->
+                      <mat-cell mat-cell *matCellDef="let row" class="action-link"> 
+                        <button
+                          mat-button
+                          type="button"
+                          class="mat-button btn-back flot-rt"
+                          (click)="blockUnblock(row)"
+                        >
+                        {{row.status == 1 ? "UnBlocked" : "Blocked"}}
+                        </button>
+                      </mat-cell>
+                    </ng-container>
+  
+                   
+                    
+                    <ng-container matColumnDef="empty-row">
+                      <mat-cell *matCellDef="let element">
+                       <span >  No Record Found</span>
+                      </mat-cell>
+                    </ng-container>
+
+                    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: p2pblockedUsersTbl.data.length > 0 && 
+                      p2pblockedUsersTbl.filteredData.length > 0 ? displayedColumns: ['empty-row']">
+                    </mat-row>
+                   
+                  </mat-table> 
+                  <mat-paginator #paginator
+                  [length]="length"
+                  [pageSize]=10
+                  [pageSizeOptions]="[5, 10, 25, 100]"
+                  (page)="changepage($event)">
+                </mat-paginator>
+                
+                </div>
+
+                
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>

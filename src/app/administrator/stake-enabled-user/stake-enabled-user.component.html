@@ -1,0 +1,79 @@
+<section class="sect-one">
+  <div class="container">
+    <div class="layout-container">
+      <div class="layout">
+        <div class="sect-one-block">
+          <div class="sect-container" fxLayout="column" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="20px">
+            <div class="sect container-12" fxLayout="column" fxLayout.sm="column" fxLayout.xs="column"
+              fxLayoutGap="0px">
+              <div class="headline align-left">Stake Transfer Enable</div>
+              <form [formGroup]="form" (ngSubmit)="formSubmitHandler()">
+                <div class="mrg-topval mrg-botval">
+
+                  <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center" class="outer-row">
+                    <div class="inner-row">
+                      <label class="form-label">User Email</label>
+                      <mat-form-field appearance="outline">
+                        <input matInput formControlName="userEmail" placeholder="User Email" required />
+                      </mat-form-field>
+                    </div>
+                  </div>
+
+                </div>
+
+
+
+                <div class="flot-rt">
+                  <button mat-button type="submit" [disabled]="form.invalid || isLoading" class="btn-save">
+                    Enable Staking Transfer
+                  </button>
+                </div>
+
+              </form>
+
+            </div>
+            <div class="example-container mat-elevation-z8">
+              <mat-table [dataSource]="stakeTbl.data" 
+              matSort>
+
+                <ng-container matColumnDef="email">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>
+                    User Email
+                  </mat-header-cell>
+                  <mat-cell *matCellDef="let row" data-label="topic"><span class="mobile-label"> User Email:</span>
+                    {{row.userId.email}}
+                  </mat-cell>
+                </ng-container>
+
+
+
+
+                <ng-container matColumnDef="action">
+                  <mat-header-cell *matHeaderCellDef>
+                    Action
+                  </mat-header-cell>
+                  <mat-cell *matCellDef="let element; let i = index" data-label="action">
+                    <span class="material-icons crs-ptr" (click)="deleteStackEnabled(element._id)">
+                      delete
+                    </span>
+                  </mat-cell>
+                </ng-container>
+
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: length > 0 && 
+                  length > 0 ? displayedColumns: ['empty-row']">
+                </mat-row>
+              </mat-table>
+              <mat-paginator #paginator
+              [length]="length"
+              [pageSize]=10
+              [pageSizeOptions]="[10, 25, 100]"
+              (page)="changepage($event)">
+            </mat-paginator>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

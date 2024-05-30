@@ -1,0 +1,341 @@
+<section class="sect-transaction">
+    <div class="container">
+      <div class="layout-container">
+        <div class="layout">
+          <div class="sect-transaction-block">
+            <div class="">
+              <div class="prev-pagediv">
+                <button
+                  mat-button
+                  class="mat-button btn-back flot-rt"
+                  (click)="backRedirectBtn()"
+                >
+                  <mat-icon>arrow_left_alt</mat-icon>Back
+                </button>
+              </div>
+            </div>
+  
+            <div class="width-100" *ngIf="!isLoading">
+              <div class="headline align-left mrg-botval">
+                BuyOrder Details
+              </div>
+
+              <div
+                fxLayout="row"
+                fxLayoutGap="20px"
+                fxLayoutAlign="start center"
+                class="outer-row space1"
+              >
+                <div>Currency Name:</div>
+                <div>{{transactionsDetails.currencyName}}</div>
+              </div>
+  
+              <div
+              fxLayout="row"
+              fxLayoutGap="20px"
+              fxLayoutAlign="start center"
+              class="outer-row space1"
+            >
+              <div>User Name:</div>
+              <div>{{transactionsDetails.userId.username}}</div>
+            </div>
+
+            <div
+              fxLayout="row"
+              fxLayoutGap="20px"
+              fxLayoutAlign="start center"
+              class="outer-row space1"
+            >
+              <div>Email:</div>
+              <div>{{transactionsDetails.userId.email}}</div>
+            </div>
+
+              <div
+                fxLayout="row"
+                fxLayoutGap="20px"
+                fxLayoutAlign="start center"
+                class="outer-row space1"
+              >
+                <div>Address :</div>
+                <div>{{transactionsDetails.address}} </div>
+                <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" (click)="copyContent(transactionsDetails.address)"> 
+                  <mat-icon>content_copy</mat-icon>
+                </button>
+              </div>
+
+              <div
+                fxLayout="row"
+                fxLayoutGap="20px"
+                fxLayoutAlign="start center"
+                class="outer-row space1"
+              >
+                <div>Amount :</div>
+                <div>{{transactionsDetails.amount}}</div>
+              </div>
+              <div
+              fxLayout="row"
+              fxLayoutGap="20px"
+              fxLayoutAlign="start center"
+              class="outer-row space1"
+            >
+              <div>Cryptoamount :</div>
+              <div>{{transactionsDetails.cryptoamount}}</div>
+              <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" (click)="copyContent(transactionsDetails.cryptoamount)"> 
+                <mat-icon>content_copy</mat-icon>
+              </button>
+            </div>
+              <div
+                fxLayout="row"
+                fxLayoutGap="20px"
+                fxLayoutAlign="start center"
+                class="outer-row space1"
+              >
+                <div>Status :</div>
+                <div *ngIf="transactionsDetails.status == 2">
+                   Pending
+                </div>
+                <div *ngIf="transactionsDetails.status == 1">
+                  Approved
+                </div>
+                <div *ngIf="transactionsDetails.status == 0">
+                  Rejected
+                </div>
+              </div>
+
+              <div
+                fxLayout="row"
+                fxLayoutGap="20px"
+                fxLayoutAlign="start center"
+                class="outer-row space1"
+              >
+                <div>Transaction Date :</div>
+                <div>{{transactionsDetails.dateTime | date:"MMM dd, y, HH:mm:ss"}}</div>
+              </div>
+              
+              <!-- <div
+                fxLayout="row"
+                fxLayoutGap="20px"
+                fxLayoutAlign="start center"
+                class="outer-row space1"
+              >
+                <div>Amount :</div>
+                <div>{{transactionsDetails.amount}} {{transactionsDetails.currencyDet.currencySymbol}}</div>
+              </div> -->
+
+              <!-- <div
+                fxLayout="row"
+                fxLayoutGap="20px"
+                fxLayoutAlign="start center"
+                class="outer-row space1"
+              >
+                <div>Currency :</div>
+                <div>{{transactionsDetails.currencyDet.currencySymbol}}{{transactionsDetails.currencyDet.basecoin != 'Coin' ? ' - '+transactionsDetails.currencyDet.basecoin : ''}}</div>
+              </div> -->
+
+              <div
+                fxLayout="row"
+                fxLayoutGap="20px"
+                fxLayoutAlign="start center"
+                class="outer-row space1"
+              >
+                <div>Type :</div>
+                <div>{{transactionsDetails.type}}</div>
+              </div>
+
+              <!-- <form [formGroup]="actionForm"> -->
+                <div
+                fxLayout="row"
+                fxLayoutGap="20px"
+                fxLayoutAlign="start center"
+                class="outer-row"
+              >
+                <div class="width-40">Action</div>
+                <div class="width-20">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Select an option</mat-label>
+                    <mat-select formControlName="status" (selectionChange)="sortByProducts($event.value)">
+                      <mat-option value="1">Approve</mat-option>
+                      <mat-option value="0">Reject</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  
+                </div>
+              </div>
+              
+             
+              <!-- </form> -->
+              <div class="">
+                <button class="mat-focus-indicator mat-button btn-back  mat-button-base" (click)="submit()">Submit</button>
+              </div>
+              
+              <!-- <div
+                fxLayout="row"
+                fxLayoutGap="20px"
+                fxLayoutAlign="start center"
+                class="outer-row space1"
+              >
+                <div>Transaction Id :</div>
+                <div>{{transactionsDetails.txnId != "" ? transactionsDetails.txnId : '-'}}</div>
+              </div> -->
+
+              <!-- <div *ngIf="(transactionsDetails.type== 'Withdraw')"
+                fxLayout="row"
+                fxLayoutGap="20px"
+                fxLayoutAlign="start center"
+                class="outer-row space1"
+              >
+                <div>Fees :</div>
+                <div>{{transactionsDetails.fees}} {{transactionsDetails.currencyDet.currencySymbol}}</div>
+              </div> -->
+
+              <!-- <div *ngIf="(transactionsDetails.type== 'Withdraw')"
+                fxLayout="row"
+                fxLayoutGap="20px"
+                fxLayoutAlign="start center"
+                class="outer-row space1"
+              >
+                <div>Receive Amount :</div>
+                <div>{{transactionsDetails.receiveAmount}} {{transactionsDetails.currencyDet.currencySymbol}}</div>
+              </div> -->
+
+              <!-- <div *ngIf="transactionsDetails.type == 'Withdraw' && transactionsDetails.address != ''"
+                fxLayout="row"
+                fxLayoutGap="20px"
+                fxLayoutAlign="start center"
+                class="outer-row space1"
+              >
+                <div>Receive Address :</div>
+                <div>{{transactionsDetails.address}}</div>
+              </div> -->
+
+              <!-- <div *ngIf="transactionsDetails.type == 'Withdraw' && transactionsDetails.tag != ''"
+                fxLayout="row"
+                fxLayoutGap="20px"
+                fxLayoutAlign="start center"
+                class="outer-row space1"
+              >
+                <div>Tag :</div>
+                <div>{{transactionsDetails.tag}}</div>
+              </div> -->
+
+              <!-- <div *ngIf="transactionsDetails.attachment != ''"
+                fxLayout="row"
+                fxLayoutGap="20px"
+                fxLayoutAlign="start center"
+                class="outer-row space1"
+              >
+                <div>Attachment :</div>
+                <div *ngIf="showImage(transactionsDetails.attachment)"><img style="width:200px;" src="{{ transactionsDetails.attachment }}" alt="" /></div>
+                <div *ngIf="!showImage(transactionsDetails.attachment)"><a href="{{ transactionsDetails.attachment }}" target="_blank" >{{transactionsDetails.attachment}}</a></div>
+              </div> -->
+
+              <!-- <div *ngIf="transactionsDetails.currencyDet.curnType == 'Fiat' && (transactionsDetails.paymentDet && transactionsDetails.paymentDet.length > 0) ">
+                <h1>User Bank Details</h1>
+                <div
+                  fxLayout="row"
+                  fxLayoutGap="20px"
+                  fxLayoutAlign="start center"
+                  class="outer-row space1"
+                >
+                  <div>Holder Name :</div>
+                  <div>{{transactionsDetails.paymentDet[0].holderName}}</div>
+                </div>
+                <div
+                  fxLayout="row"
+                  fxLayoutGap="20px"
+                  fxLayoutAlign="start center"
+                  class="outer-row space1"
+                >
+                  <div>Bank Name :</div>
+                  <div>{{transactionsDetails.paymentDet[0].bankName}}</div>
+                </div>
+                <div
+                  fxLayout="row"
+                  fxLayoutGap="20px"
+                  fxLayoutAlign="start center"
+                  class="outer-row space1"
+                >
+                  <div>Account No :</div>
+                  <div>{{transactionsDetails.paymentDet[0].accountNo}}</div>
+                </div>
+                <div
+                  fxLayout="row"
+                  fxLayoutGap="20px"
+                  fxLayoutAlign="start center"
+                  class="outer-row space1"
+                >
+                  <div>IFSC Code :</div>
+                  <div>{{transactionsDetails.paymentDet[0].ifscCode}}</div>
+                </div>
+                <div
+                  fxLayout="row"
+                  fxLayoutGap="20px"
+                  fxLayoutAlign="start center"
+                  class="outer-row space1"
+                >
+                  <div>Account Type :</div>
+                  <div>{{transactionsDetails.paymentDet[0].accountType}}</div>
+                </div>
+              </div> -->
+              <!-- <div
+              *ngIf="transactionsDetails.status == 2"
+                fxLayout="row"
+                fxLayoutGap="20px"
+                fxLayoutAlign="start center"
+                class="outer-row space1"
+              >
+                <div>Reject Reason :</div>
+                <div>{{transactionsDetails.rejectReason}}
+                </div>
+              </div> -->
+
+                <div
+                *ngIf="transactionsDetails.status==0 || transactionsDetails.status==3"
+                fxLayout="row"
+                fxLayoutGap="20px"
+                fxLayoutAlign="start center"
+                class="outer-row space1"
+              >
+                <div>Status :</div>
+                <div>
+                  <select id="mySelect" (change)="setStatus($event.target.value)">
+                    <option value=""> Select </option>
+                    <option value="Reject"> Reject </option>
+                    <option value="Approve"> Approve </option>
+                  </select>
+                  <div *ngIf="status=='Reject' || (transactionsDetails.type=='Withdraw' && status=='Approve' && transactionsDetails.currencyDet.curnType == 'Fiat')">
+                    <textarea placeholder="{{keyword}}" (keyup)="setReason($event.target.value)"></textarea>
+                  </div>
+                  <div>
+                    <button
+                    [disabled]="status == ''"
+                    mat-button
+                    class="mat-button btn-cancel"
+                    (click)="changeStatus()"
+                  >
+                    Submit
+                  </button>
+                  </div>
+                </div>
+                </div>
+                <div *ngIf="transactionsDetails.adminVerify == '' && transactionsDetails.status == 5" fxLayout="row"
+                fxLayoutGap="20px" fxLayoutAlign="start center" class="outer-row space1">
+                <div>Admin Verification :</div>
+                <div>
+                  <select id="mySelect" (change)="movenew($event.target.value)">
+                    <option value=""> Select </option>
+                    <option value="verified"> Verify </option>
+                  </select>
+                  <div>
+                    <button [disabled]="extraStatus == ''" mat-button class="mat-button btn-cancel" (click)="adminNewChangestatus()">
+                      Submit
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>

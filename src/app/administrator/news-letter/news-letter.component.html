@@ -1,0 +1,86 @@
+
+<section class="sect-one">
+    <div class="container">
+        <div class="layout-container">
+            <div class="layout">
+                <div class="sect-one-block">
+                    <div class="sect-container" fxLayout="column" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="20px">
+                        <div class="sect container-12" fxLayout="column" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="0px">
+                            <div class="headline align-left">Send News Letter</div>
+                            
+                            <form [formGroup]="form" (ngSubmit)="formSubmitHandler()">
+                                
+                                <div class="mrg-topval mrg-botval">
+                                    <div
+                                        fxLayout="row"
+                                        fxLayoutGap="20px"
+                                        fxLayoutAlign="start center"
+                                        class="outer-row"
+                                        >
+                                        <div class="inner-row">
+                                            <label class="form-label">Users Type</label>
+                                            <mat-form-field appearance="outline">
+                                                <mat-select placeholder="Users Type" formControlName="type" [compareWith]="compareItems" required>
+                                                    <mat-option value="Users">Users</mat-option>
+                                                    <mat-option value="Active Users">Active Users</mat-option>
+                                                    <mat-option value="De-Active Users">De-Active Users</mat-option>
+                                                    <mat-option value="KYC Verified Users">KYC Verified Users</mat-option>
+                                                    <mat-option value="KYC Not Verified Users">KYC Not Verified Users</mat-option>
+                                                    <mat-option value="Bank Verified Users">Bank Verified Users</mat-option>
+                                                    <mat-option value="Bank Not Verified Users">Bank Not Verified Users</mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                        </div>
+                                        <div
+                                        fxLayout="row"
+                                        fxLayoutGap="20px"
+                                        fxLayoutAlign="start center"
+                                        class="outer-row"
+                                        >
+                                        <div class="inner-row">
+                                            <label class="form-label">Subject</label>
+                                            <mat-form-field appearance="outline">
+                                            <input
+                                                matInput
+                                                formControlName="subject"
+                                                placeholder="Subject"
+                                                required
+                                            />
+                                            </mat-form-field>
+                                        </div>
+                                        </div>
+                                </div>
+
+                                <div class="mrg-botval">
+                                    <!-- <quill-editor formControlName="content"></quill-editor> -->
+                                    <!-- <div id="editor"></div> -->
+                                    <ckeditor
+  (ready)="onReady($event)"
+  [editor]="editor"
+  [config]="editorConfig"
+  formControlName="content"
+></ckeditor>
+                                    <!-- <ckeditor name="myckeditor" debounce="300" [editor]="editor" [config]="editorConfig"></ckeditor> -->
+                                </div>
+
+                                <div class="flot-rt">
+                                    <button
+                                    mat-button
+                                    type="submit"
+                                    [disabled]="form.invalid || isLoading"
+                                    class="btn-save"
+                                    >
+                                    Send News Letter
+                                    </button>
+                                </div>
+              
+                            </form>
+                           
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

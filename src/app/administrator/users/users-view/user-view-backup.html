@@ -1,0 +1,1422 @@
+<section class="sect-transaction">
+  <div class="container">
+    <div class="layout-container">
+      <div class="layout">
+        <div class="sect-transaction-block">
+          <div class="">
+            <div class="prev-pagediv">
+              <button mat-button class="mat-button btn-back flot-rt" (click)="backRedirectBtn()">
+                <mat-icon>arrow_left_alt</mat-icon>Back
+              </button>
+            </div>
+          </div>
+          <!-- <div style="border: 1px solid black;">          -->
+          <div class="width-100" *ngIf="!isLoading">
+            <div class="headline align-left mrg-botval">
+              Users View
+            </div>
+            <div fxLayout="row" fxLayout.xs="column">
+              <div fxLayout="column" fxLayoutGap="13px"
+                style=" width: 100%; height: auto; padding: 20px; box-shadow: 5px 5px 2px gray; border-radius: 10px; background-color: white;">
+
+                <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center" class="outer-row space1">
+                  <div><b>Username :</b></div>
+                  <div>{{userDetails.username}}</div>
+                </div>
+
+                <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center" class="outer-row space1">
+                  <div><b>Email :</b></div>
+                  <div>{{userDetails.email}}</div>
+                </div>
+
+                <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center" class="outer-row space1">
+                  <div><b>Phone Number :</b></div>
+                  <div>{{userDetails.phoneno}}</div>
+                </div>
+
+                <!-- <div
+                fxLayout="row"
+                fxLayoutGap="20px"
+                fxLayoutAlign="start center"
+                class="outer-row space1"
+              >
+                <div>Profile Image :</div>
+                <div>
+                  <img *ngIf="userDetails.profileimage != ''" class="mat-card-image image-cls" src="{{ userDetails.profileimage }}">
+                </div>
+              </div> -->
+
+                <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center" class="outer-row space1">
+                  <div><b>Address :</b></div>
+                  <div>{{userDetails.address}}</div>
+                </div>
+
+                <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center" class="outer-row space1">
+                  <div><b>City :</b> </div>
+                  <div>{{userDetails.city}}</div>
+                </div>
+
+                <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center" class="outer-row space1">
+                  <div><b>ZipCode :</b> </div>
+                  <div>{{userDetails.zipcode}}</div>
+                </div>
+
+                <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center" class="outer-row space1">
+                  <div><b>State :</b> </div>
+                  <div>{{userDetails.state}}</div>
+                </div>
+
+                <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center" class="outer-row space1">
+                  <div><b>Country :</b> </div>
+                  <div>{{userDetails.country}}</div>
+                </div>
+
+                <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center" class="outer-row space1">
+                  <div><b>Register On :</b> </div>
+                  <div>{{userDetails.registerOn | date: 'MMM dd, y'}}</div>
+                </div>
+              </div>
+              &nbsp;
+              <div fxLayout="column" fxLayoutGap="13px"
+                style=" width: 100%; height: auto; padding: 10px; box-shadow: 5px 5px 2px gray; border-radius: 10px; background-color: white;">
+
+                <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center" class="outer-row space1">
+                  <div><b>2FA Status :</b> </div>
+                  <div>{{userDetails.tfaenablekey != '' ? 'Active' : 'De-Active'}}
+                    <button *ngIf="userDetails.tfaenablekey" mat-button class="mat-button btn-cancel"
+                      (click)="changeStatus('tfa')">
+                      De-Activate 2FA
+                    </button>
+                  </div>
+                </div>
+
+                <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center" class="outer-row space1">
+                  <div> <b>Block/Active Reason :</b> </div>
+                  <div>
+                      <input (change)="setUserReason($event.target.value)"
+                          placeholder="Enter Reason To Change User Status"
+                      />
+                  </div>
+                </div>
+                
+                <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center" class="outer-row space1">
+                  <div><b>User Status :</b> </div>
+                  <div>{{userDetails.status == 1 ? 'Active' : 'De-Active'}}
+                    <button mat-button class="mat-button btn-cancel" (click)="changeStatus('user')">
+                      {{userDetails.status == 0 ? 'Activate' : 'De-Activate'}} User
+                    </button>
+                  </div>
+                </div>
+
+                <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center" class="outer-row space1">
+                  <div><b>User Type :</b> </div>
+                  <div>
+                    <select id="mySelect" (change)="setUserType($event.target.value)">
+
+                      <option value="user" [selected]=" (userDetails.userType == 'user') || (userType == 'user')"> User </option>
+                      <option value="promoted" [selected]="(userDetails.userType == 'promoted') || (userType == 'promoted')"> Influencer </option>
+                    </select>&nbsp;&nbsp;&nbsp;
+                    <button mat-button class="mat-button btn-cancel" (click)="changeUserType()">
+                      Submit
+                    </button>
+                  </div>
+                </div>
+                <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center" class="outer-row space1" *ngIf="(userDetails.userType== 'promoted') || (userType== 'promoted')">
+                  <div> <b>Influencer Referral Code :</b> </div>
+                  <div>
+                      <input (change)="setPromotedReferralCode($event.target.value)"
+                          placeholder="Promoted Referral Code" value={{userDetails.referCode}}
+                      />
+                  </div>
+                </div>
+                <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center" class="outer-row space1" *ngIf="(userDetails.userType== 'promoted') || (userType== 'promoted')">
+                  <div> <b>Influencer Referral Commission :</b> </div>
+                  <div>
+                      <input type="number" (change)="setPromotedReferralCommission($event.target.value)"
+                          placeholder="Promoted Referral Commission" value={{userDetails.referCommission}}
+                      /> %
+                  </div>
+                </div>
+                <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center" class="outer-row space1">
+                  <div> <b>User Trade Status :</b> </div>
+                  <div>{{userDetails.tradeDisable == 1 ? 'Disabled' : 'Enabled'}}
+                    <button mat-button class="mat-button btn-cancel" (click)="changeStatus('tradeDisable')">
+                      {{userDetails.tradeDisable == 1 ? 'Enable Trade Status' : 'Disable Trade Status'}}
+                    </button>
+                  </div>
+                </div>
+
+                <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center" class="outer-row space1">
+                  <div><b>User Withdraw Status :</b> </div>
+                  <div>{{userDetails.withdrawDisable == 1 ? 'Disabled' : 'Enabled'}}
+                    <button mat-button class="mat-button btn-cancel" (click)="changeStatus('withdrawDisable')">
+                      {{userDetails.withdrawDisable == 1 ? 'Enable Withdraw Status' : 'Disable Withdraw Status'}}
+                    </button>
+                  </div>
+                </div>
+                <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center" class="outer-row space1">
+                  <div><b>User Block/Active Reason :</b> </div>
+                  <div>{{userDetails.blockStatus}}</div>
+                </div>
+
+
+                <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center" class="outer-row space1">
+                  <div><b>User P2P Status :</b> </div>
+                  <div>{{userDetails.p2pDisabled == 1 ? 'Disabled' : 'Enabled'}}
+                    <button mat-button class="mat-button btn-cancel" (click)="changeStatus('p2pDisable')">
+                      {{userDetails.p2pDisabled == 1 ? 'Enable P2P Status' : 'Disable P2P Status'}}
+                    </button>
+                  </div>
+                </div>
+                <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center" class="outer-row space1">
+                  <div><b>User P2P Block/Active Reason :</b> </div>
+                  <div>{{userDetails.p2pblockStatus ? userDetails.p2pblockStatus:'NA' }}</div>
+                </div>
+
+
+                <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center" class="outer-row space1">
+                  <div><b>User Withdraw Level :</b> </div>
+                  <div>
+                    <select id="mySelect" (change)="setUserLevel($event.target.value)">
+                      <option value="1" [selected]="userDetails.level == 1"> Level 1 </option>
+                      <option value="2" [selected]="userDetails.level == 2"> Level 2 </option>
+                      <option value="3" [selected]="userDetails.level == 3"> Level 3 </option>
+                    </select>&nbsp;&nbsp;&nbsp;
+                    <button mat-button class="mat-button btn-cancel" (click)="changeUserLevel()">
+                      Submit
+                    </button>
+                  </div>
+                </div>
+                <div style="margin-top: 10px;" *ngIf="userDetails.bankstatus == 1" fxLayout="row" fxLayoutGap="20px"
+                  fxLayoutAlign="start center" class="outer-row space1">
+                  <div> <b>Reject Bank Details :</b> </div>
+                  <div>{{userDetails.bankstatus == 1 ? 'Approved' : userDetails.bankstatus == 2 ? 'Rejected' :
+                    userDetails.bankstatus == 0 ? 'Pending' : 'Not Uploaded'}}
+                  </div>
+                  <button *ngIf="userDetails.bankstatus == 1" mat-button class="mat-button btn-cancel"
+                    (click)="rejectBankaccount('rejectbank')">
+                    Reject Bank Account
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div fxLaout="row"
+              style=" width: 100%; height: auto;  box-shadow: 5px 5px 2px gray; border-radius: 10px; background-color: white;">
+              <div fxLayout="column" style=" width: 50%; height: auto; padding: 20px;">
+                <div>
+                  <h1>
+                    Bank Details
+                  </h1>
+
+                  <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center" class="outer-row space1">
+                    <div><b>Bank Status :</b> </div>
+                    <div>{{userDetails.bankstatus == 1 ? 'Approved' : userDetails.bankstatus == 2 ? 'Rejected' :
+                      userDetails.bankstatus == 0 ? 'Pending' : 'Not Uploaded'}}
+                    </div>
+                  </div>
+                  <div *ngIf="checkObj('bankdetails')">
+                    <div *ngFor="let item of userDetails.bankdetails | keyvalue" fxLayout="row" fxLayoutGap="20px"
+                      fxLayoutAlign="start center" class="outer-row space1">
+                      <div>{{item.key}} :</div>
+                      <div>{{item.value}}</div>
+                    </div>
+                  </div>
+
+                  <div *ngIf="userDetails.bankstatus==0" fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center"
+                    class="outer-row space1">
+                    <div>Bank Status :</div>
+                    <div>
+                      <select id="mySelect" (change)="setBankStatus($event.target.value)">
+                        <option value=""> Select </option>
+                        <option value="Reject"> Reject </option>
+                        <option value="Approve"> Approve </option>
+                      </select>
+                      <div *ngIf="bankstatus=='Reject'">
+                        <textarea (keyup)="setReason($event.target.value)"></textarea>
+                      </div>
+                      <div>
+                        <button [disabled]="bankstatus == ''" mat-button class="mat-button btn-cancel"
+                          (click)="changeBank()">
+                          Submit
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <br>
+            <div  style=" width: 50%;  background-color: #ffff; padding: 10px;  box-shadow: 5px 5px 2px #ffff; border-radius: 10px;" fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center" class="outer-row space1">
+              <div><b>KYC Verification Type :</b> </div>
+              <div>{{ userDetails.kycMode }}
+              </div>
+              <!-- <button *ngIf="userDetails.adharCardNo != '000000000000'" mat-button class="mat-button btn-cancel"
+              (click)="checkAutoKyc(userDetails._id)">
+             Check KYC Details
+            </button> -->
+            </div>
+            <div  style=" width: 50%;  background-color: #ffff; padding: 10px;  box-shadow: 5px 5px 2px #ffff; border-radius: 10px;" fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center" class="outer-row space1">
+             
+            </div>
+            <div fxLayout="row">
+              <div fxLayout="row" style=" height: auto;">
+                <!-- *ngIf="checkObj('kyc')" -->
+                <div>
+                  <h1>
+                    KYC Details
+                  </h1>
+                  <div
+                    fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center" 
+                    style="box-shadow: 5px 5px 2px gray; border-radius: 10px; background-color: white; width: 100%; padding: 20px;"
+                    class="outer-row space1">
+
+                    <div><b>KYC Status :</b></div>
+                    <div>{{userDetails.kycstatus == 1 ? 'Approved': userDetails.kycstatus == 2 ? 'Rejected' : userDetails.kycstatus == 0 ? 'Pending' : 'Not Uploaded'}}
+                    </div>
+                  </div>
+                  <br>
+                  <div *ngIf="userDetails.kycMode == 'Offline' && checkObj('kyc')">
+                    <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="20px"
+                      style="  box-shadow: 5px 5px 2px gray; border-radius: 10px; background-color: white; padding: 20px;">
+
+                      <div *ngFor="let item of userDetails.kyc | keyvalue" fxLayout="row" fxLayoutGap="20px"
+                        style=" width: 100%; padding: 20px;" class="outer-row space1">
+
+                        <div>{{item.key }} :</div><i (click)="show(item.value.value)" href="#imagemodal" class="far fa-window-restore"></i>
+                        <div *ngIf="item.value.type == 'string'">{{item.value.value}}</div>
+
+                        <img *ngIf="item.value.type == 'image'" class="mat-card-image image-cls"
+                          src="{{item.value.value}}" width="100%" height="auto">
+                      </div>
+
+                    </div>
+                    <div fxLayout="row"  fxLayoutAlign="start center" class="outer-row space1">
+                      <div fxFlex="30">
+                        <b>First Name : </b>{{userDetails.kycOffline && userDetails.kycOffline.firstname}}
+                      </div>
+                      <div fxFlex="30">
+                        <b>Last Name : </b>{{userDetails.kycOffline && userDetails.kycOffline.lastname}}
+                      </div>
+                      <div fxFlex="30">
+                        <b>Address : </b>{{userDetails.kycOffline && userDetails.kycOffline.address}}
+                      </div>
+                    </div>
+
+                    <div fxLayout="row"  fxLayoutAlign="start center" class="outer-row space1">
+                      <div fxFlex="30">
+                        <b>Aadhaar Number : </b>{{userDetails.kycOffline && userDetails.kycOffline.aadhaar_number}}
+                      </div>
+                      <div fxFlex="30">
+                        <b>Pan Number : </b>{{userDetails.kycOffline && userDetails.kycOffline.pan_number}}
+                      </div>
+                    </div>
+
+                    <div  class="image-zoomkyc"  [style.display]="showModal ? 'block' : 'none'" class="modal" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h4 class="modal-title" id="myModalLabel">Image preview</h4> <button type="button" class="btn btn-default" data-dismiss="modal" (click) = "hide()">Close</button>
+                          </div>
+                          <div *ngIf="viewImageDrc != ''" class="modal-body">
+                            <img src={{viewImageDrc}} id="imagepreview">
+                          </div>
+                          <div *ngIf="viewImageDrc == ''" class="modal-body">
+                         <h4>No Image to Display</h4>>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal" (click) = "hide()">Close</button>
+                          </div>
+                        </div>
+                      </div>
+                      </div>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+
+                  </div>
+
+                  <div *ngIf="userDetails.kycMode == 'Online' && userDetails.kycOnline">
+                    <div>
+                      <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center" class="outer-row space1" *ngIf="userDetails.kycOnline && userDetails.kycOnline.pan_details">
+                        <div fxLayoutGap="column" fxLayoutGap="30px">
+                          Kyc Status:
+                        </div>
+                        <div fxLayoutGap="column" fxLayoutGap="30px">
+                          {{userDetails.kycstatus == 1 ? 'Approved': userDetails.kycstatus == 2 ? 'Rejected' : userDetails.kycstatus == 0 ? 'Pending' : 'Not Uploaded'}}
+                        </div>
+                      </div> 
+                    </div>
+                    <div *ngIf="userDetails.kycOnline.reject_reason">
+                      <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center" class="outer-row space1" *ngIf="userDetails.kycOnline && userDetails.kycOnline.pan_details">
+                        <div fxLayoutGap="column" fxLayoutGap="30px">
+                          Kyc Rejected Reason:
+                        </div>
+                        <div fxLayoutGap="column" fxLayoutGap="30px">
+                          {{userDetails.kycOnline.reject_reason}}
+                        </div>
+                      </div> 
+                    </div>
+                    
+                    <div *ngIf="userDetails.kycOnline"> 
+                      <h1 ><b>Pan Details :</b></h1>
+                      <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center" class="outer-row space1" *ngIf="userDetails.kycOnline && userDetails.kycOnline.pan_details">
+                        <div fxLayoutGap="column" fxLayoutGap="30px">
+                          Full Name:
+                        </div>
+                        <div fxLayoutGap="column" fxLayoutGap="30px">
+                          {{userDetails.kycOnline.pan_details.full_name}}
+                        </div>
+                      </div>  
+
+                      <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center" class="outer-row space1" *ngIf="userDetails.kycOnline && userDetails.kycOnline.pan_details">
+                        <div fxLayoutGap="column" fxLayoutGap="30px">
+                          Pan Number:
+                        </div>
+                        <div fxLayoutGap="column" fxLayoutGap="30px">
+                          {{userDetails.kycOnline.pan_details.pan_number}}
+                        </div>
+                      </div>  
+                    </div>
+
+                  <div>
+
+                    <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center" class="outer-row space1" *ngIf="userDetails.kycOnline && userDetails.kycOnline.aadhaar_details">
+                      <div fxLayoutGap="column" fxLayoutGap="30px">
+                        <h1><b>Aadhaar Details:</b></h1>
+                      </div>
+                      <div fxLayoutGap="column" fxLayoutGap="30px">
+                        <!-- {{userDetails.kycOnline && userDetails.kycOnline && userDetails.kycOnline.aadhaar_details && userDetails.kycOnline.aadhaar_details.full_name}} -->
+                      </div>
+                    </div>
+
+                    <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center" class="outer-row space1" *ngIf="userDetails.kycOnline && userDetails.kycOnline.aadhaar_details">
+                      <div fxLayoutGap="column" fxLayoutGap="30px">
+                        <b>Full Name:</b>
+                      </div>
+                      <div fxLayoutGap="column" fxLayoutGap="30px">
+                        {{userDetails.kycOnline && userDetails.kycOnline && userDetails.kycOnline.aadhaar_details && userDetails.kycOnline.aadhaar_details.full_name}}
+                      </div>
+                    </div>
+
+                    <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center" class="outer-row space1" *ngIf="userDetails.kycOnline && userDetails.kycOnline.aadhaar_details">
+                      <div fxLayoutGap="column" fxLayoutGap="30px">
+                        <b>Aadhaar Number:</b>
+                      </div>
+                      <div fxLayoutGap="column" fxLayoutGap="30px">
+                        {{userDetails.kycOnline && userDetails.kycOnline && userDetails.kycOnline.aadhaar_details && userDetails.kycOnline.aadhaar_details.aadhaar_number}}
+                      </div>
+                    </div>
+
+                    <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center" class="outer-row space1" *ngIf="userDetails.kycOnline && userDetails.kycOnline.aadhaar_details">
+                      <div fxLayoutGap="column" fxLayoutGap="30px">
+                        <b>DOB:</b>
+                      </div>
+                      <div fxLayoutGap="column" fxLayoutGap="30px">
+                        {{userDetails.kycOnline && userDetails.kycOnline && userDetails.kycOnline.aadhaar_details && userDetails.kycOnline.aadhaar_details.dob}}
+                      </div>
+                    </div>
+
+                    <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center" class="outer-row space1" *ngIf="userDetails.kycOnline && userDetails.kycOnline.aadhaar_details">
+                      <div fxLayoutGap="column" fxLayoutGap="30px">
+                        <b>Gender:</b>
+                      </div>
+                      <div fxLayoutGap="column" fxLayoutGap="30px">
+                        {{userDetails.kycOnline && userDetails.kycOnline && userDetails.kycOnline.aadhaar_details && userDetails.kycOnline.aadhaar_details.gender}}
+                      </div>
+                    </div>
+
+                    <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center" class="outer-row space1" *ngIf="userDetails.kycOnline && userDetails.kycOnline.aadhaar_details">
+                      <div fxLayoutGap="column" fxLayoutGap="30px">
+                        <b>Address:</b>
+                      </div>
+                      <div fxLayoutGap="column" fxLayoutGap="30px">
+                        &nbsp;
+                      </div>
+                    </div>
+
+                    <div
+                      fxLayout="row"
+                      fxLayoutGap="20px"
+                      fxLayoutAlign="start center"
+                      class="outer-row space1"
+                      *ngFor="let item of userDetails.kycOnline && userDetails.kycOnline.aadhaar_details && userDetails.kycOnline.aadhaar_details.address | keyvalue"
+                    >
+                      <div fxLayoutGap="column" fxLayoutGap="30px">
+                        <b>{{item.key}}:</b>
+                      </div>
+                      <div fxLayoutGap="column" fxLayoutGap="30px">
+                        {{item.value}}
+                      </div>
+                    </div>
+
+                    <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center" class="outer-row space1" *ngIf="userDetails.kycOnline && userDetails.kycOnline.aadhaar_details">
+                      <div fxLayoutGap="column" fxLayoutGap="30px">
+                        <b>Zip:</b>
+                      </div>
+                      <div fxLayoutGap="column" fxLayoutGap="30px">
+                        {{userDetails.kycOnline.aadhaar_details && userDetails.kycOnline.aadhaar_details.zip}}
+                      </div>
+                    </div>
+
+                    <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center" class="outer-row space1" *ngIf="userDetails.kycOnline && userDetails.kycOnline.aadhaar_details">
+                      <div fxLayoutGap="column" fxLayoutGap="30px">
+                        <b>Image:</b>
+                      </div>
+                      <div fxLayoutGap="column" fxLayoutGap="30px">
+                        <img *ngIf="userDetails.kycOnline && userDetails.kycOnline && userDetails.kycOnline.aadhaar_profile_image != ''" style="width: 54%;"  class="mat-card-image image-cls" src="{{ userDetails.kycOnline && userDetails.kycOnline && userDetails.kycOnline.aadhaar_profile_image }}">
+                      </div>
+                    </div>
+                  </div>
+
+   
+                  <div *ngIf="userDetails.kycOnline"> 
+                    <h1><b>Selfie Details :</b></h1>
+                      <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center" class="outer-row space1" *ngIf="userDetails.kycOnline && userDetails.kycOnline && userDetails.kycOnline.pan_details">
+                        <div fxLayoutGap="column" fxLayoutGap="30px">
+                          <b> Confidence:</b>
+                        </div>
+                        <div fxLayoutGap="column" fxLayoutGap="30px">
+                          {{userDetails.kycOnline && userDetails.kycOnline && userDetails.kycOnline.selfie_details && userDetails.kycOnline.selfie_details.confidence}}
+                        </div>
+                      </div>  
+
+                    <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center" class="outer-row space1" *ngIf="userDetails.kycOnline && userDetails.kycOnline.aadhaar_details">
+                      <div fxLayoutGap="column" fxLayoutGap="30px">
+                        <b>Image:</b>
+                      </div>
+                      <div fxLayoutGap="column" fxLayoutGap="30px">
+                        <img *ngIf="userDetails.kycOnline && userDetails.kycOnline && userDetails.kycOnline.selfie_image != ''"  style="width: 20%;" class="mat-card-image image-cls" src="{{ userDetails.kycOnline && userDetails.kycOnline && userDetails.kycOnline.selfie_image }}">
+                      </div>
+                    </div>
+                  </div>
+
+                    <div *ngIf="userDetails.kycstatus==0" fxLayout="row" fxLayoutGap="80px" fxLayoutAlign="start center"
+                  style=" width: 50%;  background-color: rgb(100, 100, 231); padding: 10px;  box-shadow: 5px 5px 2px gray; border-radius: 10px;"
+                  class="outer-row space1">
+                  <br>
+                  <br>
+                  <span> <b>KYC Status :</b> </span>
+                  <div>
+                    <select id="mySelect" (change)="setKYCStatus($event.target.value)"
+                      style="border: none; outline: none;">
+                      <option value=""> Select The Status </option>
+                      <option value="Reject"> Reject </option>
+                      <option value="Approve"> Approve </option>
+                    </select>
+                    <span *ngIf="kycstatus=='Reject'">
+                      <textarea (keyup)="setReason($event.target.value)"></textarea>
+                    </span>
+                    &nbsp; &nbsp;
+                    <span>
+                      <button [disabled]="kycstatus == ''" mat-button class="mat-button btn-cancel"
+                        (click)="changeKYC(userDetails.kycMode)">
+                        Submit
+                      </button>
+                    </span>
+                </div>
+                  </div>
+                  </div>
+                </div>
+              </div>
+              <!-- <div fxLayout="column" style=" width: 50%; height: auto; padding: 20px;">
+                    <div>
+                      <h1>
+                        Bank Details
+                      </h1>
+        
+                      <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center" class="outer-row space1">
+                        <div>Bank Status :</div>
+                        <div>{{userDetails.bankstatus == 1 ? 'Approved' : userDetails.bankstatus == 2 ? 'Rejected' :
+                          userDetails.bankstatus == 0 ? 'Pending' : 'Not Uploaded'}}
+                        </div>
+                      </div>
+                      <div *ngIf="checkObj('bankdetails')">
+                      <div *ngFor="let item of userDetails.bankdetails | keyvalue" fxLayout="row" fxLayoutGap="20px"
+                        fxLayoutAlign="start center" class="outer-row space1">
+                        <div>{{item.key}} :</div>
+                        <div>{{item.value}}</div>
+                      </div>
+                    </div>
+        
+                      <div *ngIf="userDetails.bankstatus==0" fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center"
+                        class="outer-row space1">
+                        <div>Bank Status :</div>
+                        <div>
+                          <select id="mySelect" (change)="setBankStatus($event.target.value)">
+                            <option value=""> Select </option>
+                            <option value="Reject"> Reject </option>
+                            <option value="Approve"> Approve </option>
+                          </select>
+                          <div *ngIf="bankstatus=='Reject'">
+                            <textarea (keyup)="setReason($event.target.value)"></textarea>
+                          </div>
+                          <div>
+                            <button [disabled]="bankstatus == ''" mat-button class="mat-button btn-cancel"
+                              (click)="changeBank()">
+                              Submit
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div> -->
+            </div>
+            <div class="example-container mat-elevation-z8" >
+              <mat-tab-group #tabGroup (selectedTabChange)="tabChanged($event);">
+                <mat-tab label="Wallet & Address">
+                  <div class="widthStatusButton text-right" >
+                    <button mat-button (click)="ExportToCsv('wallet')" type="button" >
+                    <i class='fas fa-file-csv fa-lg' style="color: #5c050d;">Export CSV</i>
+                    </button>
+                    </div>
+                  <div class="example-container mat-elevation-z8" style="padding: 18px;">
+                    <mat-table [dataSource]="walletTbl">
+                      <!-- ID Column -->
+                      <ng-container matColumnDef="currencysym">
+                        <mat-header-cell *matHeaderCellDef>
+                          Currency Symbol
+                        </mat-header-cell>
+                        <mat-cell class="link-clr crs-ptr" *matCellDef="let row" data-label="currencysym"><span
+                            class="mobile-label">Currency Symbol:</span>
+                          <span>{{ row.currencysym }}{{row.basecoin != 'Coin' ? ' - '+row.basecoin : '' }}</span>
+                        </mat-cell>
+                      </ng-container>
+                      <ng-container matColumnDef="amount">
+                        <mat-header-cell *matHeaderCellDef>
+                          Balance
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let row" data-label="amount"><span class="mobile-label">Balance:</span>
+                          Wallet Balance : {{ row.amount }} <br>
+                          Wallet Hold : {{ row.hold }} <br>
+                          Staking Balance : {{ row.stakingAmount }} <br>
+                          Staking Hold : {{ row.stakingHold }}<br>
+                          P2P Balance : {{ row.p2pAmount }} <br>
+                          P2P Hold : {{ row.p2pHold }}
+                        </mat-cell>
+                      </ng-container>
+
+
+                      <ng-container matColumnDef="hold">
+                        <mat-header-cell *matHeaderCellDef>
+                          Total Balance
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let row" data-label="hold"><span class="mobile-label">Total Balance:</span>
+                          {{ row.amount+row.hold+row.stakingAmount+row.stakingHold }} <br>
+                        </mat-cell>
+                      </ng-container>
+
+                      <ng-container matColumnDef="address">
+                        <mat-header-cell *matHeaderCellDef>
+                          Address
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let row" data-label="address"><span class="mobile-label">Address:</span>
+                          {{ row.address }}
+                        </mat-cell>
+                      </ng-container>
+                      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                      <mat-row *matRowDef="let row; columns: displayedColumns">
+                      </mat-row>
+                    </mat-table>
+                  </div>
+                  <p *ngIf="!walletTbl.data.length" style="text-align: center;padding: 11px;">No  Records found for Wallet & Address</p>
+                </mat-tab>
+                <mat-tab label="Referral">
+                  <ng-template mat-tab-label>
+                    <span>Referral</span>
+                  </ng-template>
+                  <div class="widthStatusButton text-right" >
+                    <button mat-button (click)="ExportToCsv('referral')" type="button" >
+                      <i class='fas fa-file-csv fa-lg' style="color: #5c050d;">Export CSV</i>
+                    </button>
+                    </div>
+                  <div class="example-container mat-elevation-z8" style="padding: 18px;">
+                    <mat-table [dataSource]="referUser">
+                      <!-- ID Column -->
+                      <ng-container matColumnDef="username">
+                        <mat-header-cell *matHeaderCellDef>
+                          User Name
+                        </mat-header-cell>
+                        <mat-cell class="link-clr crs-ptr" *matCellDef="let row" data-label="username"><span
+                            class="mobile-label">User Name:</span>
+                          <span>{{ row.username }}</span>
+                        </mat-cell>
+                      </ng-container>
+                      <ng-container matColumnDef="email">
+                        <mat-header-cell *matHeaderCellDef>
+                          Email Address
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let row" data-label="email"><span class="mobile-label">Email Address:</span>
+                          {{ row.email }}
+                        </mat-cell>
+                      </ng-container>
+                      <ng-container matColumnDef="registerOn">
+                        <mat-header-cell *matHeaderCellDef>
+                          Register On
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let row" data-label="registerOn"><span class="mobile-label">Register
+                            On:</span>
+                          {{ row.registerOn | date: 'MMM dd, y' }}
+                        </mat-cell>
+                      </ng-container>
+                      <mat-header-row *matHeaderRowDef="displayedColumns1"></mat-header-row>
+                      <mat-row *matRowDef="let row; columns: displayedColumns1">
+                      </mat-row>
+                    </mat-table>
+                    <mat-paginator #paginator
+                    [length]="referlen"
+                    [pageSize]=10
+                    [pageSizeOptions]="[5, 10, 25, 100]"
+                    (page)="changepage($event,'referral')">
+                    </mat-paginator>
+                  </div>
+                  <p *ngIf="!referUser.data.length"  style="text-align: center;padding: 11px;">No  Records found for Refered Users</p>
+                </mat-tab>
+                <mat-tab label="Transaction">
+                  <ng-template mat-tab-label>
+                    <span>Transaction</span>
+                  </ng-template>
+                  <div class="widthStatusButton text-right" >
+                    <button mat-button (click)="ExportToCsv('Transaction')" type="button" >
+                      <i class='fas fa-file-csv fa-lg' style="color: #5c050d;">Export CSV</i>
+                    </button>
+                    </div>
+                  <div class="example-container mat-elevation-z8" style="padding: 18px;">
+                    <mat-table [dataSource]="userTrasactionslist">
+                      <!-- ID Column -->
+                      <ng-container matColumnDef="transactionDate">
+                        <mat-header-cell *matHeaderCellDef>
+                          Transaction Date
+                        </mat-header-cell>
+                        <mat-cell class="link-clr crs-ptr" *matCellDef="let row" data-label="transactionDate"><span
+                            class="mobile-label">transactionDate:</span>
+                          <span>{{ row.createdDate| date:"MMM dd, y, HH:mm:ss"}}</span>
+                        </mat-cell>
+                      </ng-container>
+
+                      <ng-container matColumnDef="currency">
+                        <mat-header-cell *matHeaderCellDef>
+                          Currency
+                        </mat-header-cell>
+                        <mat-cell class="link-clr crs-ptr" *matCellDef="let row" data-label="currency"><span
+                            class="mobile-label">currency ID:</span>
+                          <!-- <span>{{row.moveCur}}</span> -->
+                          <Span>{{row.currencyId.currencySymbol}}{{row.currencyId.basecoin != 'Coin' ? ' - '+row.currencyId.basecoin : ''}}</Span>
+                        </mat-cell>
+                      </ng-container>
+
+                      <ng-container matColumnDef="amount">
+                        <mat-header-cell *matHeaderCellDef>
+                          Amount
+                        </mat-header-cell>
+                        <mat-cell class="link-clr crs-ptr" *matCellDef="let row" data-label="amount"><span
+                            class="mobile-label">amount:</span>
+                          <span>{{ row.amount }}</span>
+                        </mat-cell>
+                      </ng-container>
+
+                      <ng-container matColumnDef="type">
+                        <mat-header-cell *matHeaderCellDef>
+                          Type
+                        </mat-header-cell>
+                        <mat-cell class="link-clr crs-ptr" *matCellDef="let row" data-label="type"><span
+                            class="mobile-label">type:</span>
+                          <span>{{row.type}}</span>
+                        </mat-cell>
+                      </ng-container>
+
+                      <ng-container matColumnDef="status">
+                        <mat-header-cell *matHeaderCellDef>
+                          Status
+                        </mat-header-cell>
+                        <mat-cell class="link-clr crs-ptr" *matCellDef="let row" data-label="status"><span
+                            class="mobile-label">status:</span>
+                          <span>{{row.status == 1 ? 'Approved' : row.status == 0 ? 'Pending' : row.status == 2 ? 'Rejected' : 'Email Verification Pending'}}</span>
+                        </mat-cell>
+                      </ng-container>
+
+
+                      <mat-header-row *matHeaderRowDef="displayedColumns2"></mat-header-row>
+                      <mat-row *matRowDef="let row; columns: displayedColumns2">
+                      </mat-row>
+                    </mat-table>
+                    <mat-paginator #paginator
+                    [length]="transactionlen"
+                    [pageSize]=10
+                    [pageSizeOptions]="[5, 10, 25, 100]"
+                    (page)="changepage($event,'Transaction')">
+                    </mat-paginator>
+                  </div>
+                  <p *ngIf="!transactionsDetails.length" style="text-align: center;padding: 11px;">No  Records found for transaction History</p>
+                </mat-tab>
+                <mat-tab label="Trade History">
+                  <ng-template mat-tab-label>
+                    <span>Trade History</span>
+                  </ng-template>
+                  <div class="widthStatusButton text-right" >
+                    <button mat-button (click)="ExportToCsv('Trade')" type="button" >
+                      <i class='fas fa-file-csv fa-lg' style="color: #5c050d;">Export CSV</i>
+                    </button>
+                    </div>
+                  <div class="example-container mat-elevation-z8"  style="padding: 18px;">
+                    <mat-table [dataSource]="tradehistory" matSort>
+                      <ng-container matColumnDef="dateTime">
+                        <mat-header-cell *matHeaderCellDef>
+                          Trade Date
+                        </mat-header-cell>
+                        <mat-cell class="link-clr crs-ptr" *matCellDef="let row" data-label="dateTime"
+                          ><span class="mobile-label">Order Date:</span>
+                          <span>{{ row.dateTime | date:"MMM dd, y, HH:mm:ss"}}</span></mat-cell
+                        >
+                      </ng-container>
+                      <ng-container matColumnDef="buyerUser">
+                        <mat-header-cell *matHeaderCellDef>
+                          Buyer User Name
+                        </mat-header-cell>
+                        <mat-cell class="link-clr crs-ptr" *matCellDef="let row" data-label="username"
+                          ><span class="mobile-label">Buyer User Name:</span>
+                          <span *ngIf="row.buyOrderId != row.sellOrderId || row.orderType == 'buy'" title={{row.buyerUserId.email}}>{{ row.buyerUserId.username }}</span>
+                          <span *ngIf="row.buyOrderId == row.sellOrderId && row.orderType != 'buy'" title="Admin">Admin</span>
+                          </mat-cell
+                        >
+                      </ng-container>
+
+                      <ng-container matColumnDef="sellerUser">
+                        <mat-header-cell *matHeaderCellDef>
+                          Seller User Name
+                        </mat-header-cell>
+                        <mat-cell class="link-clr crs-ptr" *matCellDef="let row" data-label="username"
+                          ><span class="mobile-label">Seller User Name:</span>
+                          <span *ngIf="row.buyOrderId != row.sellOrderId || row.orderType == 'sell'" title={{row.sellerUserId.email}}>{{ row.sellerUserId.username }}</span>
+                          <span *ngIf="row.buyOrderId == row.sellOrderId && row.orderType != 'sell'" title="Admin">Admin</span>
+                          </mat-cell
+                        >
+                      </ng-container>
+    
+                      <ng-container matColumnDef="pairName">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>
+                            Pair
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let row" data-label="pairName"
+                          ><span class="mobile-label">Pair:</span>
+                          {{ row.pairName }}
+                        </mat-cell>
+                      </ng-container>
+    
+                      <ng-container matColumnDef="orderType">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>
+                          Order Type
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let row" data-label="orderType"
+                          ><span class="mobile-label">Order Type:</span>
+                          {{ row.orderType.charAt(0).toUpperCase() + row.orderType.slice(1) }}
+                        </mat-cell>
+                      </ng-container>
+    
+                      <ng-container matColumnDef="filledAmount">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>
+                            Amount
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let row" data-label="filledAmount"
+                          ><span class="mobile-label">Amount:</span>
+                          {{ row.filledAmount }}
+                        </mat-cell>
+                      </ng-container>
+    
+                      <ng-container matColumnDef="tradePrice">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>
+                          Price
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let row" data-label="tradePrice"
+                          ><span class="mobile-label">Price:</span>
+                          {{ row.tradePrice }}
+                        </mat-cell>
+                      </ng-container>
+                      <mat-header-row *matHeaderRowDef="displayedColumns3"></mat-header-row>
+                      <mat-row *matRowDef="let row; columns: displayedColumns3">
+                      </mat-row>
+                    </mat-table>
+                    <mat-paginator #paginator
+                    [length]="tradelen"
+                    [pageSize]=10
+                    [pageSizeOptions]="[5, 10, 25, 100]"
+                    (page)="changepage($event,'trade')">
+                    </mat-paginator>
+                  </div>
+                  <p *ngIf="!tradevalue.length" style="text-align: center;padding: 11px;">No  Records found for trade History</p>
+                </mat-tab>     
+                <mat-tab label="Balance Updation">
+                  <ng-template mat-tab-label>
+                    <span>Balance Updation</span>
+                  </ng-template>
+                  <div class="widthStatusButton text-right" >
+                    <button mat-button (click)="ExportToCsv('Balance')" type="button" >
+                      <i class='fas fa-file-csv fa-lg' style="color: #5c050d;">Export CSV</i>
+                    </button>
+                    </div>
+                  <div class="example-container mat-elevation-z8"  style="padding: 18px;">
+                    <mat-table [dataSource]="userbalancedetails" matSort>
+                      <ng-container matColumnDef="dateTime">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>
+                            Date
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let row" data-label="dateTime"
+                          ><span class="mobile-label">Date:</span>
+                          {{ row.dateTime | date:"MMM dd, y, HH:mm:ss" }}
+                        </mat-cell>
+                      </ng-container>
+                      <ng-container matColumnDef="oldBalance">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>
+                            Old Balance
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let row" data-label="oldBalance"
+                          ><span class="mobile-label">Old Balance:</span>
+                          {{ row.oldBalance }}
+                        </mat-cell>
+                      </ng-container>
+    
+                      <ng-container matColumnDef="amount">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>
+                          Amount
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let row" data-label="amount"
+                          ><span class="mobile-label">Amount:</span>
+                          {{ row.amount}}
+                        </mat-cell>
+                      </ng-container>
+    
+                      <ng-container matColumnDef="difference">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>
+                           Difference
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let row" data-label="difference"
+                          ><span class="mobile-label">Difference:</span>
+                          {{ row.difference }}
+                        </mat-cell>
+                      </ng-container>
+    
+                      <ng-container matColumnDef="type">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>
+                          Type
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let row" data-label="type"
+                          ><span class="mobile-label">Type:</span>
+                          {{ row.type }}
+                        </mat-cell>
+                      </ng-container>
+
+                      <ng-container matColumnDef="currencySymbol">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>
+                          Currency
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let row" data-label="type"
+                          ><span class="mobile-label">Currency:</span>
+                          {{ row.currencySymbol }}
+                        </mat-cell>
+                      </ng-container>
+
+                      <mat-header-row *matHeaderRowDef="displayedColumns4"></mat-header-row>
+                      <mat-row *matRowDef="let row; columns: displayedColumns4">
+                      </mat-row>
+                    </mat-table>
+                    <mat-paginator #paginator
+                    [length]="balancelen"
+                    [pageSize]=10
+                    [pageSizeOptions]="[5, 10, 25, 100]"
+                    [condition]="balance"
+                    (page)="changepage($event,'Balance')">
+                    </mat-paginator>
+                  </div>
+                  <p *ngIf="!balanceDetails.length" style="text-align: center;padding: 11px;">No  Records found for Balance</p>
+                </mat-tab>
+                <mat-tab label="Staking History" >
+                  <ng-template mat-tab-label>
+                    <span>Staking History</span>
+                  </ng-template>
+                  <div class="widthStatusButton text-right" >
+                    <button mat-button (click)="ExportToCsv('Staking')" type="button" >
+                      <i class='fas fa-file-csv fa-lg' style="color: #5c050d;">Export CSV</i>
+                    </button>
+                    </div>
+                  <div class="example-container mat-elevation-z8" style="padding: 18px;" >
+                    <mat-table [dataSource]="stakingTbl" matSort>
+                      <!-- ID Column -->
+                      <ng-container matColumnDef="createdDate">
+                        <mat-header-cell *matHeaderCellDef>
+                          Staking Date
+                        </mat-header-cell>
+                        <mat-cell class="link-clr crs-ptr" *matCellDef="let row" data-label="createdDate"><span
+                            class="mobile-label">Staking Date:</span>
+                          <span>{{ row.createdDate | date:"MMM dd, y, HH:mm:ss"}}</span>
+                        </mat-cell>
+                      </ng-container>
+                      <ng-container matColumnDef="currency">
+                        <mat-header-cell *matHeaderCellDef>
+                          Currency
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let row" data-label="currency"><span class="mobile-label">Currency:</span>
+                          {{ row.currency}}
+                        </mat-cell>
+                      </ng-container>
+    
+                      <ng-container matColumnDef="amount">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>
+                          Amount
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let row; let i= index" data-label="amount"><span    class="mobile-label">Amount:</span>
+                         {{ row.amount |number:'1.2-2' }} 
+                        </mat-cell>
+                      </ng-container>
+    
+                      <ng-container matColumnDef="bonus">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>
+                          Profit
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let row" data-label="bonus"><span class="mobile-label">Profit:</span>
+                          {{ row.bonus |number:'1.4-4' }}
+                        </mat-cell>
+                      </ng-container>
+                      <ng-container matColumnDef="package">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>
+                          Package Name
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let row" data-label="package"><span class="mobile-label">Package Name:</span>
+                          {{ row.package.packageName }}
+                        </mat-cell>
+                      </ng-container>
+    
+                      <ng-container matColumnDef="lastBonusDay">
+                        <mat-header-cell *matHeaderCellDef>
+                          Next Profit Date
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let row; let i = index" data-label="action">
+                          <span class="mobile-label">Next Profit Date:</span>
+                          {{(row.maturityDate > row.nextBonusDay ?
+                            (row.nextBonusDay | date:"MMM dd, y, HH:mm:ss") : '-')}}
+                        </mat-cell>
+                      </ng-container>
+    
+                      <ng-container matColumnDef="maturityDate">
+                        <mat-header-cell *matHeaderCellDef>
+                          Return Date
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let row; let i = index" data-label="action"><span class="mobile-label">Return
+                            Date:</span>
+                          {{ row.maturityDate | date:"MMM dd, y, HH:mm:ss" }}
+                        </mat-cell>
+                      </ng-container>
+    
+                      <mat-header-row *matHeaderRowDef="displayedColumns5"></mat-header-row>
+                      <mat-row *matRowDef="let row; columns: displayedColumns5">
+                      </mat-row>
+                    </mat-table>
+                    <mat-paginator #paginator
+                    [length]="length"
+                    [pageSize]=10
+                    [pageSizeOptions]="[5, 10, 25, 100]"
+                    (page)="changepage($event,'staking')">
+                    </mat-paginator>
+                  </div>
+                  <p *ngIf="!userstakingtbl.length" style="text-align: center; padding: 11px;">No  Records found for staking History</p>
+                </mat-tab>
+                <mat-tab label="Staking Balance Updation" >
+                  <ng-template mat-tab-label>
+                    <span>Staking Balance Updation</span>
+                  </ng-template>
+                  <div class="widthStatusButton text-right" >
+                    <button mat-button (click)="ExportToCsv('Stakebal')" type="button" >
+                      <i class='fas fa-file-csv fa-lg' style="color: #5c050d;">Export CSV</i>
+                    </button>
+                    </div>
+                  <div class="example-container mat-elevation-z8" style="padding: 18px;" >
+                    <mat-table [dataSource]="stakeBalancedetails" matSort>
+                      <ng-container matColumnDef="dateTime">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>
+                            Date
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let row" data-label="dateTime"
+                          ><span class="mobile-label">Date:</span>
+                          {{ row.dateTime | date:"MMM dd, y, HH:mm:ss" }}
+                        </mat-cell>
+                      </ng-container>
+                      <ng-container matColumnDef="oldBalance">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>
+                            Old Balance
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let row" data-label="oldBalance"
+                          ><span class="mobile-label">Old Balance:</span>
+                          {{ row.oldBalance }}
+                        </mat-cell>
+                      </ng-container>
+    
+                      <ng-container matColumnDef="amount">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>
+                          Amount
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let row" data-label="amount"
+                          ><span class="mobile-label">Amount:</span>
+                          {{ row.amount}}
+                        </mat-cell>
+                      </ng-container>
+    
+                      <ng-container matColumnDef="difference">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>
+                           Difference
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let row" data-label="difference"
+                          ><span class="mobile-label">Difference:</span>
+                          {{ row.difference }}
+                        </mat-cell>
+                      </ng-container>
+    
+                      <ng-container matColumnDef="type">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>
+                          Type
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let row" data-label="type"
+                          ><span class="mobile-label">Type:</span>
+                          {{ row.type }}
+                        </mat-cell>
+                      </ng-container>
+
+                      <ng-container matColumnDef="currencySymbol">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>
+                          Currency
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let row" data-label="type"
+                          ><span class="mobile-label">Currency:</span>
+                          {{ row.currencySymbol }}
+                        </mat-cell>
+                      </ng-container>
+
+                      <mat-header-row *matHeaderRowDef="displayedColumns4"></mat-header-row>
+                      <mat-row *matRowDef="let row; columns: displayedColumns4">
+                      </mat-row>
+                    </mat-table>
+                    <mat-paginator #paginator
+                    [length]="stakeLen"
+                    [pageSize]=10
+                    [pageSizeOptions]="[5, 10, 25, 100]"
+                    (page)="changepage($event,'stakebal')">
+                    </mat-paginator>
+                  </div>
+                  <p *ngIf="!stakebalance.length" style="text-align: center; padding: 11px;">No  Records found for staking History</p>
+                </mat-tab>
+                <mat-tab label="P2P Balance Updation" >
+                  <ng-template mat-tab-label>
+                    <span>P2P Balance Updation</span>
+                  </ng-template>
+                  <div class="widthStatusButton text-right" >
+                    <button mat-button (click)="ExportToCsv('P2Pbal')" type="button" >
+                      <i class='fas fa-file-csv fa-lg' style="color: #5c050d;">Export CSV</i>
+                    </button>
+                    </div>
+                  <div class="example-container mat-elevation-z8" style="padding: 18px;" >
+                    <mat-table [dataSource]="p2pBalancedetails" matSort>
+                      <ng-container matColumnDef="dateTime">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>
+                            Date
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let row" data-label="dateTime"
+                          ><span class="mobile-label">Date:</span>
+                          {{ row.dateTime | date:"MMM dd, y, HH:mm:ss" }}
+                        </mat-cell>
+                      </ng-container>
+                      <ng-container matColumnDef="oldBalance">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>
+                            Old Balance
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let row" data-label="oldBalance"
+                          ><span class="mobile-label">Old Balance:</span>
+                          {{ row.oldBalance }}
+                        </mat-cell>
+                      </ng-container>
+    
+                      <ng-container matColumnDef="amount">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>
+                          Amount
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let row" data-label="amount"
+                          ><span class="mobile-label">Amount:</span>
+                          {{ row.amount}}
+                        </mat-cell>
+                      </ng-container>
+    
+                      <ng-container matColumnDef="difference">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>
+                           Difference
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let row" data-label="difference"
+                          ><span class="mobile-label">Difference:</span>
+                          {{ row.difference }}
+                        </mat-cell>
+                      </ng-container>
+    
+                      <ng-container matColumnDef="type">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>
+                          Type
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let row" data-label="type"
+                          ><span class="mobile-label">Type:</span>
+                          {{ row.type }}
+                        </mat-cell>
+                      </ng-container>
+
+                      <ng-container matColumnDef="currencySymbol">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>
+                          Currency
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let row" data-label="type"
+                          ><span class="mobile-label">Currency:</span>
+                          {{ row.currencySymbol }}
+                        </mat-cell>
+                      </ng-container>
+
+                      <mat-header-row *matHeaderRowDef="displayedColumns4"></mat-header-row>
+                      <mat-row *matRowDef="let row; columns: displayedColumns4">
+                      </mat-row>
+                    </mat-table>
+                    <mat-paginator #paginator
+                    [length]="p2pLen"
+                    [pageSize]=10
+                    [pageSizeOptions]="[5, 10, 25, 100]"
+                    (page)="changepage($event,'p2pbal')">
+                    </mat-paginator>
+                  </div>
+                  <p *ngIf="!p2pBalance.length" style="text-align: center; padding: 11px;">No  Records found for staking History</p>
+                </mat-tab>
+                <mat-tab label="Refferal Commission" >
+                  <ng-template mat-tab-label>
+                    <span>Refferal Commission</span>
+                  </ng-template>
+                  <div class="widthStatusButton text-right" >
+                    <button mat-button (click)="ExportToCsv('Commission')" type="button" >
+                      <i class='fas fa-file-csv fa-lg' style="color: #5c050d;">Export CSV</i>
+                    </button>
+                    </div>
+                  <div class="example-container mat-elevation-z8" style="padding: 18px;" >
+                    <mat-table [dataSource]="commisonRefer" matSort>
+                      <ng-container matColumnDef="dateTime">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>
+                            Date
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let row" data-label="dateTime"
+                          ><span class="mobile-label">Date:</span>
+                          {{ row.dateTime | date:"MMM dd, y, HH:mm:ss" }}
+                        </mat-cell>
+                      </ng-container>
+                      <ng-container matColumnDef="email">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>
+                            Email
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let row" data-label="email"
+                          ><span class="mobile-label">Email</span>
+                          {{ row.refUser.email }}
+                        </mat-cell>
+                      </ng-container>
+    
+                      <ng-container matColumnDef="convertedAmount">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>
+                          Commission
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let row" data-label="convertedAmount"
+                          ><span class="mobile-label">Commission:</span>
+                          {{ row.convertedAmount}}
+                        </mat-cell>
+                      </ng-container>
+    
+                      <ng-container matColumnDef="currencyName">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>
+                          Currency Name
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let row" data-label="currencyName"
+                          ><span class="mobile-label">Currency Name:</span>
+                          {{ row.currencyName }}
+                        </mat-cell>
+                      </ng-container>
+
+                      <mat-header-row *matHeaderRowDef="displayedColumns6"></mat-header-row>
+                      <mat-row *matRowDef="let row; columns: displayedColumns6">
+                      </mat-row>
+                    </mat-table>
+                    <mat-paginator #paginator
+                    [length]="commissionlen"
+                    [pageSize]=10
+                    [pageSizeOptions]="[5, 10, 25, 100]"
+                    (page)="changepage($event,'commissionRef')">
+                    </mat-paginator>
+                  </div>
+                  <p *ngIf="!commissionHistory.length" style="text-align: center; padding: 11px;">No  Records found for Refferal Commission History</p>
+                </mat-tab>
+              </mat-tab-group>
+            </div>
+
+          </div>
+          <br>
+          <br>
+          <!-- <div class="sect container-12" fxLayout="column" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="5px">
+            <mat-tab-group>
+              <mat-tab label="Wallet & Address">
+                <div class="example-container mat-elevation-z8">
+                  <mat-table [dataSource]="walletTbl">
+                    <ng-container matColumnDef="currencysym">
+                      <mat-header-cell *matHeaderCellDef>
+                        Currency Symbol
+                      </mat-header-cell>
+                      <mat-cell class="link-clr crs-ptr" *matCellDef="let row" data-label="currencysym"><span
+                          class="mobile-label">Currency Symbol:</span>
+                        <span>{{ row.currencysym }}{{row.basecoin != 'Coin' ? ' - '+row.basecoin : '' }}</span>
+                      </mat-cell>
+                    </ng-container>
+
+
+                    <ng-container matColumnDef="amount">
+                      <mat-header-cell *matHeaderCellDef>
+                        Balance
+                      </mat-header-cell>
+                      <mat-cell *matCellDef="let row" data-label="amount"><span class="mobile-label">Balance:</span>
+                        {{ row.amount }}
+                      </mat-cell>
+                    </ng-container>
+
+
+                    <ng-container matColumnDef="address">
+                      <mat-header-cell *matHeaderCellDef>
+                        Address
+                      </mat-header-cell>
+                      <mat-cell *matCellDef="let row" data-label="address"><span class="mobile-label">Address:</span>
+                        {{ row.address }}
+                      </mat-cell>
+                    </ng-container>
+
+
+
+                    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: displayedColumns">
+                    </mat-row>
+                  </mat-table>
+
+                </div>
+              </mat-tab>
+              <mat-tab label="Referral">
+                <div class="example-container mat-elevation-z8">
+                  <mat-table [dataSource]="referUser">
+                    <ng-container matColumnDef="username">
+                      <mat-header-cell *matHeaderCellDef>
+                        User Name
+                      </mat-header-cell>
+                      <mat-cell class="link-clr crs-ptr" *matCellDef="let row" data-label="username"><span
+                          class="mobile-label">User Name:</span>
+                        <span>{{ row.username }}</span>
+                      </mat-cell>
+                    </ng-container>
+
+
+                    <ng-container matColumnDef="email">
+                      <mat-header-cell *matHeaderCellDef>
+                        Email Address
+                      </mat-header-cell>
+                      <mat-cell *matCellDef="let row" data-label="email"><span class="mobile-label">Email
+                          Address:</span>
+                        {{ row.email }}
+                      </mat-cell>
+                    </ng-container>
+
+
+                    <ng-container matColumnDef="registerOn">
+                      <mat-header-cell *matHeaderCellDef>
+                        Register On
+                      </mat-header-cell>
+                      <mat-cell *matCellDef="let row" data-label="registerOn"><span class="mobile-label">Register
+                          On:</span>
+                        {{ row.registerOn | date: 'MMM dd, y' }}
+                      </mat-cell>
+                    </ng-container>
+
+
+
+                    <mat-header-row *matHeaderRowDef="displayedColumns1"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: displayedColumns1">
+                    </mat-row>
+                  </mat-table>
+
+                </div>
+              </mat-tab>
+
+              <mat-tab label="Transaction">
+                <div class="example-container mat-elevation-z8">
+                  <mat-table [dataSource]="userTrasactionslist">
+                    <ng-container matColumnDef="transactionDate">
+                      <mat-header-cell *matHeaderCellDef>
+                        transactionDate
+                      </mat-header-cell>
+                      <mat-cell class="link-clr crs-ptr" *matCellDef="let row" data-label="transactionDate"><span
+                          class="mobile-label">transactionDate:</span>
+                        <span>{{ row.createdDate| date:"MMM dd, y, HH:mm:ss"}}</span>
+                      </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="currency">
+                      <mat-header-cell *matHeaderCellDef>
+                        currency
+                      </mat-header-cell>
+                      <mat-cell class="link-clr crs-ptr" *matCellDef="let row" data-label="currency"><span
+                          class="mobile-label">currency ID:</span>
+                        <Span>{{row.currencyId.currencySymbol}}{{row.currencyId.basecoin != 'Coin' ? ' -
+                          '+row.currencyId.basecoin : ''}}</Span>
+                      </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="amount">
+                      <mat-header-cell *matHeaderCellDef>
+                        amount
+                      </mat-header-cell>
+                      <mat-cell class="link-clr crs-ptr" *matCellDef="let row" data-label="amount"><span
+                          class="mobile-label">amount:</span>
+                        <span>{{ row.amount }}</span>
+                      </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="type">
+                      <mat-header-cell *matHeaderCellDef>
+                        type
+                      </mat-header-cell>
+                      <mat-cell class="link-clr crs-ptr" *matCellDef="let row" data-label="type"><span
+                          class="mobile-label">type:</span>
+                        <span>{{row.type}}</span>
+                      </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="status">
+                      <mat-header-cell *matHeaderCellDef>
+                        status
+                      </mat-header-cell>
+                      <mat-cell class="link-clr crs-ptr" *matCellDef="let row" data-label="status"><span
+                          class="mobile-label">status:</span>
+                        <span>{{row.status == 1 ? 'Approved' : row.status == 0 ? 'Pending' : row.status == 2 ?
+                          'Rejected' : 'Email Verification Pending'}}</span>
+                      </mat-cell>
+                    </ng-container>
+
+
+                    <mat-header-row *matHeaderRowDef="displayedColumns2"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: displayedColumns2">
+                    </mat-row>
+                  </mat-table>
+
+                </div>
+                <p *ngIf="!transactionsDetails.length">No have a any transaction History</p>
+              </mat-tab>
+
+
+
+            </mat-tab-group>
+          </div> -->
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>

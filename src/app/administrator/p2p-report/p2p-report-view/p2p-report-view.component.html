@@ -1,0 +1,90 @@
+<section class="sect-transaction">
+  <div class="container">
+    <div class="layout-container">
+      <div class="layout">
+        <div class="sect-transaction-block">
+          <div class="">
+            <div class="prev-pagediv">
+              <button
+              mat-button
+              class="mat-button btn-back flot-rt"
+              (click)="backRedirectBtn()"
+            >
+              <mat-icon>arrow_left_alt</mat-icon>Back
+            </button>
+            </div>
+          </div>
+          <div class="width-100" *ngIf="!isLoading">
+            <div class="headline align-left mrg-botval">
+              P2P Report Details
+            </div>
+            <div
+              fxLayout="row"
+              fxLayoutGap="20px"
+              fxLayoutAlign="start center"
+              class="outer-row space1"
+            >
+              <div>User Email:</div>
+              <div>{{(p2preportDetails && p2preportDetails[0] && p2preportDetails[0].reporterDet && p2preportDetails[0].reporterDet.email)}}</div>
+            </div>
+            <div
+            fxLayout="row"
+            fxLayoutGap="20px"
+            fxLayoutAlign="start center"
+            class="outer-row space1"
+          >
+            <div>Advertiser Email:</div>
+            <div>{{(p2preportDetails && p2preportDetails[0] && p2preportDetails[0].advertiserDet && p2preportDetails[0].advertiserDet.email) }}</div>
+          </div>
+
+            <div
+              fxLayout="row"
+              fxLayoutGap="20px"
+              fxLayoutAlign="start center"
+              class="outer-row space1"
+            >
+              <div>Order No :</div>
+              <div>{{(p2preportDetails && p2preportDetails[0] && p2preportDetails[0].orderNo)}}</div>
+            </div>
+
+            <div
+              fxLayout="row"
+              fxLayoutGap="20px"
+              fxLayoutAlign="start center"
+              class="outer-row space1"
+            >
+              <div>Reason :</div>
+              <div class="link-clr crs-ptr">{{(p2preportDetails && p2preportDetails[0] && p2preportDetails[0].reason)}}</div>
+            </div>
+            <div
+              fxLayout="row"
+              fxLayoutGap="20px"
+              fxLayoutAlign="start center"
+              class="outer-row space1"
+            >
+              <div>Description :</div>
+              <div>{{(p2preportDetails && p2preportDetails[0] && p2preportDetails[0].description)}}</div>
+            </div>
+            <div
+              fxLayout="row"
+              fxLayoutGap="20px"
+              fxLayoutAlign="start center"
+              class="outer-row space1"
+              *ngIf="p2preportDetails && p2preportDetails[0] && p2preportDetails[0].attachment !=''"
+            >
+            <div>Attachment :</div>
+            <div>
+              <mat-card-content>
+                <img mat-card-image *ngIf="p2preportDetails && p2preportDetails[0] && p2preportDetails[0].attachment !=''"  style="width: 300px;height: 300px;"  class="chatImage chatMargin"  src={{p2preportDetails[0].attachment}}  alt="Photo of a chatimg">
+              </mat-card-content>
+            </div>
+          </div>
+            
+          </div>
+      
+         
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,97 @@
+
+<section class="sect-one">
+    <div class="container">
+        <div class="layout-container">
+            <div class="layout">
+                <div class="sect-one-block">
+                    <div class="sect-container" fxLayout="column" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="20px">
+                    <div class="sect container-12" fxLayout="column" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="10px">  
+                      <div class="headline align-left mrg-botval">Faq List
+                        <div class="flot-rt">
+                          <button
+                            mat-button
+                            type="button"
+                            class="button-cls add-btn vert-texttopalign"
+                            (click)="addFaq()"
+                            >
+                            Add Faq
+                          </button>
+                        </div>
+                      </div>
+                    
+                      <div class="example-container mat-elevation-z8">
+                        <mat-table [dataSource]="faqTbl.data.length > 0 && faqTbl.filteredData.length > 0 ? faqTbl:emptyData" matSort>
+                          <!-- ID Column -->
+                          <ng-container matColumnDef="title">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header>
+                              Title
+                            </mat-header-cell>
+                            <mat-cell class="link-clr crs-ptr" *matCellDef="let row" data-label="title"
+                              ><span class="mobile-label">Title:</span>
+                              <span>{{ row.title }}</span></mat-cell
+                            >
+                          </ng-container>
+                          <ng-container matColumnDef="description">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header>
+                              Description
+                            </mat-header-cell>
+                            <mat-cell *matCellDef="let row" data-label="description"
+                              ><span class="mobile-label">Description:</span>
+                              {{ row.description }}
+                            </mat-cell>
+                          </ng-container>
+
+                          <ng-container matColumnDef="type">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header>
+                              type
+                            </mat-header-cell>
+                            <mat-cell *matCellDef="let row" data-label="type"
+                              ><span class="mobile-label">type:</span>
+                              {{ row.type }}
+                            </mat-cell>
+                          </ng-container>
+              
+                          <!-- <ng-container matColumnDef="status">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header>
+                               Status
+                            </mat-header-cell>
+                            <mat-cell *matCellDef="let row" data-label="status"
+                              ><span class="mobile-label">Status:</span>
+                              {{ row.status == 1 ? 'Active' : 'De-Active' }}
+                            </mat-cell>
+                          </ng-container> -->
+              
+                          <ng-container matColumnDef="action">
+                            <mat-header-cell *matHeaderCellDef>
+                               Action
+                            </mat-header-cell>
+                            <mat-cell  *matCellDef="let element; let i = index" data-label="action"
+                              > 
+                              <span class="material-icons crs-ptr" (click)="editFaq(element._id)">
+                                edit
+                              </span>
+                            </mat-cell>
+                          </ng-container>
+              
+                          <ng-container matColumnDef="empty-row">
+                            <mat-cell *matCellDef="let element">
+                             <span >  No Record Found</span>
+                            </mat-cell>
+                          </ng-container>
+              
+                          <mat-header-row
+                            *matHeaderRowDef="displayedColumns"
+                          ></mat-header-row>
+                          <mat-row *matRowDef="let row; columns: faqTbl.data.length > 0 && 
+                            faqTbl.filteredData.length > 0 ? displayedColumns: ['empty-row']">
+                          </mat-row>
+                        </mat-table>
+            
+                    </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

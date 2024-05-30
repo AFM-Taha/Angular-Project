@@ -1,0 +1,159 @@
+<section class="sect-one">
+  <div class="container">
+    <div class="layout-container">
+      <div class="layout">
+        <div class="sect-one-block">
+          <div
+            class="sect-container"
+            fxLayout="column"
+            fxLayout.sm="column"
+            fxLayout.xs="column"
+            fxLayoutGap="20px"
+          >
+            <div
+              class="sect container-12"
+              fxLayout="column"
+              fxLayout.sm="column"
+              fxLayout.xs="column"
+              fxLayoutGap="0px"
+            >
+              <div class="headline align-left">Admin Bank Details</div>
+
+              <form [formGroup]="form" (ngSubmit)="formSubmitHandler()">
+                <div class="border-box mrg-topval mrg-botval">
+                  <div class="slide-typography mrg-botval">Bank Details</div>
+                  <div
+                    fxLayout="row"
+                    fxLayoutGap="20px"
+                    fxLayoutAlign="start center"
+                    class="outer-row"
+                  >
+                    <div class="inner-row">
+                      <label class="form-label">Account Name</label>
+                      <mat-form-field appearance="outline">
+                        <input
+                          matInput
+                          formControlName="accountName"
+                          placeholder="Account Name"
+                          required
+                        />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div
+                    fxLayout="row"
+                    fxLayoutGap="20px"
+                    fxLayoutAlign="start center"
+                    class="outer-row"
+                  >
+                    <div class="inner-row">
+                      <label class="form-label">Account Number</label>
+                      <mat-form-field appearance="outline">
+                        <input
+                          matInput
+                          formControlName="accountNumber"
+                          placeholder="Account Number"
+                          required
+                        />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div
+                    fxLayout="row"
+                    fxLayoutGap="20px"
+                    fxLayoutAlign="start center"
+                    class="outer-row"
+                  >
+                    <div class="inner-row">
+                      <label class="form-label">Bank Name</label>
+                      <mat-form-field appearance="outline">
+                        <input
+                          matInput
+                          formControlName="bankName"
+                          placeholder="Bank Name"
+                          required
+                        />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div
+                    fxLayout="row"
+                    fxLayoutGap="20px"
+                    fxLayoutAlign="start center"
+                    class="outer-row"
+                  >
+                    <div class="inner-row">
+                      <label class="form-label">Swift / IFSC Code</label>
+                      <mat-form-field appearance="outline">
+                        <input
+                          matInput
+                          formControlName="swiftIFSCCode"
+                          placeholder="Swift / IFSC Code"
+                          required
+                        />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div
+                    fxLayout="row"
+                    fxLayoutGap="20px"
+                    fxLayoutAlign="start center"
+                    class="outer-row"
+                  >
+                    <div class="inner-row">
+                      <label class="form-label">Deposit Type</label>
+                      <mat-form-field appearance="outline">
+                        <input
+                          matInput
+                          formControlName="type"
+                          placeholder="Deposit Type"
+                          required
+                        />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div
+                    fxLayout="row"
+                    fxLayoutGap="20px"
+                    fxLayoutAlign="start center"
+                    class="outer-row"
+                  >
+                    <div class="inner-row">
+                      <label class="form-label">Account Type</label>
+                      <mat-form-field appearance="outline">
+                        <input
+                          matInput
+                          formControlName="accountType"
+                          placeholder="Account Type"
+                          required
+                        />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="flot-rt">
+                  <button
+                    mat-button
+                    type="button"
+                    class="btn-cance mrg-rightval"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    mat-button
+                    type="submit"
+                    [disabled]="form.invalid || isLoading"
+                    class="btn-save"
+                  >
+                    Update Data
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

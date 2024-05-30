@@ -1,0 +1,220 @@
+@import './../../assets/scss/variables';
+body{
+    background-color: $secondary-container-bg !important;
+    color: $tertiary-text;
+    font-size: 15px !important;
+    margin: 0;
+    font-family: $primary-font !important;
+}
+
+/*title*/
+.link-clr
+{
+    color: $primary-link-clr;
+}
+
+
+.align-center
+{
+    text-align: center;
+}
+.align-end
+{
+  text-align: end;
+}
+
+.align-left
+{
+    text-align: left;
+}
+.align-right
+{
+    text-align: right;
+}
+.align-justify
+{
+    text-align: justify;
+}
+.txt-unl
+{
+  text-decoration: underline;
+}
+.mrg-auto
+{
+  margin: auto !important;
+}
+.mrg-lftauto
+{
+  margin-left: auto !important;
+}
+.mrg-rtauto
+{
+  margin-right: auto !important;
+}
+.mrg-btauto
+{
+  margin-top: auto;
+  margin-bottom: auto;
+}
+.mrg-rlauto
+{
+  margin-right: auto;
+  margin-left: auto;
+}
+.flot-rt
+{
+  float: right;
+}
+.flot-lt
+{
+  float: left;
+}
+.ft-weight-bold
+{
+  font-weight: bold;
+}
+.fit-content
+{
+  width: max-content;
+}
+.disp-flexinline
+{
+  display: inline-flex;
+}
+.vert-texttopalign
+{
+  vertical-align: text-top !important;
+}
+.vert-topalign
+{
+  vertical-align: top;
+}
+.vert-subalign
+{
+  vertical-align: sub;
+}
+.vert-midalign
+{
+  vertical-align: middle;
+}
+.vert-superalign
+{
+  vertical-align: super;
+}
+.crs-ptr
+{
+  cursor:pointer;
+}
+.justify-content {
+  justify-content: space-between;
+}
+.flex {
+  display: flex;
+}
+.flex-inline {
+  display: inline-flex;
+}
+.flex-wrap
+{
+  flex-wrap: wrap;
+}
+.flex-nowrap
+{
+  flex-wrap: nowrap;
+}
+.flex-flow-col
+{
+  flex-flow: column;
+}
+
+
+/*values defined css*/
+
+.padd-leftval
+{
+    padding-left:15px;
+}
+.padd-rightval
+{
+    padding-left:15px;
+}
+.pad-topval
+{
+  padding-top: 15px;
+}
+.pad-bottomval
+{
+  padding-bottom: 15px;
+}
+.mrg-leftval
+{
+  margin-left:15px !important;
+}
+.mrg-rightval
+{
+  margin-right:15px !important;
+}
+.mrg-topval
+{
+  margin-top: 20px;
+}
+.mrg-botval
+{
+  margin-bottom: 25px;
+}
+.same-line
+{
+  line-height: 70px;
+}
+
+.btn-width-fill
+{
+  width: -webkit-fill-available !important;
+}
+
+
+
+/*value defined with class*/
+.primary-opactiy-val
+{
+  opacity: $primary-opactiy-val;
+}
+.secondary-opactiy-val
+{
+  opacity: $primary-opactiy-val;
+}
+.primary-res-val
+{
+  color:$clr-primary;
+}
+.secondary-res-val
+{
+  color:$clr-gray;
+}
+.clr-approved
+{
+  color: $clr-approved;
+}
+.clr-pending
+{
+  color: $clr-pending;
+}
+.clr-rejected
+{
+  color: $clr-rejected;
+}
+.hyperlink-clr
+{
+  color:$primary-link-clr;
+}
+
+.wd-100
+{
+  width: 100%;
+}
+.dash-count {
+  font-size: 20px;
+}
+.button-green {
+  background-color: #54ad54 !important;
+}

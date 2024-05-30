@@ -1,0 +1,78 @@
+<section class="sect-one">
+    <div class="container">
+        <div class="layout-container">
+            <div class="layout">
+                <div class="sect-one-block">
+                    <div class="sect-container" fxLayout="column" fxLayout.sm="column" fxLayout.xs="column"
+                        fxLayoutGap="20px">
+                        <div class="sect container-12" fxLayout="column" fxLayout.sm="column" fxLayout.xs="column"
+                            fxLayoutGap="0px">
+                            <div class="headline align-left">Send Push Notification</div>
+                            <form [formGroup]="form" (ngSubmit)="formSubmitHandler()">
+
+                                <div class="mrg-topval mrg-botval">
+                                    <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center"
+                                        class="outer-row">
+                                        <div class="inner-row">
+                                            <label class="form-label">Notification Type</label>
+                                            <mat-form-field appearance="outline">
+                                                <mat-select placeholder="Type" formControlName="type"
+                                                [compareWith]="compareItems" required>
+                                                <mat-option value="mobile">On Mobile App</mat-option>
+                                                <mat-option value="website">Website Users</mat-option>
+                                            </mat-select>
+
+                                            </mat-form-field>
+                                              
+                                           
+                                        </div>
+                                    </div>
+                                    <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center"
+                                        class="outer-row">
+                                        <div class="inner-row">
+                                            <label class="form-label">Title</label>
+                                            <mat-form-field appearance="outline">
+                                                <input matInput formControlName="subject" placeholder="Title"
+                                                required />
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center"
+                                        class="outer-row">
+                                        <div class="inner-row">
+                                            <label class="form-label">Launch URL</label>
+                                            <mat-form-field appearance="outline">
+                                                <input matInput formControlName="subject" placeholder="Lunch URL"
+                                                required />
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="mrg-botval">
+                                    <!-- <quill-editor formControlName="content"></quill-editor> -->
+                                    <!-- <div id="editor"></div> -->
+                                    <mat-form-field appearance="outline">
+                                        <input matInput formControlName="content" placeholder="Message"
+                                        required />
+                                    </mat-form-field>
+                                      
+                                    <!-- <ckeditor name="myckeditor" debounce="300" [editor]="editor" [config]="editorConfig"></ckeditor> -->
+                                </div>
+
+                                <div class="flot-rt">
+                                    <button mat-button type="submit" [disabled]="form.invalid || isLoading"
+                                        class="btn-save">
+                                        Send Push Notification
+                                    </button>
+                                </div>
+
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

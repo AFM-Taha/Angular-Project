@@ -1,0 +1,647 @@
+<section class="sect-one">
+    <div class="container" *ngIf="!isLoadingIntial">
+        <div class="layout-container">
+            <div class="layout">
+                <div class="sect-one-block">
+                    <div class="sect-container" fxLayout="column" fxLayout.sm="column" fxLayout.xs="column"
+                        fxLayoutGap="20px">
+                        <div class="sect container-12" fxLayout="column" fxLayout.sm="column" fxLayout.xs="column"
+                            fxLayoutGap="0px">
+                            <div class="headline align-left">Site Settings
+                                <!-- <div class="flot-rt">
+                                    <button
+                                    mat-button
+                                    type="submit"
+                                    [disabled]="form.invalid || isLoading"
+                                    class="btn-save"
+                                    >
+                                    Update Data
+                                    </button>
+                                </div> -->
+                            </div>
+                            <form [formGroup]="form" (ngSubmit)="formSubmitHandler()">
+                                <mat-tab-group animationDuration="0ms">
+                                    <mat-tab label="General">
+                                        <div class="border-box mrg-topval mrg-botval">
+                                            <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center"
+                                            class="outer-row">
+                                            <div class="inner-row">
+                                                <label class="form-label">Site Name</label>
+                                                <mat-form-field appearance="outline">
+                                                    <input matInput formControlName="siteName" placeholder="Site Name"
+                                                        required />
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                                        <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center"
+                                            class="outer-row">
+                                            <div class="inner-row">
+                                                <label class="form-label">Admin Site Name</label>
+                                                <mat-form-field appearance="outline">
+                                                    <input matInput formControlName="adminSiteName"
+                                                        placeholder="Admin Site Name" required />
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                                        <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center"
+                                            class="outer-row">
+                                            <div class="inner-row">
+                                                <label class="form-label">Copyright Text</label>
+                                                <mat-form-field appearance="outline">
+                                                    <input matInput formControlName="copyRights"
+                                                        placeholder="Copyright Text" required />
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                                        <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center"
+                                            class="outer-row">
+                                            <div class="inner-row">
+                                                <label class="form-label">Support Email</label>
+                                                <mat-form-field appearance="outline">
+                                                    <input matInput formControlName="supportEmail"
+                                                        placeholder="Support Email" required />
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                                        <!-- <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center"
+                                            class="outer-row">
+                                            <div class="inner-row">
+                                                <label class="form-label">Staking Admin Email (Comma seperated for multiple
+                                                    emails) Eg: abc@gmail.com,xyz@gmail.com</label>
+                                                <mat-form-field appearance="outline">
+                                                    <input matInput formControlName="stakingEmail"
+                                                        placeholder="Staking Admin Email (Comma seperated for multiple emails) Eg: abc@gmail.com,xyz@gmail.com"
+                                                        required />
+                                                </mat-form-field>
+                                            </div>
+                                        </div> -->
+                                        <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center"
+                                            class="outer-row">
+                                            <div class="inner-row">
+                                                <label class="form-label">Trade Header Announcement (Empty if need to
+                                                    hide)</label>
+                                                <mat-form-field appearance="outline">
+                                                    <input matInput formControlName="tradeText"
+                                                        placeholder="Trade Header Announcement" />
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                                        <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center"
+                                            class="outer-row">
+                                            <div class="inner-row">
+                                                <label class="form-label">Minimum Deposit (INR)</label>
+                                                <mat-form-field appearance="outline">
+                                                    <input matInput formControlName="minDeposit"
+                                                        placeholder="Minimum Deposit (INR)" required />
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                                       
+                                        </div>
+                                    </mat-tab>
+                                    <mat-tab label="User Level & Fees">
+                                        <div *ngFor="let lev of level;let i = index;">
+                                            <h1> Fees</h1>
+                                            <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center"
+                                                class="outer-row">
+                                                <div class="inner-row">
+                                                    <label class="form-label">Daily Withdrawal Limit (USD)</label>
+                                                    <mat-form-field appearance="outline">
+                                                        <input matInput formControlName="{{lev+'DailyVolume'}}"
+                                                            placeholder="Daily Withdrawal Limit (USD)" required />
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+                                            <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center"
+                                                class="outer-row">
+                                                <div class="inner-row">
+                                                    <label class="form-label">Monthly Withdrawal Limit (USD)</label>
+                                                    <mat-form-field appearance="outline">
+                                                        <input matInput formControlName="{{lev+'MonthlyVolume'}}"
+                                                            placeholder="Monthly Withdrawal Limit (USD)" required />
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+                                            
+                                            <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center"
+                                                class="outer-row">
+                                                <div class="inner-row">
+                                                    <label class="form-label">Buy Crypto Fees (Percentage)</label>
+                                                    <mat-form-field appearance="outline">
+                                                        <input matInput formControlName="{{'BuyCryptoFees'}}"
+                                                            placeholder="Buy Crypto Fees" required />
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+
+                                            <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center"
+                                                class="outer-row">
+                                                <div class="inner-row">
+                                                    <label class="form-label">Buy Crypto Additional Coin Price For Buy (Percentage)</label>
+                                                    <mat-form-field appearance="outline">
+                                                        <input matInput formControlName="{{'BuyCryptoExtraPriceForBuy'}}"
+                                                            placeholder="Buy Crypto Fees" required />
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+
+                                            <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center"
+                                            class="outer-row">
+                                            <div class="inner-row">
+                                                <label class="form-label">Buy Crypto Additional Coin Price For Sell (Percentage)</label>
+                                                <mat-form-field appearance="outline">
+                                                    <input matInput formControlName="{{'BuyCryptoExtraPriceForSell'}}"
+                                                        placeholder="Buy Crypto Fees" required />
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+
+                                            <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center"
+                                            class="outer-row" *ngIf="lev == 'level1'">
+                                            <div class="inner-row">
+                                                <label class="form-label">Trade Maximum Limit (USD)</label>
+                                                <mat-form-field appearance="outline">
+                                                    <input matInput formControlName="{{lev+'tradeMaxLimit'}}"
+                                                        placeholder="Monthly Withdrawal Limit (USD)" required />
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+
+                                        
+    
+                                            <!-- <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center"
+                                            class="outer-row">
+                                                <div class="inner-row">
+                                                    <label class="form-label">Staking to Wallet Daily Transfer Limit(0 for Unlimited)</label>
+                                                    <mat-form-field appearance="outline">
+                                                        <input matInput formControlName="{{lev+'StakingDailyVolume'}}"
+                                                            placeholder="Staking to Wallet Daily Transfer Limit(0 for Unlimited)" required />
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+                                            <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center"
+                                                class="outer-row">
+                                                <div class="inner-row">
+                                                    <label class="form-label">Staking to Wallet Monthly Transfer Limit(0 for Unlimited)</label>
+                                                    <mat-form-field appearance="outline">
+                                                        <input matInput formControlName="{{lev+'StakingMonthlyVolume'}}"
+                                                            placeholder="Staking to Wallet Monthly Transfer Limit(0 for Unlimited)" required />
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+    
+                                            <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center"
+                                            class="outer-row">
+                                                <div class="inner-row">
+                                                    <label class="form-label">Wallet to Staking Daily Transfer Limit(0 for Unlimited)</label>
+                                                    <mat-form-field appearance="outline">
+                                                        <input matInput formControlName="{{lev+'WalletDailyVolume'}}"
+                                                            placeholder="Wallet to Staking Daily Transfer Limit(0 for Unlimited)" required />
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+                                            <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center"
+                                                class="outer-row">
+                                                <div class="inner-row">
+                                                    <label class="form-label">Wallet to Staking Monthly Transfer Limit(0 for Unlimited)</label>
+                                                    <mat-form-field appearance="outline">
+                                                        <input matInput formControlName="{{lev+'WalletMonthlyVolume'}}"
+                                                            placeholder="Wallet to Staking Monthly Transfer Limit(0 for Unlimited)" required />
+                                                    </mat-form-field>
+                                                </div>
+                                            </div> -->
+                                        </div>
+                                        <!-- <h1>Payment Gateway Fees</h1>
+                                        <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center"
+                                            class="outer-row">
+                                            <div class="inner-row">
+                                                <label class="form-label">Payment Gateway Fees Percentage</label>
+                                                <mat-form-field appearance="outline">
+                                                    <input matInput formControlName="paymentGatewayFees"
+                                                        placeholder="Payment Gateway Fees Percentage" required />
+                                                </mat-form-field>
+                                            </div>
+                                        </div> -->
+                                        <h1>User Max Trade Count</h1>
+                                        <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center"
+                                            class="outer-row">
+                                            <div class="inner-row">
+                                                <label class="form-label">User Max Trade Count</label>
+                                                <mat-form-field appearance="outline">
+                                                    <input matInput formControlName="userMaxTradeCount"
+                                                        placeholder="User Max Trade Count" required />
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                                        <h1>Trade</h1>
+                                        <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center"
+                                            class="outer-row">
+                                            <div class="inner-row">
+                                                <label class="form-label">Trading Fees Discount(UTI)</label>
+                                                <mat-form-field appearance="outline">
+                                                    <input matInput formControlName="tradeFeeDiscount"
+                                                        placeholder="Trading Fees Discount" required />
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                                        <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center"
+                                            class="outer-row">
+                                            <div class="inner-row">
+                                                <label class="form-label">Trade USDT Rate Change Value</label>
+                                                <mat-form-field appearance="outline">
+                                                    <input matInput formControlName="tradeUSDTValue"
+                                                        placeholder="Trade USDT Rate Change Value" required />
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                                        <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center"
+                                            class="outer-row">
+                                            <div class="inner-row">
+                                                <label class="form-label">Trade USDT Rate Change Type(+/-)</label>
+                                                <mat-form-field appearance="outline">
+                                                    <input matInput formControlName="tradeUSDTType"
+                                                        placeholder="Trade USDT Rate Change Type(+/-)" required />
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                                        <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center"
+                                            class="outer-row">
+                                            <div class="inner-row">
+                                                <label class="form-label">Trading TDS Percentage</label>
+                                                <mat-form-field appearance="outline">
+                                                    <input matInput formControlName="tradeTDSPercentage"
+                                                        placeholder="Trading TDS Percentage" required />
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                                    </mat-tab>
+                                    <!-- <mat-tab label="Pre Booking">
+                                        <h1>Pre Booking Deposit</h1>
+                                        <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center"
+                                            class="outer-row">
+                                            <div class="inner-row">
+                                                <label class="form-label">Pre Booking Status</label>
+                                                <mat-form-field appearance="outline">
+                                                    <mat-select placeholder="Pre Booking Status"
+                                                        formControlName="preBookingStatus" [compareWith]="compareItems"
+                                                        required>
+                                                        <mat-option value="1">Enable</mat-option>
+                                                        <mat-option value="0">Disable</mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                                        <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center"
+                                            class="outer-row">
+                                            <div class="inner-row">
+                                                <label class="form-label">Pre Booking Time. Ex: 10-12,22-24,18-23</label>
+                                                <mat-form-field appearance="outline">
+                                                    <input matInput formControlName="preBookingTime"
+                                                        placeholder="Pre Booking Time(10-12)" required />
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                                        <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center"
+                                            class="outer-row">
+                                            <div class="inner-row">
+                                                <label class="form-label">Pre Booking Content</label>
+                                                <mat-form-field appearance="outline">
+                                                    <input matInput formControlName="preBookingContent"
+                                                        placeholder="Pre Booking Content" required />
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                                        <h1>Extra Bonus Details<div class="flot-rt"></div>
+                                        </h1>
+                                        <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center"
+                                            class="outer-row">
+                                            <div class="inner-row">
+                                                <label class="form-label">Extra Bonus Date -(DD-MM-YYYY)</label>
+                                                <mat-form-field appearance="outline">
+                                                    <input type="date-local" matInput
+                                                        formControlName="extraBonusDate"
+                                                        placeholder="Extra Bonus Date 22-07-2022"
+                                                        [value]="date"  [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                                        required />
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                                        <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center"
+                                            class="outer-row">
+                                            <div class="inner-row">
+                                                <label class="form-label">Extra Bonus (X)</label>
+                                                <mat-form-field appearance="outline">
+                                                    <input matInput formControlName="extraBonus"
+                                                        placeholder="Extra Bonus in Number" required />
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                                        <h1>Bonus Details<div class="flot-rt">
+                                            <button
+                                            mat-button
+                                            type="button"
+                                            class="button-cls add-btn vert-texttopalign"
+                                            (click)="addPackage()"
+                                            >
+                                            Add New Bonus
+                                            </button>
+                                        </div></h1>
+                                        <div *ngFor="let param of siteSettings.preBookingPercentage;let i = index;">
+                                            <h1>Bonus {{i+1}}<div class="flot-rt">
+                                                <button
+                                                mat-button
+                                                type="button"
+                                                class="button-red add-btn vert-texttopalign"
+                                                (click)="removePackage(i)"
+                                                >
+                                                Remove Bonus
+                                                </button>
+                                            </div></h1>
+                                            <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center"
+                                            class="outer-row">
+                                                <div class="inner-row widthStatus">
+                                                    <label class="form-label">Pre Booking From</label>
+                                                    <mat-form-field appearance="outline">
+                                                        <input matInput formControlName="{{'from'+i}}"
+                                                            placeholder="Pre Booking From" required />
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="inner-row widthStatus">
+                                                    <label class="form-label">Pre Booking To</label>
+                                                    <mat-form-field appearance="outline">
+                                                        <input matInput formControlName="{{'to'+i}}"
+                                                            placeholder="Pre Booking To" required />
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="inner-row widthStatus">
+                                                    <label class="form-label">Pre Booking Bonus</label>
+                                                    <mat-form-field appearance="outline">
+                                                        <input matInput formControlName="{{'bonus'+i}}"
+                                                            placeholder="Pre Booking Bonus" required />
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </mat-tab> -->
+                                    <mat-tab label="Commission">
+                                        <h1>Commission</h1>
+                                        <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center"
+                                            class="outer-row">
+                                            <div class="inner-row">
+                                                <label class="form-label">Trade Referral Commission(%)</label>
+                                                <mat-form-field appearance="outline">
+                                                    <input matInput formControlName="referralCommission"
+                                                        placeholder="Trade Referral Commission(%)" required />
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+
+
+                                        <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center"
+                                            class="outer-row">
+                                            <div class="inner-row">
+                                                <label class="form-label">Register & Referral Bonus Date - Until User Register</label>
+                                                <mat-form-field appearance="outline">
+                                                    <input type="datetime-local" matInput
+                                                        formControlName="registerBonusDate"
+                                                        placeholder="Register Bonus Date - Until User Register" required />
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                                        <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center"
+                                            class="outer-row">
+                                            <div class="inner-row">
+                                                <label class="form-label">Register & Referral Bonus Currency</label>
+                                                <mat-form-field appearance="outline">
+                                                    <mat-select placeholder="Referral Bonus Currency"
+                                                        formControlName="referralBonusCurrency" [compareWith]="compareItems"
+                                                        required>
+                                                        <mat-option *ngFor="let currency of currencyTbl"
+                                                            value="{{currency._id}}">{{currency.currencySymbol}}
+                                                        </mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+
+                                        <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center"
+                                            class="outer-row">
+                                            <div class="inner-row">
+                                                <label class="form-label">Register Bonus Status</label>
+                                                <mat-form-field appearance="outline">
+                                                    <mat-select placeholder="Register Bonus Status"
+                                                        formControlName="registerBonusStatus" [compareWith]="compareItems"
+                                                        required>
+                                                        <mat-option value="1">Enable</mat-option>
+                                                        <mat-option value="0">Disable</mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                                        <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center"
+                                            class="outer-row">
+                                            <div class="inner-row">
+                                                <label class="form-label">Register Bonus</label>
+                                                <mat-form-field appearance="outline">
+                                                    <input matInput formControlName="registerBonus"
+                                                        placeholder="Register Bonus" required />
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+
+
+                                        <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center"
+                                            class="outer-row">
+                                            <div class="inner-row">
+                                                <label class="form-label">Referral Bonus Status</label>
+                                                <mat-form-field appearance="outline">
+                                                    <mat-select placeholder="Referral Bonus Status"
+                                                        formControlName="referralBonusStatus" [compareWith]="compareItems"
+                                                        required>
+                                                        <mat-option value="1">Enable</mat-option>
+                                                        <mat-option value="0">Disable</mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                                        <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center"
+                                            class="outer-row">
+                                            <div class="inner-row">
+                                                <label class="form-label">Referral Bonus</label>
+                                                <mat-form-field appearance="outline">
+                                                    <input matInput formControlName="referralBonus"
+                                                        placeholder="Referral Bonus" required />
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                                        <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center"
+                                        class="outer-row">
+                                        <div class="inner-row">
+                                            <label class="form-label">Bonus Expired Period(days)</label>
+                                            <mat-form-field appearance="outline">
+                                                <input matInput formControlName="bonusExpiredPeriod"
+                                                    placeholder="Bonus Expired Period" required />
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    </mat-tab>
+                                    <!-- <mat-tab label="Staking Refferal">
+                                        <h1>Staking Referral</h1>
+                                        <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center"
+                                            class="outer-row">
+                                            <div class="inner-row">
+                                                <label class="form-label">Staking  referral commision Percentage</label>
+                                                <mat-form-field appearance="outline">
+                                                    <input matInput formControlName="stakingreferralBonus"
+                                                        placeholder="Staking  referral Percentage" required />
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                                        <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center"
+                                            class="outer-row">
+                                            <div class="inner-row">
+                                                <label class="form-label">Application Bonus Currency</label>
+                                              
+                                                <mat-form-field appearance="outline">
+                                                    <mat-select placeholder="Referral Bonus Currency - Registration"
+                                                    formControlName="applicationBonuscurr" [compareWith]="compareItems"
+                                                        required>
+                                                        <mat-option *ngFor="let currency of currencyTbl"
+                                                            value="{{currency._id}}">{{currency.currencySymbol}}
+                                                        </mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>
+    
+                                            </div>
+                                        </div>
+                                        <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center"
+                                            class="outer-row">
+                                            <div class="inner-row">
+                                                <label class="form-label">Application Bonus</label>
+                                                <mat-form-field appearance="outline">
+                                                    <input matInput formControlName="applicationBonus"
+                                                        placeholder="Application Bonus" required />
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                                        <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center"
+                                            class="outer-row">
+                                            <div class="inner-row">
+                                                <label class="form-label">Application Bonus End date</label>
+                                                <mat-form-field appearance="outline">
+                                                    <input type="datetime-local" matInput formControlName="applicationBonusEndDate"
+                                                        placeholder="Application Bonus End date" required />
+                                                </mat-form-field>
+                                            </div>
+                                        </div> 
+                                    </mat-tab > -->
+                                    <mat-tab label="Admin other Content">
+                                        <h1>Admin other Content</h1>
+                                        <!-- <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center"
+                                        class="outer-row">
+                                        <div class="inner-row">
+                                            <label class="form-label">Site Maintenance Content</label>
+                                            <mat-form-field appearance="outline">
+                                                <input matInput formControlName="maintenanceContent"
+                                                    placeholder="Site Maintenance Content" />
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center"
+                                        class="outer-row">
+                                        <div class="inner-row">
+                                            <label class="form-label">Maintenance Completion Date</label>
+                                            <mat-form-field appearance="outline">
+                                                <input type="datetime-local" matInput
+                                                    formControlName="maintenanceFinishTime"
+                                                    placeholder="Maintenance Completion Date" required />
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <h1>Admin other Content</h1>
+                                    <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center"
+                                    class="outer-row">
+                                    <div class="inner-row">
+                                        <label class="form-label"> App Maintenance Content</label>
+                                        <mat-form-field appearance="outline">
+                                            <input matInput formControlName="appmaintenanceContent"
+                                                placeholder="App Maintenance Content" />
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center"
+                                    class="outer-row">
+                                    <div class="inner-row">
+                                        <label class="form-label">App Maintenance Completion Date And Time</label>
+                                        <mat-form-field appearance="outline">
+                                            <input type="datetime-local" matInput
+                                                formControlName="appmaintenanceFinishTime"
+                                                placeholder="App Maintenance Completion Date" />
+                                        </mat-form-field>
+                                    </div>
+                                </div> -->
+                                    <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center"
+                                        class="outer-row">
+                                        <div class="inner-row">
+                                            <label class="form-label">Fav Icon</label>
+                                            <mat-form-field appearance="outline">
+                                                <ngx-mat-file-input valuePlaceholder="Upload Fav Icon"
+                                                    (change)="onUpload($event,'favIcon')"></ngx-mat-file-input>
+                                                <mat-icon matSuffix>folder</mat-icon>
+                                            </mat-form-field>
+                                            <img class="image-cls" *ngIf="siteSettings.favIcon!=''" mat-card-image
+                                                src="{{ siteSettings.favIcon }}" alt="" />
+                                        </div>
+                                    </div>
+    
+                                    <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center"
+                                        class="outer-row">
+                                        <div class="inner-row">
+                                            <label class="form-label">Site Logo</label>
+                                            <mat-form-field appearance="outline">
+                                                <ngx-mat-file-input valuePlaceholder="Upload Logo"
+                                                    (change)="onUpload($event,'siteLogo')"></ngx-mat-file-input>
+                                                <mat-icon matSuffix>folder</mat-icon>
+                                            </mat-form-field>
+                                            <img class="image-cls" *ngIf="siteSettings.siteLogo!=''" mat-card-image
+                                                src="{{ siteSettings.siteLogo }}" alt="" />
+                                        </div>
+                                    </div>
+                                    </mat-tab>
+                                    <mat-tab label="Social Media">
+                                        <div class="border-box mrg-botval">
+                                            <div class="slide-typography mrg-botval">Social Media</div>
+        
+                                            <div *ngFor="let social of socialLinks" fxLayout="row" fxLayoutGap="0px"
+                                                fxLayoutAlign="start center" class="outer-row">
+                                                <div class="width-30"><label class="form-label">{{social.name}}</label></div>
+                                                <div class="inner-row width-70" fxLayout="column">
+                                                    <div class="">
+                                                        <mat-form-field appearance="outline">
+                                                            <input matInput formControlName={{social.type}} placeholder="URL" />
+                                                        </mat-form-field>
+                                                    </div>
+                                                </div>
+                                            </div>
+        
+                                        </div>
+                                    </mat-tab>
+                                  </mat-tab-group>
+                                  <div class="flot-rt">
+                                    <button mat-button type="button" class="btn-cance mrg-rightval">
+                                        Cancel
+                                    </button>
+                                    <button mat-button type="submit" [disabled]="form.invalid || isLoading"
+                                        class="btn-save">
+                                        Update Data
+                                    </button>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

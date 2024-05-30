@@ -1,0 +1,154 @@
+
+<section class="sect-one">
+    <div class="container">
+        <div class="layout-container">
+            <div class="layout">
+                <div class="sect-one-block">
+                    <div class="sect-container" fxLayout="column" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="20px">
+                    <div class="sect container-12" fxLayout="column" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="10px">  
+                      <div class="headline align-left mrg-botval">CMS List
+                        <div class="flot-rt">
+                          <button
+                            mat-button
+                            type="button"
+                            class="button-cls add-btn vert-texttopalign"
+                            (click)="addCms()"
+                            >
+                            Add Cms
+                          </button>
+                        </div>
+                      </div>
+                      <form [formGroup]="form" (ngSubmit)="filterTable()">
+                        <div
+                          fxLayout="row"
+                          fxLayoutGap="20px"
+                          fxLayoutAlign="start center"
+                          class="outer-row"
+                          >
+                          <div style="width: 165px;" class="widthStatus">
+                            <div class="inner-row">
+                              <label class="form-label">Search </label>
+                              <mat-form-field appearance="outline">
+                                <input
+                                    matInput
+                                    formControlName="searchQuery"
+                                    placeholder="Search Title"
+                                />
+                              </mat-form-field>
+                            </div>
+                          </div>
+                          <div style="width: 165px;" class="widthStatus1">
+                            <div class="inner-row">
+                              <label class="form-label">Status</label>
+                              <mat-form-field appearance="outline">
+                                <mat-select placeholder="User Status" formControlName="status" [compareWith]="compareItems">
+                                  <mat-option value="">All</mat-option>
+                                  <mat-option value="1">Active</mat-option>
+                                  <mat-option value="0">De-Active</mat-option>
+                                </mat-select>
+                              </mat-form-field>
+                            </div>
+                          </div>
+                        
+                          <div class="widthStatusButton">
+                          <button mat-button type="submit" class="btn-save">
+                          Filter Users
+                          </button>
+                          </div>
+                       
+                          <!-- <div style="width: 105px;" class="widthStatus">
+                            <label class="form-label">Page</label>
+                            <mat-form-field appearance="outline">
+                            <input 
+                            matInput
+                            type="text"
+                            formControlName="pageNumber">
+                          </mat-form-field>
+                          </div> -->
+                          <div>
+                            <button mat-button matTooltip="Refresh" mat-icon-button (click)="refresh()" class="btn-save">
+                              <mat-icon>refresh</mat-icon>
+                            </button>
+                          </div>
+                    </div>
+                      </form>
+                    
+                      <div class="example-container mat-elevation-z8">
+                        <mat-table [dataSource]="cmsTbl.data.length > 0 && cmsTbl.filteredData.length > 0 ? cmsTbl:emptyData" matSort>
+                          <!-- ID Column -->
+                          <ng-container matColumnDef="identify">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header>
+                              Identify
+                            </mat-header-cell>
+                            <mat-cell *matCellDef="let row" data-label="identify"
+                              ><span class="mobile-label">Identify:</span>
+                              <!-- {{ row.description }} -->
+                              <p [innerHtml]="row.identify"><p>  
+                            </mat-cell>
+                          </ng-container>
+
+                          <ng-container matColumnDef="title">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header>
+                              Title
+                            </mat-header-cell>
+                            <mat-cell class="link-clr crs-ptr" *matCellDef="let row" data-label="title"
+                              ><span class="mobile-label">Title:</span>
+                              <span>{{ row.title }}</span></mat-cell
+                            >
+                          </ng-container>
+
+                          <ng-container matColumnDef="status">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header>
+                              Status
+                            </mat-header-cell>
+                            <mat-cell *matCellDef="let row" data-label="status"
+                              ><span class="mobile-label">Status:</span>
+                              <span>{{ row.status == 1 ? 'Active' : 'De-Active' }}</span></mat-cell
+                            >
+                          </ng-container>
+                         
+                          <ng-container matColumnDef="action">
+                            <mat-header-cell *matHeaderCellDef>
+                               Action
+                            </mat-header-cell>
+                            <mat-cell  *matCellDef="let element; let i = index" data-label="action"
+                              > 
+                              <span class="material-icons" *ngIf="element.status == 1" (click)="changeStatus(element._id)">lock_open</span>
+                              <span class="material-icons" *ngIf="element.status == 0" (click)="changeStatus(element._id)"> lock </span>&nbsp;
+                              <span class="material-icons crs-ptr" (click)="editCms(element._id)">
+                                edit
+                              </span> &nbsp;
+                              <span class="material-icons crs-ptr" (click)="deleteCms(element._id)" 
+                              *ngIf="noDelOpt.indexOf(element.identify) === -1">
+                                delete 
+                              </span>
+                            </mat-cell>
+                          </ng-container>
+              
+                          <ng-container matColumnDef="empty-row">
+                            <mat-cell *matCellDef="let element">
+                             <span >  No Record Found</span>
+                            </mat-cell>
+                          </ng-container>
+              
+                          <mat-header-row
+                            *matHeaderRowDef="displayedColumns"
+                          ></mat-header-row>
+                          <mat-row *matRowDef="let row; columns: cmsTbl.data.length > 0 && 
+                            cmsTbl.filteredData.length > 0 ? displayedColumns: ['empty-row']">
+                          </mat-row>
+                        </mat-table>
+                        <mat-paginator #paginator
+                          [length]="length"
+                          [pageSize]=10
+                          [pageSizeOptions]="[5, 10, 25, 100]"
+                          (page)="changepage($event)">
+                        </mat-paginator>
+                    </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

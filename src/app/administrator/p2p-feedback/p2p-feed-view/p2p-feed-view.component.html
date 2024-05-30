@@ -1,0 +1,79 @@
+<section class="sect-transaction">
+  <div class="container">
+    <div class="layout-container">
+      <div class="layout">
+        <div class="sect-transaction-block">
+          <div class="">
+            <div class="prev-pagediv">
+              <button
+              mat-button
+              class="mat-button btn-back flot-rt"
+              (click)="backRedirectBtn()"
+            >
+              <mat-icon>arrow_left_alt</mat-icon>Back
+            </button>
+            </div>
+          </div>
+          <div class="width-100" *ngIf="!isLoading">
+            <div class="headline align-left mrg-botval">
+              P2P Feedback Details
+            </div>
+            <div
+              fxLayout="row"
+              fxLayoutGap="20px"
+              fxLayoutAlign="start center"
+              class="outer-row space1"
+            >
+              <div>fromUser:</div>
+              <div>{{(p2pfeedBackDetails && p2pfeedBackDetails[0] && p2pfeedBackDetails[0].fromUserDet && p2pfeedBackDetails[0].fromUserDet.email)}}</div>
+            </div>
+            <div
+            fxLayout="row"
+            fxLayoutGap="20px"
+            fxLayoutAlign="start center"
+            class="outer-row space1"
+          >
+            <div>toUser:</div>
+            <div>{{(p2pfeedBackDetails && p2pfeedBackDetails[0] && p2pfeedBackDetails[0].toUserDet && p2pfeedBackDetails[0].toUserDet.email) }}</div>
+          </div>
+
+            <div
+              fxLayout="row"
+              fxLayoutGap="20px"
+              fxLayoutAlign="start center"
+              class="outer-row space1"
+            >
+              <div>Order No :</div>
+              <div>{{(p2pfeedBackDetails && p2pfeedBackDetails[0] && p2pfeedBackDetails[0].orderDet && p2pfeedBackDetails[0].orderDet.orderNo)}}</div>
+            </div>
+
+            <div class="window">
+              <mat-card   class="example-card chatMessage" >
+                <br>
+                  <mat-card-header>
+                    <div mat-card-avatar class="example-header-image"></div>
+                    <!-- <mat-card-title>Shiba Inu</mat-card-title> -->
+                    <mat-card-subtitle >{{p2pfeedBackDetails && p2pfeedBackDetails[0] && p2pfeedBackDetails[0].toUserDet && p2pfeedBackDetails[0].toUserDet.email}}</mat-card-subtitle>
+                 
+                  </mat-card-header>
+                  <mat-card-content>
+                    <button
+                    mat-button
+                    class="mat-button btn-back flot-rt"
+                  >
+                  {{p2pfeedBackDetails && p2pfeedBackDetails[0] && p2pfeedBackDetails[0].feedBackStatus == 1 ? "Positive" : "Negative"}}
+                  </button>
+                    <p style="font-size: 11px;" *ngIf="p2pfeedBackDetails && p2pfeedBackDetails[0] && p2pfeedBackDetails[0].toUserDet && p2pfeedBackDetails[0].description" >{{(p2pfeedBackDetails && p2pfeedBackDetails[0] && p2pfeedBackDetails[0].toUserDet && p2pfeedBackDetails[0].description)}}</p>
+                  </mat-card-content>
+              </mat-card>
+    
+            </div>
+            
+          </div>
+      
+         
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

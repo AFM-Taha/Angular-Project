@@ -1,0 +1,246 @@
+<section class="sect-one">
+  <div class="container">
+    <div class="layout-container">
+      <div class="layout">
+        <div class="sect-one-block">
+          <div class="sect-container" fxLayout="column" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="20px">
+            <div class="sect container-12" fxLayout="column" fxLayout.sm="column" fxLayout.xs="column"
+              fxLayoutGap="10px">
+              <div class="headline align-left mrg-botval">Order History
+              </div>
+              <form [formGroup]="form" (ngSubmit)="filterTable()">
+                <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center" class="outer-row">
+                  <div class="widthStatus">
+                      <div class="inner-row">
+                        <label class="form-label">User Name / Email Address</label>
+                        <mat-form-field appearance="outline">
+                          <input
+                              matInput
+                              formControlName="searchQuery"
+                              placeholder="User Name / Email Address"
+                          />
+                        </mat-form-field>
+                      </div>
+                    </div>
+                  <div style="width: 165px;" class="widthStatus">
+                    <div class="inner-row">
+                      <label class="form-label">Pair</label>
+                      <mat-form-field appearance="outline">
+                        <mat-select placeholder="Pair" formControlName="pairName" [compareWith]="compareItems">
+                          <mat-option value="">All Pair</mat-option>
+                          <mat-option *ngFor="let pair of pairsData" value="{{pair.pair}}">
+                            {{pair.pair}}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div style="width: 165px;" class="widthStatus">
+                    <div class="inner-row">
+                      <label class="form-label">Type</label>
+                      <mat-form-field appearance="outline">
+                        <mat-select placeholder="Type" formControlName="type" [compareWith]="compareItems">
+                          <mat-option value="">All Type</mat-option>
+                          <mat-option value="buy">Buy</mat-option>
+                          <mat-option value="sell">Sell</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div style="width: 165px;" class="widthStatus">
+                    <div class="inner-row">
+                      <label class="form-label">Order Type</label>
+                      <mat-form-field appearance="outline">
+                        <mat-select placeholder="Order Type" formControlName="orderType" [compareWith]="compareItems">
+                          <mat-option value="">All Order Type</mat-option>
+                          <mat-option value="market">Market</mat-option>
+                          <mat-option value="limit">Limit</mat-option>
+                          <mat-option value="stop">Stop Limit</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div style="width: 165px;" class="widthStatus">
+                    <div class="inner-row">
+                      <label class="form-label">Status</label>
+                      <mat-form-field appearance="outline">
+                        <mat-select placeholder="Status" formControlName="status" [compareWith]="compareItems">
+                          <mat-option value="">All Status</mat-option>
+                          <mat-option value="active">Active Order</mat-option>
+                          <mat-option value="partially">Partially Filled Order</mat-option>
+                          <mat-option value="filled">Filled Order</mat-option>
+                          <mat-option value="market">Market Order</mat-option>
+                          <mat-option value="stoporder">Stop Limit Order</mat-option>
+                          <!-- <mat-option value="cancelled">Cancelled Order</mat-option> -->
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <!-- <div style="width: 165px;" class="widthStatus1">
+                    <div class="inner-row">
+                      <label class="form-label">Date</label>
+                      <mat-form-field appearance="outline">
+                        <input type="date" matInput
+                        formControlName="datevalue"
+                        placeholder="Date filter" />
+                      </mat-form-field>
+                    </div>
+                  </div> -->
+                  <div style="width: 250px;" class="widthStatus1">
+                    <mat-form-field appearance="fill">
+                      <mat-label>Enter Order Date Range</mat-label>
+                      <mat-date-range-input [rangePicker]="picker" >
+                        <input  matInput matStartDate placeholder="Start date" formControlName="fromdate">
+                        <input  matInput matEndDate placeholder="End date" formControlName="todate" >
+                      </mat-date-range-input>
+                      <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+                      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                      <mat-date-range-picker #picker></mat-date-range-picker>
+                    </mat-form-field>
+                  </div>
+                  <div class="widthStatusButton">
+                    <button mat-button type="submit" class="btn-save">
+                      Filter Order History
+                    </button>
+                  </div>
+                  <div class="widthStatusButton">
+                    <button mat-button (click)="ExportToCsv()" type="button" class="btn-save">
+                      Export CSV
+                    </button>
+                  </div>
+                  <div>
+                    <button mat-button matTooltip="Refresh" mat-icon-button (click)="refresh()" class="btn-save"> 
+                    <mat-icon>refresh</mat-icon>
+                    </button>
+                  </div>
+                </div>
+              </form>
+              <div class="example-container mat-elevation-z8">
+                <mat-table [dataSource]="historyTbl.data.length > 0 && historyTbl.filteredData.length > 0 ? historyTbl:emptyData" matSort>
+                  <!-- ID Column -->
+                  <ng-container matColumnDef="dateTime">
+                    <mat-header-cell *matHeaderCellDef>
+                      Order Date
+                    </mat-header-cell>
+                    <mat-cell class="link-clr crs-ptr" *matCellDef="let row" data-label="dateTime"
+                      ><span class="mobile-label">Order Date:</span>
+                      <span>{{ row.dateTime | date:"MMM dd, y, HH:mm:ss"}}</span></mat-cell
+                    >
+                  </ng-container>
+                  <ng-container matColumnDef="userName">
+                    <mat-header-cell *matHeaderCellDef>
+                      User Name
+                    </mat-header-cell>
+                    <mat-cell class="link-clr crs-ptr" *matCellDef="let row" data-label="userName"><span
+                        class="mobile-label">User Name:</span>
+                      <span>{{ row.userId.username }}</span>
+                    </mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="userEmail">
+                    <mat-header-cell *matHeaderCellDef>
+                      User Email
+                    </mat-header-cell>
+                    <mat-cell class="link-clr crs-ptr" *matCellDef="let row" data-label="userEmail"><span
+                        class="mobile-label">User Email:</span>
+                      <span>{{ row.userId.email }}</span>
+                    </mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="pairName">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>
+                      Pair
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row" data-label="pairName"><span class="mobile-label">Pair:</span>
+                      {{ row.pairName }}
+                    </mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="type">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>
+                      Type
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row" data-label="type"><span class="mobile-label">Type:</span>
+                      {{ row.type.charAt(0).toUpperCase() + row.type.slice(1) }}
+                    </mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="orderType">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>
+                      Order Type
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row" data-label="orderType"><span class="mobile-label">Order Type:</span>
+                      {{ row.orderType.charAt(0).toUpperCase() + row.orderType.slice(1) }}
+                    </mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="amount">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>
+                      Amount
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row" data-label="amount"><span class="mobile-label">Amount:</span>
+                      {{ row.amount }}
+                    </mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="filledAmount">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>
+                      Filled Amount
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row" data-label="filledAmount"><span class="mobile-label">Filled
+                        Amount:</span>
+                      {{ row.filledAmount }}
+                    </mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="price">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>
+                      Price
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row" data-label="price"><span class="mobile-label">Price:</span>
+                      {{ row.price }}
+                    </mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="status">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>
+                      Status
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row" data-label="status"><span class="mobile-label">Status:</span>
+                      {{ row.status.charAt(0).toUpperCase() + row.status.slice(1) }}
+                    </mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="empty-row">
+                    <mat-cell *matCellDef="let element">
+                     <span >  No Record Found</span>
+                    </mat-cell>
+                  </ng-container>
+
+                  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                  <mat-row *matRowDef="let row; columns: historyTbl.data.length > 0 && 
+                    historyTbl.filteredData.length > 0 ? displayedColumns: ['empty-row']">
+                  </mat-row>
+                </mat-table>
+                <mat-paginator #paginator
+                [length]="length"
+                [pageSize]=10
+                [pageSizeOptions]="[5, 10, 25, 100]"
+                (page)="changepage($event)">
+              </mat-paginator>
+                <!-- <button (click)="backpage()" [disabled]=" buttonDisabled " >
+                  <mat-icon>arrow_backward_ios</mat-icon> Back Page
+                </button>
+                &nbsp;
+                <button (click)="nextPage()" [disabled]=" len === 0"  >
+                  <mat-icon>arrow_forward</mat-icon> Next Page
+                </button> -->
+              </div>
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

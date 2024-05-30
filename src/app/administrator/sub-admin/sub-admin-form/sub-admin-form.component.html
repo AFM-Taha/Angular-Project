@@ -1,0 +1,147 @@
+<section class="sect-partners">
+    <div class="container">
+      <div class="layout-container">
+        <div class="layout">
+          <div class="sect-partners-block">
+            <div class="headline align-left">{{_id != 1 ? 'Edit' : 'Add'}} Sub Admin</div>
+            <form [formGroup]="form" (ngSubmit)="formSubmitHandler()">
+                <div class="" fxLayoutGap="-10px">
+                  <div
+                    fxLayout="row"
+                    fxLayoutGap="20px"
+                    fxLayoutAlign="start center"
+                    class="outer-row"
+                  >
+                    <div class="inner-row">
+                      <label class="form-label">Admin Name</label>
+                      <mat-form-field appearance="outline">
+                        <input
+                          matInput
+                          formControlName="name"
+                          placeholder="Admin Name"
+                          required
+                        />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div
+                    fxLayout="row"
+                    fxLayoutGap="20px"
+                    fxLayoutAlign="start center"
+                    class="outer-row"
+                  >
+                    <div class="inner-row">
+                      <label class="form-label">Email Address</label>
+                      <mat-form-field appearance="outline">
+                        <input
+                          [readonly]="readOnlyData"
+                          matInput
+                          formControlName="email"
+                          placeholder="Email Address"
+                          required
+                        />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div
+                  fxLayout="row"
+                  fxLayoutGap="20px"
+                  fxLayoutAlign="start center"
+                  class="outer-row"
+                >
+                  <div class="inner-row">
+                    <label class="form-label">Status</label>
+                    <mat-form-field appearance="outline">
+                      <mat-select
+                      [compareWith]="compareItems"
+                      formControlName="status"
+                      placeholder="Status"
+                      required
+                      >
+                      <mat-option value="1">Active</mat-option>
+                      <mat-option value="0">Inactive</mat-option>
+                    </mat-select>
+                    </mat-form-field>
+                  </div>
+                </div><div
+                class="sect container-12"
+                fxLayout="row"
+                fxLayout.sm="row"
+                fxLayout.xs="column"
+                fxLayoutGap="10px"
+                *ngFor="let property of modules | keyvalue"
+              >
+                <div
+                  class="sect container-4"
+                  fxLayout="column"
+                  fxLayout.sm="column"
+                  fxLayout.xs="column"
+                  fxLayoutGap="0px"
+                >
+                  <div>
+                    <mat-checkbox
+                      (change)="checkParentValue(property.key)"
+                      [checked]="isParentChecked(property.key)"
+                      class="mrg-topval"
+                      fxLayout="row"
+                      fxLayout.sm="row"
+                      fxLayout.xs="row"
+                      fxLayoutGap="0px"
+                      >{{property.key}}</mat-checkbox
+                    >
+                  </div>
+                </div>
+  
+                <div
+                  class="sect container-6"
+                  fxLayout="row"
+                  fxLayout.sm="column"
+                  fxLayout.xs="column"
+                  fxLayoutGap="0px"
+                >
+                  <div
+                  *ngFor="let property1 of property.value | keyvalue"
+                    class="flex-wrap"
+                    fxLayout="row"
+                  >
+                    <mat-checkbox
+                      (change)="checkChildValue(property.key, property1.key)"
+                      [checked]="isChildChecked(property.key, property1.key)"
+                      class="mrg-topval mrg-rightval"
+                      fxLayout="row"
+                      fxLayout.sm="row"
+                      fxLayout.xs="row"
+                      fxLayoutGap="0px"
+                      >{{ property1.key }}</mat-checkbox
+                    >
+                  </div>
+                </div>
+              </div>
+
+                    <div class="flot-rt">
+                        <button
+                        (click)="closeDialog()"
+                        mat-button
+                        type="button"
+                        class="btn-cance mrg-rightval"
+                        >
+                        Cancel
+                        </button>
+                        <button
+                        mat-button
+                        type="submit"
+                        [disabled]="form.invalid || isLoading"
+                        class="btn-save"
+                        >
+                        {{_id != 1 ? 'Edit' : 'Add'}} Sub Admin
+                        </button>
+                    </div>
+                </div>
+  
+                
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>

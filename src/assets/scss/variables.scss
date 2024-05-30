@@ -1,0 +1,129 @@
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+
+@font-face {
+  font-family: "Lato-Regular";
+  src: url("./../../assets/fonts/Lato-Regular.ttf");
+  font-display: swap;
+}
+@font-face {
+  font-family: "Lato-Bold";
+  src: url("./../../assets/fonts/Lato-Bold.ttf");
+  font-display: swap;
+}
+@font-face {
+  font-family: "Lato-LightItalic";
+  src: url("./../../assets/fonts/Lato-LightItalic.ttf");
+  font-display: swap;
+}
+@font-face {
+  font-family: "Lato-BlackItalic";
+  src: url("./../../assets/fonts/Lato-BlackItalic.ttf");
+  font-display: swap;
+}
+
+$primary-font: "Lato-Regular";
+$secondary-font: "Lato-Bold";
+$subb-font: "Lato-LightItalic";
+$typo-font: "Lato-Regular";
+
+$primary-text: #000000;
+$secondary-text: "";
+$tertiary-text: #8f94fb;
+$sub-text: #cd47b2;
+
+$primary-button-bg: #4e54c8;
+$secondary-button-bg: #080808;
+$tertiary-button-bg: "";
+
+$primary-button-clr: #ffffff;
+$secondary-button-clr: #000000;
+$tertiary-button-clr: #ff2c53;
+
+$primary-container-bg: "";
+$secondary-container-bg: "";
+$tertiary-container-bg: "";
+
+$primary-section-bg: #fff;
+$secondary-section-bg: "";
+$tertiary-section-bg: "";
+$sub-section-bg: "";
+
+$primary-icon-clr: #cd47b2;
+$secondary-icon-clr: #4e54c8;
+$tertiary-icon-clr: "";
+
+$primary-title-clr: "";
+$secondary-title-clr: "";
+$tertiary-title-clr: "";
+
+$primary-head-clr: "";
+$secondary-head-clr: "";
+$tertiary-head-clr: "";
+
+$primary-link-clr: blue;
+$secondary-link-clr: #4e54c8;
+$tertiary-link-clr: cornflowerblue;
+
+$primary-list-clr: #cd47b2;
+$secondary-list-clr: #4e54c8;
+$tertiary-list-clr: "";
+
+$primary-active-clr: #4e54c8;
+$secondary-active-clr: #ff2c53;
+$tertiary-active-clr: #e5e5e5;
+
+$primary-border-clr: #e7eaf3;
+$secondary-border-clr: "";
+$tertiary-border-clr: "";
+
+$primary-boxshadow-clr: #8f858f;
+$secondary-boxshadow-clr: "";
+$tertiary-boxshadow-clr: "";
+
+$primary-scroll-clr: #e5e5e5;
+
+$primary-container-padding: 20px;
+$secondary-container-padding: "";
+$tertiary-container-padding: "";
+
+$primary-box-padding: 20px;
+$secondary-box-padding: "";
+$tertiary-box-padding: "";
+
+$primary-opactiy-val: 0.3;
+$secondary-opactiy-val: "";
+$tertiary-opactiy-val: "";
+
+$tophead-ft: 36px;
+$head-ft: 22px;
+$descr-ft: 15px;
+$subhead-ft: 14px;
+$table-ft: 15px;
+$span-ft: 12px;
+$box-padding: 20px;
+
+$clr-primary: #0051de;
+$clr-secondary: #cd47b2;
+$clr-green: #2b9348;
+$clr-green1: #7ec8a6;
+$clr-red: #dc4141;
+$clr-orange: #ffb037;
+$clr-blue: #3282b8;
+$clr-purple: #450b5a;
+$clr-gray: #666;
+$clr-white: #fff;
+$clr-black: #000;
+
+$clr-approved: #2b9348;
+$clr-pending: #ffa647;
+$clr-rejected: #e36464;
+$clr-later: #f08080;
+$clr-maroon: #ce4257;
+
+
+$clr-chip-delete: #dd193a;
+$clr-chip-edit: #3f51b5;
+$clr-chip-config: #f58634;
+$clr-chip-clauses: #18a22f;
+$clr-chip-summary: #3f51b5;
+$clr-chip-view: #fca3cc;

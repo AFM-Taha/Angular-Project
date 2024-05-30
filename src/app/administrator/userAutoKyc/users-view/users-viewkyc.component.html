@@ -1,0 +1,701 @@
+<section class="sect-transaction">
+  <div class="container">
+    <div class="layout-container">
+      <div class="layout">
+        <div class="sect-transaction-block">
+          <div class="">
+            <div class="prev-pagediv">
+              <button
+                mat-button
+                class="mat-button btn-back flot-rt"
+                (click)="backRedirectBtn()"
+              >
+                <mat-icon>arrow_left_alt</mat-icon>Back
+              </button>
+            </div>
+          </div>
+          <!-- <div style="border: 1px solid black;">          -->
+          <div class="width-100" *ngIf="!isLoading">
+            <div class="headline align-left mrg-botval">Users View</div>
+            <div fxLayout="row" fxLayout.xs="column">
+              <div
+                fxLayout="column"
+                fxLayoutGap="13px"
+                style="
+                  width: 100%;
+                  height: auto;
+                  padding: 20px;
+                  box-shadow: 5px 5px 2px gray;
+                  border-radius: 10px;
+                  background-color: white;
+                "
+              >
+                <div
+                  fxLayout="row"
+                  fxLayoutGap="20px"
+                  fxLayoutAlign="start center"
+                  class="outer-row space1"
+                >
+                  <div><b>Username :</b></div>
+                  <div>{{ userDetails.username }}</div>
+                </div>
+
+                <div
+                  fxLayout="row"
+                  fxLayoutGap="20px"
+                  fxLayoutAlign="start center"
+                  class="outer-row space1"
+                >
+                  <div><b>Email :</b></div>
+                  <div>{{ userDetails.email }}</div>
+                </div>
+
+                <div
+                  fxLayout="row"
+                  fxLayoutGap="20px"
+                  fxLayoutAlign="start center"
+                  class="outer-row space1"
+                >
+                  <div><b>Phone Number :</b></div>
+                  <div>{{ userDetails.phoneno }}</div>
+                </div>
+
+                <!-- <div
+                fxLayout="row"
+                fxLayoutGap="20px"
+                fxLayoutAlign="start center"
+                class="outer-row space1"
+              >
+                <div>Profile Image :</div>
+                <div>
+                  <img *ngIf="userDetails.profileimage != ''" class="mat-card-image image-cls" src="{{ userDetails.profileimage }}">
+                </div>
+              </div> -->
+
+                <div
+                  fxLayout="row"
+                  fxLayoutGap="20px"
+                  fxLayoutAlign="start center"
+                  class="outer-row space1"
+                >
+                  <div><b>Address :</b></div>
+                  <div>{{ userDetails.address }}</div>
+                </div>
+
+                <div
+                  fxLayout="row"
+                  fxLayoutGap="20px"
+                  fxLayoutAlign="start center"
+                  class="outer-row space1"
+                >
+                  <div><b>City :</b></div>
+                  <div>{{ userDetails.city }}</div>
+                </div>
+
+                <div
+                  fxLayout="row"
+                  fxLayoutGap="20px"
+                  fxLayoutAlign="start center"
+                  class="outer-row space1"
+                >
+                  <div><b>ZipCode :</b></div>
+                  <div>{{ userDetails.zipcode }}</div>
+                </div>
+
+                <div
+                  fxLayout="row"
+                  fxLayoutGap="20px"
+                  fxLayoutAlign="start center"
+                  class="outer-row space1"
+                >
+                  <div><b>State :</b></div>
+                  <div>{{ userDetails.state }}</div>
+                </div>
+
+                <div
+                  fxLayout="row"
+                  fxLayoutGap="20px"
+                  fxLayoutAlign="start center"
+                  class="outer-row space1"
+                >
+                  <div><b>Country :</b></div>
+                  <div>{{ userDetails.country }}</div>
+                </div>
+
+                <div
+                  fxLayout="row"
+                  fxLayoutGap="20px"
+                  fxLayoutAlign="start center"
+                  class="outer-row space1"
+                >
+                  <div><b>Register On :</b></div>
+                  <div>{{ userDetails.registerOn | date : "MMM dd, y" }}</div>
+                </div>
+              </div>
+              &nbsp;
+              <div
+                fxLayout="column"
+                fxLayoutGap="13px"
+                style="
+                  width: 100%;
+                  height: auto;
+                  padding: 10px;
+                  box-shadow: 5px 5px 2px gray;
+                  border-radius: 10px;
+                  background-color: white;
+                "
+              >
+                <div
+                  fxLayout="row"
+                  fxLayoutGap="20px"
+                  fxLayoutAlign="start center"
+                  class="outer-row space1"
+                >
+                  <div><b>User Status :</b></div>
+                  <div>
+                    {{ userDetails.status == 1 ? "Active" : "De-Active" }}
+                    <button
+                      mat-button
+                      class="mat-button btn-cancel"
+                      (click)="changeStatus('user')"
+                    >
+                      {{
+                        userDetails.status == 0 ? "Activate" : "De-Activate"
+                      }}
+                      User
+                    </button>
+                  </div>
+                </div>
+
+                <div
+                  fxLayout="row"
+                  fxLayoutGap="20px"
+                  fxLayoutAlign="start center"
+                  class="outer-row space1"
+                >
+                  <div><b>2FA Status :</b></div>
+                  <div>
+                    {{
+                      userDetails.tfaenablekey != "" ? "Active" : "De-Active"
+                    }}
+                    <button
+                      *ngIf="userDetails.tfaenablekey"
+                      mat-button
+                      class="mat-button btn-cancel"
+                      (click)="changeStatus('tfa')"
+                    >
+                      De-Activate 2FA
+                    </button>
+                  </div>
+                </div>
+
+                <div
+                  fxLayout="row"
+                  fxLayoutGap="20px"
+                  fxLayoutAlign="start center"
+                  class="outer-row space1"
+                >
+                  <div><b>User Trade Status :</b></div>
+                  <div>
+                    {{ userDetails.tradeDisable == 1 ? "Disabled" : "Enabled" }}
+                    <button
+                      mat-button
+                      class="mat-button btn-cancel"
+                      (click)="changeStatus('tradeDisable')"
+                    >
+                      {{
+                        userDetails.tradeDisable == 1
+                          ? "Enable Trade Status"
+                          : "Disable Trade Status"
+                      }}
+                    </button>
+                  </div>
+                </div>
+                <div
+                  fxLayout="row"
+                  fxLayoutGap="20px"
+                  fxLayoutAlign="start center"
+                  class="outer-row space1"
+                >
+                  <div><b>User Withdraw Status :</b></div>
+                  <div>
+                    {{
+                      userDetails.withdrawDisable == 1 ? "Disabled" : "Enabled"
+                    }}
+                    <button
+                      mat-button
+                      class="mat-button btn-cancel"
+                      (click)="changeStatus('withdrawDisable')"
+                    >
+                      {{
+                        userDetails.withdrawDisable == 1
+                          ? "Enable Withdraw Status"
+                          : "Disable Withdraw Status"
+                      }}
+                    </button>
+                  </div>
+                </div>
+                <div
+                  fxLayout="row"
+                  fxLayoutGap="20px"
+                  fxLayoutAlign="start center"
+                  class="outer-row space1"
+                >
+                  <div><b>User Withdraw Level :</b></div>
+                  <div>
+                    <select
+                      id="mySelect"
+                      (change)="setUserLevel($event.target.value)"
+                    >
+                      <option value="1" [selected]="userDetails.level == 1">
+                        Level 1
+                      </option>
+                      <option value="2" [selected]="userDetails.level == 2">
+                        Level 2
+                      </option>
+                      <option value="3" [selected]="userDetails.level == 3">
+                        Level 3
+                      </option></select
+                    >&nbsp;&nbsp;&nbsp;
+                    <button
+                      mat-button
+                      class="mat-button btn-cancel"
+                      (click)="changeUserLevel()"
+                    >
+                      Submit
+                    </button>
+                  </div>
+                </div>
+                <div
+                  style="margin-top: 10px"
+                  *ngIf="userDetails.bankstatus == 1"
+                  fxLayout="row"
+                  fxLayoutGap="20px"
+                  fxLayoutAlign="start center"
+                  class="outer-row space1"
+                >
+                  <div><b>Reject Bank Details :</b></div>
+                  <div>
+                    {{
+                      userDetails.bankstatus == 1
+                        ? "Approved"
+                        : userDetails.bankstatus == 2
+                        ? "Rejected"
+                        : userDetails.bankstatus == 0
+                        ? "Pending"
+                        : "Not Uploaded"
+                    }}
+                  </div>
+                  <button
+                    *ngIf="userDetails.bankstatus == 1"
+                    mat-button
+                    class="mat-button btn-cancel"
+                    (click)="rejectBankaccount('rejectbank')"
+                  >
+                    Reject Bank Account
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div
+              fxLaout="row"
+              style="
+                width: 100%;
+                height: auto;
+                box-shadow: 5px 5px 2px gray;
+                border-radius: 10px;
+                background-color: white;
+              "
+            >
+              <div
+                fxLayout="column"
+                style="width: 50%; height: auto; padding: 20px"
+              >
+                <div>
+                  <h1>Bank Detailss</h1>
+
+                  <div
+                    fxLayout="row"
+                    fxLayoutGap="20px"
+                    fxLayoutAlign="start center"
+                    class="outer-row space1"
+                  >
+                    <div><b>Bank Status :</b></div>
+                    <div>
+                      {{
+                        userDetails.bankstatus == 1
+                          ? "Approved"
+                          : userDetails.bankstatus == 2
+                          ? "Rejected"
+                          : userDetails.bankstatus == 0
+                          ? "Pending"
+                          : "Not Uploaded"
+                      }}
+                    </div>
+                  </div>
+                  <div *ngIf="checkObj('bankdetails')">
+                    <div
+                      *ngFor="let item of userDetails.bankdetails | keyvalue"
+                      fxLayout="row"
+                      fxLayoutGap="20px"
+                      fxLayoutAlign="start center"
+                      class="outer-row space1"
+                    >
+                      <div>{{ item.key }} :</div>
+                      <div>{{ item.value }}</div>
+                    </div>
+                  </div>
+                  <h1>Auto Verification Bank Details</h1>
+                  <div *ngIf="checkObj('bankdetails')">
+                    <div
+                      *ngFor="let item of userDetails.bankApiRes | keyvalue"
+                      fxLayout="row"
+                      fxLayoutGap="20px"
+                      fxLayoutAlign="start center"
+                      class="outer-row space1"
+                    >
+                      <div>{{ item.key }} :</div>
+                      <div>{{ item.value }}</div>
+                    </div>
+                  </div>
+
+                  <div
+                    *ngIf="userDetails.bankstatus == 0"
+                    fxLayout="row"
+                    fxLayoutGap="20px"
+                    fxLayoutAlign="start center"
+                    class="outer-row space1"
+                  >
+                    <div>Bank Status :</div>
+                    <div>
+                      <select
+                        id="mySelect"
+                        (change)="setBankStatus($event.target.value)"
+                      >
+                        <option value="">Select</option>
+                        <option value="Reject">Reject</option>
+                        <option value="Approve">Approve</option>
+                      </select>
+                      <div *ngIf="bankstatus == 'Reject'">
+                        <textarea
+                          (keyup)="setReason($event.target.value)"
+                        ></textarea>
+                      </div>
+                      <div>
+                        <button
+                          [disabled]="bankstatus == ''"
+                          mat-button
+                          class="mat-button btn-cancel"
+                          (click)="changeBank()"
+                        >
+                          Submit
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <br />
+            <div fxLayout="row">
+              <div fxLayout="row" style="height: auto">
+                <div *ngIf="checkObj('kyc')">
+                  <div
+                    fxLayout="row"
+                    fxLayoutGap="20px"
+                    fxLayoutAlign="start center"
+                    style="
+                      box-shadow: 5px 5px 2px gray;
+                      border-radius: 10px;
+                      background-color: white;
+                      width: 100%;
+                      padding: 20px;
+                    "
+                    class="outer-row space1"
+                  >
+                    <div><b>KYC Status :</b></div>
+                    <div>
+                      {{
+                        userDetails.kycstatus == 1
+                          ? "Approved"
+                          : userDetails.kycstatus == 2
+                          ? "Rejected"
+                          : userDetails.kycstatus == 0
+                          ? "Pending"
+                          : "Not Uploaded"
+                      }}
+                    </div>
+                  </div>
+                  <br />
+                  <div>
+                    <!-- <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="20px"
+                      style="  box-shadow: 5px 5px 2px gray; border-radius: 10px; background-color: white; padding: 20px;">
+
+                      <div *ngFor="let item of userDetails.kyc | keyvalue" fxLayout="row" fxLayoutGap="20px"
+                        style=" width: 100%; padding: 20px;" class="outer-row space1">
+
+                        <div>{{item.key }} :</div><i (click)="show(item.value.value)" href="#imagemodal" class="far fa-window-restore"></i>
+                        <div *ngIf="item.value.type == 'string'">{{item.value.value}}</div>
+
+                        <img *ngIf="item.value.type == 'image'" class="mat-card-image image-cls"
+                          src="{{item.value.value}}" width="100%" height="auto">
+                      </div>
+
+                    </div> -->
+                    <div
+                      class="image-zoomkyc"
+                      [style.display]="showModal ? 'block' : 'none'"
+                      class="modal"
+                      id="imagemodal"
+                      tabindex="-1"
+                      role="dialog"
+                      aria-labelledby="myModalLabel"
+                      aria-hidden="true"
+                    >
+                      <div class="modal-dialog">
+                        <!-- <div class="modal-content">
+                          <div class="modal-header">
+                            <h4 class="modal-title" id="myModalLabel">Image preview</h4> <button type="button" class="btn btn-default" data-dismiss="modal" (click) = "hide()">Close</button>
+                          </div>
+                          <div *ngIf="viewImageDrc != ''" class="modal-body">
+                            <img src={{viewImageDrc}} id="imagepreview">
+                          </div>
+                          <div *ngIf="viewImageDrc == ''" class="modal-body">
+                         <h4>No Image to Display</h4>>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal" (click) = "hide()">Close</button>
+                          </div>
+                        </div> -->
+                      </div>
+                    </div>
+                    <br />
+                    <br />
+                    <div
+                      *ngIf="userDetails.kycstatus == 0"
+                      fxLayout="row"
+                      fxLayoutGap="80px"
+                      fxLayoutAlign="start center"
+                      style="
+                        width: 50%;
+                        background-color: rgb(100, 100, 231);
+                        padding: 10px;
+                        box-shadow: 5px 5px 2px gray;
+                        border-radius: 10px;
+                      "
+                      class="outer-row space1"
+                    >
+                      <br />
+                      <br />
+                      <span> <b>KYC Status :</b> </span>
+                      <div>
+                        <select
+                          id="mySelect"
+                          (change)="setKYCStatus($event.target.value)"
+                          style="border: none; outline: none"
+                        >
+                          <option value="">Select The Status</option>
+                          <option value="Reject">Reject</option>
+                          <option value="Approve">Approve</option>
+                        </select>
+                        <span *ngIf="kycstatus == 'Reject'">
+                          <textarea
+                            (keyup)="setReason($event.target.value)"
+                          ></textarea>
+                        </span>
+                        &nbsp; &nbsp;
+                        <span>
+                          <button
+                            [disabled]="kycstatus == ''"
+                            mat-button
+                            class="mat-button btn-cancel"
+                            (click)="changeKYC()"
+                          >
+                            Submit
+                          </button>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- <div fxLayout="column" style=" width: 50%; height: auto; padding: 20px;">
+                    <div>
+                      <h1>
+                        Bank Details
+                      </h1>
+        
+                      <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center" class="outer-row space1">
+                        <div>Bank Status :</div>
+                        <div>{{userDetails.bankstatus == 1 ? 'Approved' : userDetails.bankstatus == 2 ? 'Rejected' :
+                          userDetails.bankstatus == 0 ? 'Pending' : 'Not Uploaded'}}
+                        </div>
+                      </div>
+                      <div *ngIf="checkObj('bankdetails')">
+                      <div *ngFor="let item of userDetails.bankdetails | keyvalue" fxLayout="row" fxLayoutGap="20px"
+                        fxLayoutAlign="start center" class="outer-row space1">
+                        <div>{{item.key}} :</div>
+                        <div>{{item.value}}</div>
+                      </div>
+                    </div>
+        
+                      <div *ngIf="userDetails.bankstatus==0" fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center"
+                        class="outer-row space1">
+                        <div>Bank Status :</div>
+                        <div>
+                          <select id="mySelect" (change)="setBankStatus($event.target.value)">
+                            <option value=""> Select </option>
+                            <option value="Reject"> Reject </option>
+                            <option value="Approve"> Approve </option>
+                          </select>
+                          <div *ngIf="bankstatus=='Reject'">
+                            <textarea (keyup)="setReason($event.target.value)"></textarea>
+                          </div>
+                          <div>
+                            <button [disabled]="bankstatus == ''" mat-button class="mat-button btn-cancel"
+                              (click)="changeBank()">
+                              Submit
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div> -->
+            </div>
+
+            <div
+              fxLaout="row"
+              style="
+                width: 100%;
+                height: auto;
+                box-shadow: 5px 5px 2px gray;
+                border-radius: 10px;
+                background-color: white;
+              "
+            >
+              <div
+                style="
+                  width: 50%;
+                  background-color: #ffff;
+                  padding: 10px;
+                  box-shadow: 5px 5px 2px #ffff;
+                  border-radius: 10px;
+                "
+                fxLayout="row"
+                fxLayoutGap="20px"
+                fxLayoutAlign="start center"
+                class="outer-row space1"
+              >
+                <div><b>KYC Verification Type :</b></div>
+                <div style="margin-right: 10px">
+                  {{
+                    userDetails.adharCardNo != "000000000000"
+                      ? "AutoAdhar"
+                      : userDetails.passPortApiData
+                      ? "AutoPassPort"
+                      : "Offline"
+                  }}&nbsp;&nbsp;
+                </div>
+                <button
+                  *ngIf="
+                    userDetails.adharCardNo == '000000000000' ||
+                    userDetails.adharCardNo == undefined
+                  "
+                  mat-button
+                  class="mat-button btn-cancel"
+                  (click)="checkAutoKyc(userDetails._id)"
+                >
+                  Check KYC Details
+                </button>
+              </div>
+
+              <div fxLayout="column" style="height: auto; padding: 20px">
+                <div>
+                  <h1>KYC Details</h1>
+
+                  <div
+                    fxLaout="row"
+                    style="
+                      width: 100%;
+                      height: auto;
+                      border-radius: 10px;
+                      background-color: white;
+                    "
+                  >
+                    <div fxLayout="column">
+                      <div
+                        fxLayout="row"
+                        fxLayoutGap="20px"
+                        fxLayoutAlign="start center"
+                        class="outer-row space1"
+                      >
+                        <div class="text_wrapping">
+                          Aadhar Card Number :{{ userDetails.adharCardNo }}
+                        </div>
+                        <div class="text_wrapping">
+                          Name on Pan:{{ userDetails.nameOnPAN }}
+                        </div>
+                        <div class="text_wrapping">
+                          Pan Card Number :{{ userDetails.panCard }}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div
+                    fxLaout="row"
+                    style="
+                      width: 100%;
+                      height: auto;
+                      border-radius: 10px;
+                      background-color: white;
+                    "
+                  >
+                    <div fxLayout="column">
+                      <div
+                        *ngFor="let item of userKYCData | keyvalue"
+                        fxLayout="row"
+                        fxLayoutGap="20px"
+                        fxLayoutAlign="start center"
+                        class="outer-row space1"
+                      >
+                        <div class="text_wrapping">{{ item.key }} :</div>
+                        <div class="text_wrapping">{{ item.value }}</div>
+                      </div>
+                    </div>
+                  </div>
+                  <h1>KYC Details user_address</h1>
+                  <div
+                    fxLaout="row"
+                    style="
+                      width: 100%;
+                      height: auto;
+                      border-radius: 10px;
+                      background-color: white;
+                    "
+                  >
+                    <div fxLayout="column">
+                      <div
+                        *ngFor="let item of userKYCData.user_address | keyvalue"
+                        fxLayout="row"
+                        fxLayoutGap="20px"
+                        fxLayoutAlign="start center"
+                        class="outer-row space1"
+                      >
+                        <div class="text_wrapping">{{ item.key }} :</div>
+                        <div class="text_wrapping">{{ item.value }}</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <br />
+          <br />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

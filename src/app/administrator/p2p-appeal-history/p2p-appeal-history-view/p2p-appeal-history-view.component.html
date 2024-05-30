@@ -1,0 +1,276 @@
+<section class="sect-transaction">
+  <div class="container">
+    <div class="layout-container">
+      <div class="layout">
+        <div class="sect-transaction-block">
+          <div class="">
+            <div class="prev-pagediv">
+              <button
+              mat-button
+              class="mat-button btn-back flot-rt"
+              (click)="backRedirectBtn()"
+            >
+              <mat-icon>arrow_left_alt</mat-icon>Back
+            </button>
+            </div>
+          </div>
+          <div class="width-100" *ngIf="!isLoading">
+            <div class="headline align-left mrg-botval">
+              P2P Appeal Details
+            </div>
+            <div
+              fxLayout="row"
+              fxLayoutGap="20px"
+              fxLayoutAlign="start center"
+              class="outer-row space1"
+            >
+              <div>Appeal Creator:</div>
+              <div>{{(p2pappealDetails && p2pappealDetails[0] && p2pappealDetails[0].appealCreatorUserName) != "" ? (p2pappealDetails && p2pappealDetails[0] && p2pappealDetails[0].appealCreatorUserName) : (p2pappealDetails && p2pappealDetails[0] && p2pappealDetails[0].appealCreatorEmail)}}</div>
+            </div>
+            <div
+            fxLayout="row"
+            fxLayoutGap="20px"
+            fxLayoutAlign="start center"
+            class="outer-row space1"
+          >
+            <div>Appeal Email:</div>
+            <div>{{(p2pappealDetails && p2pappealDetails[0] && p2pappealDetails[0].appealCreatorEmail) != "" ? (p2pappealDetails && p2pappealDetails[0] && p2pappealDetails[0].appealCreatorEmail) : (p2pappealDetails && p2pappealDetails[0] && p2pappealDetails[0].appealCreatorEmail)}}</div>
+          </div>
+
+            <div
+              fxLayout="row"
+              fxLayoutGap="20px"
+              fxLayoutAlign="start center"
+              class="outer-row space1"
+            >
+              <div>Order No :</div>
+              <div>{{(p2pappealDetails && p2pappealDetails[0] && p2pappealDetails[0].orderNo)}}</div>
+            </div>
+
+            <div
+              fxLayout="row"
+              fxLayoutGap="20px"
+              fxLayoutAlign="start center"
+              class="outer-row space1"
+            >
+              <div>Reason :</div>
+              <div>
+                <div class="link-clr crs-ptr">{{(p2pappealDetails && p2pappealDetails[0] && p2pappealDetails[0].reason)}}</div>
+              </div>
+            </div><br/><br/>
+
+            <div class="">
+              <div fxLayout="row" fxLayoutGap="20px" 
+                  fxLayoutAlign="start center" 
+                  class="outer-row" 
+                  *ngIf="appealStatus == 1 && orderStatus != 1 && orderStatus != 2"
+              >
+                <div> <b>Cancel Reason :</b> </div>
+                <div>
+                    <input (change)="setUserReason($event.target.value)"
+                        placeholder="Enter the reason"
+                    />
+                </div>
+              </div><br/>
+              <button
+                *ngIf="orderStatus != 1 && orderStatus != 2 && verifyStatus == 2 && appealStatus == 1" 
+                mat-button
+                class="mat-button btn-back"
+                (click)="paymentRecived()"
+              >
+                Payment Received
+              </button> &nbsp;
+              <button 
+                *ngIf="appealStatus == 1 && orderStatus != 1 && orderStatus != 2"
+                mat-button (click)="cancelAppeal()"
+                type="button" class="button-red"
+              >
+                Cancel Appeal
+              </button>
+            </div>
+          </div>
+          <div class="width-100" 
+            *ngIf="((p2pappealDetails && p2pappealDetails[0] && p2pappealDetails[0].helpbuyer && p2pappealDetails[0].helpbuyer.status == 3) 
+                  || 
+                  (p2pappealDetails && p2pappealDetails[0] && p2pappealDetails[0].helpseller && p2pappealDetails[0].helpseller.status == 3))
+                  && orderStatus != 1 && orderStatus != 2"
+          >
+            <div class="headline align-left mrg-botval">
+              Appeal Help
+            </div>
+            <div
+              fxLayout="row"
+              fxLayoutGap="20px"
+              fxLayoutAlign="start center"
+              class="outer-row space1"
+              *ngIf="p2pappealDetails && p2pappealDetails[0] && p2pappealDetails[0].helpbuyer && p2pappealDetails[0].helpbuyer.description !=''"
+            >
+              <div>Buyer appeal:</div>
+              <div>{{(p2pappealDetails && p2pappealDetails[0] && p2pappealDetails[0].helpbuyer && p2pappealDetails[0].helpbuyer.description)}}</div>
+            </div>
+            <div
+              fxLayout="row"
+              fxLayoutGap="20px"
+              fxLayoutAlign="start center"
+              class="outer-row space1"
+              *ngIf="p2pappealDetails && p2pappealDetails[0] && p2pappealDetails[0].helpseller && p2pappealDetails[0].helpseller.description !=''"
+            >
+              <div>Seller appeal:</div>
+              <div>{{(p2pappealDetails && p2pappealDetails[0] && p2pappealDetails[0].helpseller && p2pappealDetails[0].helpseller.description)}}</div>
+            </div>
+          </div>
+
+          <div class="width-100" *ngIf="!isLoading">
+            <div class="headline align-left mrg-botval">
+             Apeal History
+            </div>
+            <div
+              fxLayout="row"
+              fxLayoutGap="20px"
+              fxLayoutAlign="start center"
+              class="outer-row space1"
+            >
+              <div>Appeal History Deacription:</div>
+              <div>{{(appealHistory && appealHistory[0] && appealHistory[0].description) != "" ? (appealHistory && appealHistory[0] && appealHistory[0].description) : (appealHistory && appealHistory[0] && appealHistory[0].description)}}</div>
+            </div>
+
+            <div
+              fxLayout="row"
+              fxLayoutGap="20px"
+              fxLayoutAlign="start center"
+              class="outer-row space1"
+            >
+              <div>Mob No :</div>
+              <div>{{(appealHistory && appealHistory[0] && appealHistory[0].phone)}}</div>
+            </div>
+
+            <div
+              fxLayout="row"
+              fxLayoutGap="20px"
+              fxLayoutAlign="start center"
+              class="outer-row space1"
+            >
+              <div> Cancel Reason(If Applicable) :</div>
+              <div>
+                <div class="link-clr crs-ptr">{{(appealHistory && appealHistory[0] && appealHistory[0].cancelReason)}}</div>
+              </div>
+            </div><br/><br/>
+            <div> Attachment :</div>
+            <img  mat-card-image *ngIf="appealHistory[0].attachment !=''" class="chatImage chatMargin"  src={{appealHistory[0].attachment}}  alt="Photo of a Apeal">
+          
+          </div>
+          <div class="width-100" *ngIf="!isLoading">
+            <div class="headline align-left mrg-botval">
+            Order Details
+            </div>
+            <div
+            fxLayout="row"
+            fxLayoutGap="20px"
+            fxLayoutAlign="start center"
+            class="outer-row space1"
+          >
+            <div>Order Status:</div>
+            <div *ngIf="p2porderDetails.status == 1">Order Released</div>
+            <div *ngIf="p2porderDetails.status == 2">Order Cancelled</div>
+            <div *ngIf="p2porderDetails.status == 3">Order Processing</div>
+          </div>
+          <div
+            fxLayout="row"
+            fxLayoutGap="20px"
+            fxLayoutAlign="start center"
+            class="outer-row space1"
+          >
+            <div>Order Number:</div>
+            <div>{{p2porderDetails.orderNo}}</div>
+          </div>
+            <div
+              fxLayout="row"
+              fxLayoutGap="20px"
+              fxLayoutAlign="start center"
+              class="outer-row space1"
+            >
+              <div>Order Type:</div>
+              <div>{{p2porderDetails.orderType}}</div>
+            </div>
+
+            <div
+              fxLayout="row"
+              fxLayoutGap="20px"
+              fxLayoutAlign="start center"
+              class="outer-row space1"
+            >
+              <div>Order Price :</div>
+              <div>{{p2porderDetails.price}}</div>
+            </div>
+
+            <div
+              fxLayout="row"
+              fxLayoutGap="20px"
+              fxLayoutAlign="start center"
+              class="outer-row space1"
+            >
+              <div> Total Price :</div>
+              <div>
+                <div class="link-clr crs-ptr">{{ p2porderDetails.totalPrice}}</div>
+              </div>
+            </div>
+            <div
+            fxLayout="row"
+            fxLayoutGap="20px"
+            fxLayoutAlign="start center"
+            class="outer-row space1"
+          >
+            <div> Payment End Date :</div>
+            <div>{{p2porderDetails.paymentEndDate | date:"MMM dd, y, HH:mm:ss"}}</div>
+          </div>
+          <div
+            fxLayout="row"
+            fxLayoutGap="20px"
+            fxLayoutAlign="start center"
+            class="outer-row space1"
+            *ngIf="p2porderDetails.status == 3"
+          >
+            <div>Cancel Order :</div>
+            <div>
+              <input (change)="setCancelOrderReason($event.target.value)"
+                  placeholder="Enter the reason"
+              />
+          </div>
+            <div>
+              <button 
+                *ngIf="p2porderDetails.status == 3"
+                mat-button (click)="cancelOrder()"
+                type="button" class="button-red"
+              >
+                Cancel Order
+              </button>
+            </div>
+          </div><br/><br/>
+          </div>
+
+        <div class="window">
+          <mat-card-header style="margin-top: 10px;margin-bottom: 10px;">User conversation Details </mat-card-header>
+          <mat-card  *ngFor="let member of chartHistoryUser " class="example-card chatMessage" class={{getType(member.userId)}}>
+            <br>
+              <mat-card-header>
+                <div mat-card-avatar class="example-header-image"></div>
+                <!-- <mat-card-title>Shiba Inu</mat-card-title> -->
+                <mat-card-subtitle >{{getUserName(member.userId)}}</mat-card-subtitle>
+             
+              </mat-card-header>
+              <img mat-card-image *ngIf="member.chattingImage !=''" class="chatImage chatMargin"  src={{member.chattingImage}}  alt="Photo of a chatimg">
+              <mat-card-content>
+                <p class="chatMargin">
+                  {{member.message}}
+                </p>
+                <p style="font-size: 11px;">{{member.createdDate | date:"MMM dd, y, HH:mm:ss"}}</p>
+              </mat-card-content>
+          </mat-card>
+
+        </div>
+         
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

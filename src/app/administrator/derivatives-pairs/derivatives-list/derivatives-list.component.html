@@ -1,0 +1,191 @@
+
+<section class="sect-one">
+    <div class="container">
+        <div class="layout-container">
+            <div class="layout">
+                <div class="sect-one-block">
+                    <div class="sect-container" fxLayout="column" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="20px">
+                        <div class="sect container-12" fxLayout="column" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="10px">
+                          <div class="headline align-left mrg-botval">Derivatives Pairs List
+                            <!-- <div class="flot-rt">
+                              <button
+                                mat-button
+                                type="button"
+                                class="button-cls add-btn vert-texttopalign"
+                                (click)="addPairs()">
+                                Add New Pairs
+                              </button>
+                            </div> -->
+                          </div>
+                          <form [formGroup]="form" (ngSubmit)="filterTable()">
+                            <div
+                              fxLayout="row"
+                              fxLayoutGap="20px"
+                              fxLayoutAlign="start center"
+                              class="outer-row"
+                              >
+                              <div style="width: 165px;" class="widthStatus">
+                                <div class="inner-row">
+                                  <label class="form-label">Pair Name</label>
+                                  <mat-form-field appearance="outline">
+                                    <input
+                                        matInput
+                                        formControlName="pair"
+                                        placeholder="Pair Name"
+                                    />
+                                  </mat-form-field>
+                                </div>
+                              </div>
+                              
+                              <div style="width: 165px;" class="widthStatus1">
+                                <div class="inner-row">
+                                  <label class="form-label">Status</label>
+                                  <mat-form-field appearance="outline">
+                                    <mat-select placeholder="Status" formControlName="status" [compareWith]="compareItems">
+                                      <mat-option value="1">Active</mat-option>
+                                      <mat-option value="0">De-Active</mat-option>
+                                    </mat-select>
+                                  </mat-form-field>
+                                </div>
+                              </div>
+                              <div style="width: 165px;" class="widthStatus1">
+                                <div class="inner-row">
+                                  <label class="form-label">Auto Trading status</label>
+                                  <mat-form-field appearance="outline">
+                                    <mat-select placeholder="Status" formControlName="autoOrderExecute" [compareWith]="compareItems">
+                                      <mat-option value="1">Active</mat-option>
+                                      <mat-option value="0">De-Active</mat-option>
+                                    </mat-select>
+                                  </mat-form-field>
+                                </div>
+                              </div>
+                              <div class="widthStatusButton">
+                              <button mat-button type="submit" class="btn-save">
+                              Filter Pairs
+                              </button>
+                              </div>
+                              <div class="widthStatusButton">
+                                <button mat-button (click)="ExportToCsv()" type="button" class="btn-save">
+                                Export CSV
+                                </button>
+                                </div>
+                              <!-- <div style="width: 105px;" class="widthStatus">
+                                <label class="form-label">Page</label>
+                                <mat-form-field appearance="outline">
+                                <input 
+                                matInput
+                                type="text"
+                                formControlName="pageNumber">
+                              </mat-form-field>
+                              </div> -->
+                              <div>
+                                <button mat-button matTooltip="Refresh" mat-icon-button (click)="refresh()" class="btn-save">
+                                  <mat-icon>refresh</mat-icon>
+                                </button>
+                              </div>
+                        </div>
+                          </form>
+                            <div class="example-container mat-elevation-z8">
+                                <mat-table [dataSource]="pairsTbl.data.length > 0 && pairsTbl.filteredData.length > 0 ? pairsTbl:emptyData" matSort>
+                                  <!-- ID Column -->
+
+                                  <ng-container matColumnDef="pair">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header>
+                                      Pair Name
+                                    </mat-header-cell>
+                                    <mat-cell class="link-clr crs-ptr" *matCellDef="let row" data-label="pair"
+                                      ><span class="mobile-label">Pair Name:</span>
+                                      <span>{{ row.pair }}</span></mat-cell
+                                    >
+                                  </ng-container>
+
+                                  <ng-container matColumnDef="marketPrice">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header>
+                                      Market Price
+                                    </mat-header-cell>
+                                    <mat-cell *matCellDef="let row" data-label="marketPrice"
+                                      ><span class="mobile-label">Market Price:</span>
+                                      {{ row.marketPrice }}
+                                    </mat-cell>
+                                  </ng-container>
+
+                                  <ng-container matColumnDef="status">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header>
+                                      Status
+                                    </mat-header-cell>
+                                    <mat-cell *matCellDef="let row" data-label="status"
+                                      ><span class="mobile-label">Status:</span>
+                                      {{ row.status == 1 ? 'Active' : 'De-Active' }}
+                                    </mat-cell>
+                                  </ng-container>
+
+                                  <ng-container matColumnDef="autoOrderExecute">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header>
+                                      Auto Trading Excute
+                                    </mat-header-cell>
+                                    <mat-cell *matCellDef="let row" data-label="autoOrderExecute"
+                                      ><span class="mobile-label">Auto Trading Status:</span>
+                                      {{ row.autoOrderExecute == 1 ? 'Active' : 'De-Active' }}
+                                    </mat-cell>
+                                  </ng-container>
+
+                                  <ng-container matColumnDef="autoTradeOrder">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header>
+                                      Auto Trading Detail
+                                    </mat-header-cell>
+                                    <mat-cell *matCellDef="let row" data-label="autoTradeOrder"
+                                      ><span class="mobile-label">Auto Trading Status:</span>
+                                      {{ row.autoTradeOrder == "1" ? 'Active' : 'De-Active' }}
+                                    </mat-cell>
+                                  </ng-container>
+
+                                  <ng-container matColumnDef="action">
+                                    <mat-header-cell *matHeaderCellDef>
+                                      Action
+                                    </mat-header-cell>
+                                    <mat-cell  *matCellDef="let element; let i = index" data-label="action"
+                                      > 
+                                      <span class="material-icons crs-ptr" (click)="editPair(element._id)">
+                                        edit
+                                      </span>
+                                    </mat-cell>
+                                  </ng-container>
+
+                                  <ng-container matColumnDef="empty-row">
+                                    <mat-cell *matCellDef="let element">
+                                     <span >  No Record Found</span>
+                                    </mat-cell>
+                                  </ng-container>
+
+                                  <mat-header-row
+                                    *matHeaderRowDef="displayedColumns"
+                                  ></mat-header-row>
+                                  <mat-row *matRowDef="let row; columns: pairsTbl.data.length > 0 && 
+                                    pairsTbl.filteredData.length > 0 ? displayedColumns: ['empty-row']">
+                                  </mat-row>
+                                </mat-table>
+
+                                <mat-paginator #paginator
+                                [length]="length"
+                                [pageSize]=10
+                                [pageSizeOptions]="[5, 10, 25, 100]"
+                                (page)="changepage($event)">
+                              </mat-paginator>
+
+                                  <!-- new code by p -->
+                            <!-- <button (click)="backpage()" [disabled]=" buttonDisabled " >
+                              <mat-icon>arrow_backward_ios</mat-icon> Back Page
+                            </button>
+                            &nbsp;
+                            <button (click)="nextPage()" [disabled]=" len === 0"  >
+                              <mat-icon>arrow_forward</mat-icon> Next Page
+                            </button> -->
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

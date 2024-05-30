@@ -1,0 +1,184 @@
+<section class="sect-one">
+    <div class="container">
+      <div class="layout-container">
+        <div class="layout">
+          <div class="sect-one-block">
+            <div class="sect-container" fxLayout="column" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="20px">
+              <div class="sect container-12" fxLayout="column" fxLayout.sm="column" fxLayout.xs="column"
+                fxLayoutGap="10px">
+                <div class="headline align-left mrg-botval">P2P Orders List
+                </div>
+                <form [formGroup]="form" (ngSubmit)="filterTable()">
+                  <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center" class="outer-row">
+                  
+                    <div style="width: 165px;" class="widthStatus1">
+                      <div class="inner-row">
+                        <label class="form-label">Order Type</label>
+                        <mat-form-field appearance="outline">
+                          <mat-select placeholder="Order Type" formControlName="orderType" [compareWith]="compareItems">
+                            <mat-option value="">All Type</mat-option>
+                            <mat-option value="buy">Buy</mat-option>
+                            <mat-option value="sell">Sell</mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div style="width: 165px;" class="widthStatus1">
+                      <div class="inner-row">
+                        <label class="form-label">Pair Lists</label>
+                        <mat-form-field appearance="outline">
+                          <mat-select placeholder="Pair" formControlName="pair" [compareWith]="compareItems">
+                            <mat-option  *ngFor="let option of pairList" [value]="option.pair" >
+                              {{option.pair}}
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                  
+                    <!-- <div style="width: 165px;" class="widthStatus1">
+                      <div class="inner-row">
+                        <label class="form-label">Status</label>
+                        <mat-form-field appearance="outline">
+                          <mat-select placeholder="Status" formControlName="status" [compareWith]="compareItems">
+                            <mat-option value="">All Status</mat-option>
+                            <mat-option value="1">Active</mat-option>
+                            <mat-option value="2">Deleted</mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
+                    </div> -->
+              
+                    <div class="widthStatusButton">
+                      <button mat-button type="submit" class="btn-save">
+                        Filter
+                      </button>
+                    </div>
+                    <div class="widthStatusButton">
+                      <button mat-button (click)="ExportToCsv()" type="button" class="btn-save">
+                        Export CSV
+                      </button>
+                    </div>
+                    <div>
+                      <button mat-button matTooltip="Refresh" mat-icon-button (click)="refresh()" class="btn-save">
+                      <mat-icon>refresh</mat-icon>
+                      </button>
+                   </div>
+                  </div>
+                </form>
+                <div class="example-container mat-elevation-z8">
+                  <mat-table [dataSource]="p2pordersTbl.data.length > 0 && 
+                    p2pordersTbl.filteredData.length > 0 ? p2pordersTbl:emptyData" matSort>               
+                    <ng-container matColumnDef="createdDate">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header>
+                        Created Date
+                      </mat-header-cell>
+                      <mat-cell class="" *matCellDef="let row" data-label="createdDate"
+                        ><span class="mobile-label"> Appeal Created Date:</span>
+                        <span>{{ row.createdDate | date:"MMM dd, y, HH:mm:ss" }}</span></mat-cell
+                      >
+                    </ng-container>
+                    <ng-container matColumnDef="username">
+                      <mat-header-cell *matHeaderCellDef>
+                        User Name
+                      </mat-header-cell>
+                      <mat-cell class="link-clr crs-ptr" *matCellDef="let row" data-label="username">
+                        <span class="mobile-label">User Name:</span>
+                        {{ row?.username}}
+                      </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="email">
+                      <mat-header-cell *matHeaderCellDef>
+                        E-Mail
+                      </mat-header-cell>
+                      <mat-cell class="link-clr crs-ptr" *matCellDef="let row" data-label="email">
+                        <span class="mobile-label">E-Mail:</span>
+                        {{ row?.email}}
+                      </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="pairName">
+                      <mat-header-cell *matHeaderCellDef>
+                        pairName
+                      </mat-header-cell>
+                      <mat-cell  *matCellDef="let row" data-label="pairName">
+                        <span class="mobile-label">pairName:</span>
+                        {{ row?.pairName}}
+                      </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="paymentNames">
+                      <mat-header-cell *matHeaderCellDef>
+                        Payment's
+                      </mat-header-cell>
+                      <mat-cell  *matCellDef="let row" data-label="paymentNames">
+                        <span class="mobile-label">Payment's:</span>
+                        {{ row?.paymentNames}}
+                      </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="orderType">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header>
+                        orderType
+                      </mat-header-cell>
+                      <mat-cell *matCellDef="let row" data-label="orderType">
+                        <span class="mobile-label">orderType:</span>
+                        {{ row.orderType}}
+                      </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="price">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header>
+                        price
+                      </mat-header-cell>
+                      <mat-cell *matCellDef="let row" data-label="price"><span class="mobile-label">price:</span>
+                        {{ row.price}} {{ row.toCurrencySymbol}}
+                      </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="status">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header>
+                        status
+                      </mat-header-cell>
+                      <mat-cell *matCellDef="let row" data-label="status"><span class="mobile-label">status:</span>
+                        {{ row.status == 0 ? 'De-Active' : row.status == 1 ? 'Active' : row.status == 2 ? "Deleted" : "_"}}
+                      </mat-cell>
+                    </ng-container>
+  
+                    <ng-container matColumnDef="action">
+                      <mat-header-cell *matHeaderCellDef>
+                        Action
+                      </mat-header-cell>
+                      <mat-cell *matCellDef="let element; let i = index" data-label="action">
+                        <span class="material-icons crs-ptr" (click)="viewOrder(element._id)">
+                          preview
+                        </span>
+                      </mat-cell>
+                    </ng-container>
+                    
+                    <ng-container matColumnDef="empty-row">
+                      <mat-cell *matCellDef="let element">
+                       <span >  No Record Found</span>
+                      </mat-cell>
+                    </ng-container>
+
+                    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: p2pordersTbl.data.length > 0 && 
+                      p2pordersTbl.filteredData.length > 0 ? displayedColumns: ['empty-row']">
+                    </mat-row>
+                   
+                  </mat-table> 
+                  <mat-paginator #paginator
+                  [length]="length"
+                  [pageSize]=10
+                  [pageSizeOptions]="[5, 10, 25, 100]"
+                  (page)="changepage($event)">
+                </mat-paginator>
+                
+                </div>  
+
+                
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>

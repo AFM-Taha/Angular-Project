@@ -1,0 +1,67 @@
+<section class="sect-dashboard">
+    <div class="container">
+      <div class="layout-container">
+        <div class="layout">
+          <div class="sect-dashboard-block">
+            <div class="sect-container">
+              <div class="sect container-12">
+                <div class="typography-headline mrg-topval mrg-botval">
+                  Wallet Balance
+                </div>
+                <div *ngIf="loader" class="typography-headline mrg-topval mrg-botval">
+                  <div  style="position: relative">
+                    <mat-progress-bar mode="determinate" [value]="progress"></mat-progress-bar>
+                    <span style="position: absolute; top: 0.5em;" [ngStyle]="{'left': progress + '%'}">{{progress}}%</span>
+                  </div>
+                </div>
+                <div
+                  class="outer-wrapdiv-flex mrg-topval"
+                  fxLayout="row"
+                  fxLayout.sm="column"
+                  fxLayoutGap="20px"
+                >
+                  <div
+                    class="inner-wrapdiv-flex border-box mar-bot"
+                    fxFlex.md="50"
+                    fxFlex.sm="100"
+                    fxFlex.xs="100" *ngFor="let items of currencyData"
+                  >
+                    <div
+                      class="justify-content"
+                      fxLayout="row"
+                      fxLayout.sm="column"
+                      fxLayoutGap="20px"
+                    >
+                      <div>
+                     
+                        <div>
+                          <img class="image-cls"  mat-card-image src="{{ items.image }}" alt="" />
+                          <!-- <span class="material-icons count-box"
+                            >account_tree</span
+                          > -->
+                        </div>
+                        <div class="description">{{items.symbol}} {{items.basecoin != 'Coin' ? ' - '+items.basecoin : '' }} 
+                           <!-- {{ '-'+ items.address != "" ? items.address : ""}} -->
+                           <span title="Copy Address" class="material-icons" *ngIf="items.address !=''" (click)="copyAddress(items.address)">content_copy</span>
+                        </div>
+                      </div>
+                      <div class="mrg-btauto">
+                        <div class="dash-count">{{items.balance > 0 ? items.balance.toFixed(items.decimal) : 0}}</div>
+                      </div>
+
+                      <!-- <div class="mrg-btauto">
+                        <button type="button" class="mat-focus-indicator button-cls mat-button mat-button-base" (click)="adminwithdraw()">withdraw</button>
+                      </div> -->
+                    </div>
+                  </div>
+                  
+                </div>
+                
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  

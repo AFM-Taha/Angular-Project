@@ -1,0 +1,102 @@
+<section class="sect-partners">
+    <div class="container">
+      <div class="layout-container">
+        <div class="layout">
+          <div class="sect-partners-block">
+            <div class="headline align-left"> Email Template</div>
+              <form [formGroup]="form" (ngSubmit)="formSubmitHandler()">
+                <div class="" fxLayoutGap="-10px">
+                  <div fxLayout="row"
+                    fxLayoutGap="20px"
+                    fxLayoutAlign="start center"
+                    class="outer-row"
+                  >
+                  <div class="inner-row">
+                      <label class="form-label">Subject</label>
+                      <mat-form-field appearance="outline">
+                      <input
+                          type="text"
+                          matInput
+                          formControlName="subject"
+                          placeholder="subject"
+                      />
+                      </mat-form-field>
+                  </div>
+                  </div>
+                  <div fxLayout="row"
+                  fxLayoutGap="20px"
+                  fxLayoutAlign="start center"
+                  class="outer-row"
+                >
+                <div class="inner-row">
+                    <label class="form-label">Hint</label>
+                    <mat-form-field appearance="outline">
+                    <input
+                        type="text"
+                        matInput
+                        formControlName="hint"
+                        placeholder="hint"
+                    />
+                    </mat-form-field>
+                </div>
+                </div>
+                <div
+                fxLayout="row"
+                fxLayoutGap="20px"
+                fxLayoutAlign="start center"
+                class="outer-row"
+                *ngIf="data"
+                >
+                <div class="inner-row">
+                    <label class="form-label">Status</label>
+                    <mat-form-field appearance="outline">
+                        <mat-select placeholder="Status" formControlName="status" [compareWith]="compareItems">
+                            <mat-option value="1">Active</mat-option>
+                            <mat-option value="0">De-Active</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                </div>
+                  <div
+                  fxLayout="row"
+                  fxLayoutGap="20px"
+                  fxLayoutAlign="start center"
+                  class="outer-row"
+                  >
+                  <div class="inner-row">
+                      <label class="form-label">Content</label>
+                      <div class="mrg-botval">
+                        <ckeditor
+                          (ready)="onReady($event)"
+                          [editor]="editor"
+                          [config]="editorConfig"
+                          formControlName="content"
+                        ></ckeditor>
+                      </div>
+                  </div>
+                  </div>
+                  <div class="flot-rt">
+                    <button
+                    (click)="closeDialog()"
+                    mat-button
+                    type="button"
+                    class="btn-cance mrg-rightval"
+                    >
+                    Cancel
+                    </button>
+                    <button
+                    mat-button
+                    type="submit"
+                    [disabled]="form.invalid || isLoading"
+                    class="btn-save"
+                    >
+                    {{data != '' ? 'Edit' : 'Add'}} Email Template
+                    </button>
+                  </div>
+                </div>
+              </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>

@@ -1,0 +1,63 @@
+<div class="topbar">
+    <div
+      class="sect-container"
+      fxLayout="row"
+      fxLayout.xs="column"
+      fxLayout.sm="column"
+    >
+      <div
+        class="sect container-11  same-line"
+        fxLayout="row"
+        fxLayout.xs="row"
+        fxLayout.sm="row"
+        fxLayoutGap="0px"
+      >
+        <div style="margin-right: 4px;margin-left: 16px;">
+          <button mat-icon-button (click)="clickMenu()">
+            <mat-icon class="menu">menu</mat-icon>
+          </button>
+        </div>
+        <div class="headerlogo-block headerlogo-blockmb">
+          <img
+            class="image-cls logo-img vert-midalign"
+            mat-card-image
+            src="{{ siteSettings.siteLogo }}"
+            alt=""
+          />
+        </div>
+      </div>
+      <div style="margin-left: 10px;"
+        class="sect container-1 justify-content same-line"
+        fxLayout="row"
+        fxLayout.xs="row"
+        fxLayout.sm="row"
+      >
+        
+        <div class="profile-icon-block">
+          <button
+            class=""
+            mat-button
+            [matMenuTriggerFor]="menu3"
+            style="margin-left: -16px"
+          >
+            <img
+              class="image-cls user-icon"
+              mat-card-image
+              src="{{ myProfile.profile == '' ? assetUrl+'/images/user icon.png' : myProfile.profile }}"
+              alt=""
+            /><span class="user-name">{{ myProfile.name }}</span
+            ><mat-icon>keyboard_arrow_down</mat-icon>
+          </button>
+          <mat-menu #menu3="matMenu">
+            <button mat-menu-item (click)="redirectBtnHandler()">
+              <mat-icon>account_box</mat-icon> My Profile
+            </button>
+            <button mat-menu-item (click)="logout()">
+              <mat-icon>exit_to_app</mat-icon> Logout
+            </button>
+          </mat-menu>
+        </div>
+      </div>
+    </div>
+  </div>
+  

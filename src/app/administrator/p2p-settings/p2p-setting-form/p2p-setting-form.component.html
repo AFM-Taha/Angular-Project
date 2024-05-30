@@ -1,0 +1,127 @@
+<section class="sect-one">
+    <div class="container">
+        <div class="layout-container">
+            <div class="layout">
+                <div class="sect-one-block">
+                    <div class="sect-container" fxLayout="column" fxLayout.sm="column" fxLayout.xs="column"
+                        fxLayoutGap="20px">
+                        <div class="sect container-12" fxLayout="column" fxLayout.sm="column" fxLayout.xs="column"
+                            fxLayoutGap="0px">
+                            <div class="headline align-left">P2P Settings</div>
+                            <form  [formGroup]="form" (ngSubmit)="formSubmitHandler()">
+                                <div class="border-box mrg-topval mrg-botval">
+                                    <div class="slide-typography mrg-botval">P2P Settings Details</div>
+                                    <!-- <div
+                                        fxLayout="row"
+                                        fxLayoutGap="20px"
+                                        fxLayoutAlign="start center"
+                                        class="outer-row"
+                                    >
+                                        <div class="inner-row">
+                                            <label class="form-label">Minimum Order Amount(USDT)</label>
+                                            <mat-form-field appearance="outline">
+                                            <input
+                                                matInput
+                                                type="number"
+                                                formControlName="minOrderAmt"
+                                                placeholder="Minimum Order Amount(USDT)"
+                                                required
+                                            />
+                                            </mat-form-field>
+                                        </div>
+                                    </div> -->
+                                    <div
+                                        fxLayout="row"
+                                        fxLayoutGap="20px"
+                                        fxLayoutAlign="start center"
+                                        class="outer-row"
+                                    >
+                                        <div class="inner-row">
+                                            <label class="form-label">Minimum Percentage(%)</label>
+                                            <mat-form-field appearance="outline">
+                                            <input
+                                                matInput
+                                                type="number"
+                                                formControlName="minPercentage"
+                                                placeholder="Minimum Percentage"
+                                                required
+                                            />
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <div
+                                        fxLayout="row"
+                                        fxLayoutGap="20px"
+                                        fxLayoutAlign="start center"
+                                        class="outer-row"
+                                    >
+                                        <div class="inner-row">
+                                            <label class="form-label">Maximum Percentage(%)</label>
+                                            <mat-form-field appearance="outline">
+                                            <input
+                                                matInput
+                                                type="number"
+                                                formControlName="maxPercentage"
+                                                placeholder="Maximum Percentage"
+                                                required
+                                            />
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <div
+                                    fxLayout="row"
+                                    fxLayoutGap="20px"
+                                    fxLayoutAlign="start center"
+                                    class="outer-row"
+                                >
+                                    <div class="inner-row">
+                                        <label class="form-label">Payment Selection Limit</label>
+                                        <mat-form-field appearance="outline">
+                                        <input
+                                            matInput
+                                            type="number"
+                                            formControlName="selectionLimit"
+                                            placeholder="Payment Selection Limit"
+                                            required
+                                        />
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div
+                                fxLayout="row"
+                                fxLayoutGap="20px"
+                                fxLayoutAlign="start center"
+                                class="outer-row"
+                            >
+                                <div class="inner-row">
+                                    <label class="form-label">Payment Creation Limit</label>
+                                    <mat-form-field appearance="outline">
+                                    <input
+                                        matInput
+                                        type="number"
+                                        formControlName="creationLimit"
+                                        placeholder="Payment Creation Limit"
+                                        required
+                                    />
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                                </div>
+                                <div class="flot-rt">
+                                    <button
+                                        mat-button
+                                        type="submit"
+                                        [disabled]="form.invalid || isLoading"
+                                        class="btn-save"
+                                    >
+                                        Update Data
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

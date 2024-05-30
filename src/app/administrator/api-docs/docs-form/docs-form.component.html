@@ -1,0 +1,187 @@
+<section class="sect-one">
+  <div class="container">
+    <div class="layout-container">
+      <div class="layout">
+        <div class="sect-one-block">
+          <div
+            class="sect-container"
+            fxLayout="column"
+            fxLayout.sm="column"
+            fxLayout.xs="column"
+            fxLayoutGap="20px"
+          >
+            <div
+              class="sect container-12"
+              fxLayout="column"
+              fxLayout.sm="column"
+              fxLayout.xs="column"
+              fxLayoutGap="0px"
+            >
+              <div class="headline align-left">
+                {{ _id != 1 ? "Edit" : "Add" }} Blogs
+              </div>
+
+              <form [formGroup]="form" (ngSubmit)="formSubmitHandler()">
+                <div class="mrg-topval mrg-botval">
+                  <div
+                    fxLayout="row"
+                    fxLayoutGap="20px"
+                    fxLayoutAlign="start center"
+                    class="outer-row"
+                  >
+                    <div class="inner-row">
+                      <label class="form-label">Blog Title</label>
+                      <mat-form-field appearance="outline">
+                        <input
+                          matInput
+                          formControlName="name"
+                          placeholder="Blog Title"
+                          required
+                        />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+                <div class="mrg-topval mrg-botval">
+                  <div
+                    fxLayout="row"
+                    fxLayoutGap="20px"
+                    fxLayoutAlign="start center"
+                    class="outer-row"
+                  >
+                    <div class="inner-row">
+                      <label class="form-label">Blog Link</label>
+                      <mat-form-field appearance="outline">
+                        <input
+                          matInput
+                          formControlName="link"
+                          placeholder="Blog Link"
+                          required
+                        />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+                <div class="mrg-topval mrg-botval">
+                  <div
+                    fxLayout="row"
+                    fxLayoutGap="20px"
+                    fxLayoutAlign="start center"
+                    class="outer-row"
+                  >
+                    <div class="inner-row">
+                      <label class="form-label">Blog Meta Title</label>
+                      <mat-form-field appearance="outline">
+                        <input
+                          matInput
+                          formControlName="metaTitle"
+                          placeholder="Blog Meta Title"
+                          required
+                        />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+                <div class="mrg-topval mrg-botval">
+                  <div
+                    fxLayout="row"
+                    fxLayoutGap="20px"
+                    fxLayoutAlign="start center"
+                    class="outer-row"
+                  >
+                    <div class="inner-row">
+                      <label class="form-label">Blog Meta Keyword</label>
+                      <mat-form-field appearance="outline">
+                        <input
+                          matInput
+                          formControlName="metaKeyword"
+                          placeholder="Blog Meta Keyword"
+                          required
+                        />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+                <div class="mrg-topval mrg-botval">
+                  <div
+                    fxLayout="row"
+                    fxLayoutGap="20px"
+                    fxLayoutAlign="start center"
+                    class="outer-row"
+                  >
+                    <div class="inner-row">
+                      <label class="form-label">Blog Meta Description</label>
+                      <mat-form-field appearance="outline">
+                        <input
+                          matInput
+                          formControlName="metaDescription"
+                          placeholder="Blog Meta Description"
+                          required
+                        />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+                <div class="mrg-topval mrg-botval">
+                  <div
+                    fxLayout="row"
+                    fxLayoutGap="20px"
+                    fxLayoutAlign="start center"
+                    class="outer-row"
+                  >
+                    <div class="inner-row">
+                      <label class="form-label">Flag</label>
+                      <mat-form-field appearance="outline">
+                        <mat-select
+                          placeholder="Flag Type"
+                          formControlName="flag"
+                          [compareWith]="compareItems"
+                        >
+                          <mat-option value="">No Flag</mat-option>
+                          <mat-option value="primary">Primary</mat-option>
+                          <mat-option value="secondary">Secondary</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+                <div class="mrg-topval mrg-botval">
+                  <div
+                    fxLayout="row"
+                    fxLayoutGap="20px"
+                    fxLayoutAlign="start center"
+                    class="outer-row"
+                  >
+                    <div class="inner-row">
+                      <label class="form-label">Image</label>
+                      <mat-form-field appearance="outline">
+                        <ngx-mat-file-input
+                          valuePlaceholder="Upload Image"
+                          (change)="onlogoURIChange($event)"
+                        ></ngx-mat-file-input>
+                        <mat-icon matSuffix>folder</mat-icon>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+                <div class="mrg-botval">
+                  <quill-editor formControlName="document"></quill-editor>
+                </div>
+                <div class="flot-rt">
+                  <button
+                    mat-button
+                    type="submit"
+                    [disabled]="form.invalid || isLoading"
+                    class="btn-save"
+                  >
+                    Publish
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

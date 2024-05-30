@@ -1,0 +1,87 @@
+<section class="sect-partners">
+    <div class="container">
+      <div class="layout-container">
+        <div class="layout">
+          <div class="sect-partners-block">
+            <div class="headline align-left"> Faq</div>
+            <form [formGroup]="form" (ngSubmit)="formSubmitHandler()">
+                <div class="" fxLayoutGap="-10px">
+                  <div
+                  fxLayout="row"
+                  fxLayoutGap="20px"
+                  fxLayoutAlign="start center"
+                  class="outer-row"
+                  >
+                  <div class="inner-row">
+                      <label class="form-label">Type</label>
+                      <mat-form-field appearance="outline">
+                          <mat-select placeholder="Type" formControlName="type" [compareWith]="compareItems" required>
+                              <mat-option value="p2p">P2P</mat-option>
+                              <mat-option value="common">Common</mat-option>
+                          </mat-select>
+                      </mat-form-field>
+                  </div>
+                  </div>
+                  <div
+                  fxLayout="row"
+                  fxLayoutGap="20px"
+                  fxLayoutAlign="start center"
+                  class="outer-row"
+                  >
+                  <div class="inner-row">
+                      <label class="form-label">Title</label>
+                      <mat-form-field appearance="outline">
+                      <input
+                          type="text"
+                          matInput
+                          formControlName="title"
+                          placeholder="Title"
+                          required
+                      />
+                      </mat-form-field>
+                  </div>
+                  </div>
+                  <div
+                  fxLayout="row"
+                  fxLayoutGap="20px"
+                  fxLayoutAlign="start center"
+                  class="outer-row"
+                  >
+                  <div class="inner-row">
+                      <label class="form-label">Description</label>
+                      <mat-form-field appearance="outline">
+                      <input
+                          type="text"
+                          matInput
+                          formControlName="description"
+                          placeholder="Description"
+                          required
+                      />
+                      </mat-form-field>
+                  </div>
+                  </div>
+                  <div class="flot-rt">
+                    <button
+                    (click)="closeDialog()"
+                    mat-button
+                    type="button"
+                    class="btn-cance mrg-rightval"
+                    >
+                    Cancel
+                    </button>
+                    <button
+                    mat-button
+                    type="submit"
+                    [disabled]="form.invalid || isLoading"
+                    class="btn-save"
+                    >
+                    {{data != '' ? 'Edit' : 'Add'}} Faq
+                    </button>
+                </div>
+                </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>

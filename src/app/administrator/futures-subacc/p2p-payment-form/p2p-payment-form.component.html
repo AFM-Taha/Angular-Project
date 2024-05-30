@@ -1,0 +1,294 @@
+<section class="sect-partners">
+    <div class="container">
+      <div class="layout-container">
+        <div class="layout">
+          <div class="sect-partners-block">
+            <div class="headline align-left">{{data != '' ? 'Edit' : 'Add'}} Payment</div>
+            <form [formGroup]="form" (ngSubmit)="formSubmitHandler()">
+                <div class="" fxLayoutGap="-10px">
+                    <div
+                        fxLayout="row"
+                        fxLayoutGap="20px"
+                        fxLayoutAlign="start center"
+                        class="outer-row"
+                    >
+                        <div class="inner-row">
+                            <label class="form-label">Payment Method</label>
+                            <mat-form-field appearance="outline">
+                            <input 
+                                type="text" 
+                                readonly
+                                matInput
+                                formControlName="paymenttype"
+                                placeholder="Payment Method"
+                                value="Bank"
+                            />
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div
+                        fxLayout="row"
+                        fxLayoutGap="20px"
+                        fxLayoutAlign="start center"
+                        class="outer-row"
+                    >
+                        <div class="inner-row">
+                            <label class="form-label">
+                                {{data.paymenttype =='UPI' ? 'UPI Id' :'Account No' }} 
+                            </label>
+                            <mat-form-field appearance="outline" *ngIf="data.paymenttype =='Paytm' || data.paymenttype =='Bank' || data.paymenttype =='IMPS'">
+                            <input 
+                                type="text"
+                                matInput
+                                formControlName="accountNo"
+                                placeholder=""
+                                readonly
+                            />
+                            </mat-form-field>
+                            <mat-form-field appearance="outline" *ngIf="data == ''">
+                                <input 
+                                    type="text"
+                                    matInput
+                                    formControlName="accountNo"
+                                    placeholder=""
+                                    
+                                />
+                                </mat-form-field>
+                            <mat-form-field appearance="outline" *ngIf="data.paymenttype =='UPI'">
+                                <input 
+                                    type="text"
+                                    matInput
+                                    formControlName="upiId"
+                                    placeholder=""
+                                    readonly
+                                />
+                                </mat-form-field>
+                        </div>
+                    </div>
+                    <div
+                        fxLayout="row"
+                        fxLayoutGap="20px"
+                        fxLayoutAlign="start center"
+                        class="outer-row" 
+                    >
+                        <div class="inner-row">
+                            <label class="form-label">Holder Name</label>
+                            <mat-form-field appearance="outline" *ngIf="data !=''">
+                            <input 
+                                type="text" 
+                                readonly
+                                matInput
+                                formControlName="holderName"
+                                placeholder="Holder Name"
+                            />
+                            </mat-form-field>
+                            <mat-form-field appearance="outline" *ngIf="data ==''">
+                                <input 
+                                    type="text" 
+                                    matInput
+                                    formControlName="holderName"
+                                    placeholder="Holder Name"
+                                />
+                                </mat-form-field>
+                        </div>
+                    </div>
+                    <div
+                        fxLayout="row"
+                        fxLayoutGap="20px"
+                        fxLayoutAlign="start center"
+                        class="outer-row"
+                        *ngIf="data.paymenttype =='Bank' || data.paymenttype =='IMPS'"
+                    >
+                        <div class="inner-row">
+                            <label class="form-label">IFSC Code</label>
+                            <mat-form-field appearance="outline">
+                            <input 
+                                type="text" 
+                                readonly
+                                matInput
+                                formControlName="ifscCode"
+                                placeholder="IFSC Code"
+                            />
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div
+                        fxLayout="row"
+                        fxLayoutGap="20px"
+                        fxLayoutAlign="start center"
+                        class="outer-row"
+                        *ngIf="data==''"
+                    >
+                        <div class="inner-row">
+                            <label class="form-label">IFSC Code</label>
+                            <mat-form-field appearance="outline">
+                            <input 
+                                type="text" 
+                                matInput
+                                formControlName="ifscCode"
+                                placeholder="IFSC Code"
+                            />
+                            </mat-form-field>
+                        </div>
+                    </div>
+                <!-- <div
+                    fxLayout="row"
+                    fxLayoutGap="20px"
+                    fxLayoutAlign="start center"
+                    class="outer-row"
+                    *ngIf="data.paymenttype =='Bank' || data.paymenttype =='IMPS'"
+                >
+                    <div class="inner-row">
+                        <label class="form-label">Bank Name</label>
+                        <mat-form-field appearance="outline">
+                        <input 
+                            type="text" 
+                            readonly
+                            matInput
+                            formControlName="bankName"
+                            placeholder="Bank Name"
+                        />
+                        </mat-form-field>
+                    </div>
+                </div> -->
+                <!-- <div
+                    fxLayout="row"
+                    fxLayoutGap="20px"
+                    fxLayoutAlign="start center"
+                    class="outer-row"
+                    *ngIf="data==''"
+                >
+                    <div class="inner-row">
+                        <label class="form-label">Bank Name</label>
+                        <mat-form-field appearance="outline">
+                        <input 
+                            type="text" 
+                            matInput
+                            formControlName="bankName"
+                            placeholder="Bank Name"
+                        />
+                        </mat-form-field>
+                    </div>
+                </div> -->
+                <!-- <div
+                    fxLayout="row"
+                    fxLayoutGap="20px"
+                    fxLayoutAlign="start center"
+                    class="outer-row"
+                    *ngIf="data.paymenttype =='Bank' || data.paymenttype =='IMPS'"
+                >
+                    <div class="inner-row">
+                        <label class="form-label">Account Type</label>
+                        <mat-form-field appearance="outline">
+                        <input 
+                            type="text" 
+                            readonly
+                            matInput
+                            formControlName="accountType"
+                            placeholder="Account Type"
+                        />
+                        </mat-form-field>
+                    </div>
+                </div> -->
+                <!-- <div
+                    fxLayout="row"
+                    fxLayoutGap="20px"
+                    fxLayoutAlign="start center"
+                    class="outer-row"
+                    *ngIf="data ==''"
+                >
+                    <div class="inner-row">
+                        <label class="form-label">Account Type</label>
+                        <mat-form-field appearance="outline">
+                        <input 
+                            type="text" 
+                            matInput
+                            formControlName="accountType"
+                            placeholder="Account Type"
+                        />
+                        </mat-form-field>
+                    </div>
+                </div> -->
+                <!-- <div
+                    fxLayout="row"
+                    fxLayoutGap="20px"
+                    fxLayoutAlign="start center"
+                    class="outer-row"
+                    *ngIf="data.paymenttype =='Bank' || data.paymenttype =='IMPS'"
+                >
+                    <div class="inner-row">
+                        <label class="form-label">Branch</label>
+                        <mat-form-field appearance="outline">
+                        <input 
+                            type="text" 
+                            readonly
+                            matInput
+                            formControlName="branch"
+                            placeholder="Branch"
+                        />
+                        </mat-form-field>
+                    </div>
+                </div> -->
+               
+                    <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center" class="outer-row space1" *ngIf="(data.paymenttype =='Paytm' || data.paymenttype =='UPI') && data.attachment">
+                        <div><b>Image :</b></div><br/>
+                        <div>
+                            <img class="mat-card-image image-cls useUpdImg" src="{{ data.attachment }}">
+                        </div>
+                      </div>
+
+                    <div
+                        fxLayout="row"
+                        fxLayoutGap="20px"
+                        fxLayoutAlign="start center"
+                        class="outer-row"
+                    >
+                    <div class="inner-row">
+                        <label class="form-label">Status</label>
+                        <mat-form-field appearance="outline">
+                            <mat-select placeholder="Status" formControlName="status" [compareWith]="compareItems" required *ngIf="(data !='' && data.status != 1)">
+                                <mat-option value="1">Verified</mat-option>
+                                <mat-option value="0">Pending</mat-option>
+                                <mat-option value="2">Rejected</mat-option>
+                                <mat-option value="4">Deleted</mat-option>
+                                <mat-option value="5">Disabled</mat-option>
+                            </mat-select>
+                            <mat-select placeholder="Status" formControlName="status" [compareWith]="compareItems" required *ngIf="(data !='' &&  data.status == 1)">
+                                <mat-option value="1">Verified</mat-option>
+                            </mat-select>
+                            <mat-select formControlName="status" [compareWith]="compareItems" required *ngIf="data ==''">
+                                <mat-option value="1">Verified</mat-option>
+                                <mat-option value="0">Pending</mat-option>
+                                <mat-option value="2">Rejected</mat-option>
+                                <mat-option value="4">Deleted</mat-option>
+                                <mat-option value="5">Disabled</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    </div>
+
+                    <div class="flot-rt">
+                        <button
+                        (click)="closeDialog()"
+                        mat-button
+                        type="button"
+                        class="btn-cance mrg-rightval"
+                        >
+                        Cancel
+                        </button>
+                        <button
+                        mat-button
+                        type="submit"
+                        [disabled]="form.invalid || isLoading"
+                        class="btn-save"
+                        >
+                        {{data != '' ? 'Edit' : 'Add'}} Payment 
+                        </button>
+                    </div>
+                </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
