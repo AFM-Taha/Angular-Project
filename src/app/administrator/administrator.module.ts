@@ -45,6 +45,7 @@ import { BuyorderViewComponent } from './buyorder/buyorder-view/buyorder-view.co
 import { BuyorderListComponent } from './buyorder/buyorder-list/buyorder-list.component';
 import { ClipboardModule } from '@angular/cdk/clipboard';
 import { FuturesSubaccModule } from './futures-subacc/futures-subacc.module';
+import { FuturesUsdtMoveModule } from './futures-usdt-move/transactions.module';
 
 @NgModule({
   declarations: [AdministratorComponent, BuyorderViewComponent, BuyorderListComponent],
@@ -91,7 +92,8 @@ import { FuturesSubaccModule } from './futures-subacc/futures-subacc.module';
     userBalanceSetModule,
     userBalanceSetViewModule,
     ClipboardModule,
-    FuturesSubaccModule
+    FuturesSubaccModule,
+    FuturesUsdtMoveModule
   ],
   exports: [],
 })

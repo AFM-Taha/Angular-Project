@@ -55,6 +55,7 @@ import { BuyorderListComponent } from './buyorder/buyorder-list/buyorder-list.co
 import { BuyorderViewComponent } from './buyorder/buyorder-view/buyorder-view.component';
 import { FuturesSubaccListComponent } from './futures-subacc/futures-subacc-list/futures-subacc-list.component';
 import { FuturesSubaccViewComponent } from './futures-subacc/futures-subacc-view/futures-subacc-view.component';
+import { FuturesUsdtMoveViewComponent } from './futures-usdt-move/futures-usdt-move-view/futures-usdt-move-view.component';
 const routes: Routes = [
   {
     path: '',
@@ -531,6 +532,15 @@ const routes: Routes = [
           roles: ['7de0f78bf6a4dc57ad7a913f64ad7b49'],
           title: 'Buyorder View',
           breadcrumb: 'Buyorder View',
+        }
+      },
+      {
+        path: 'futures-usdt-move',
+        component: FuturesUsdtMoveViewComponent,
+        data: {
+          roles: ['7de0f78bf6a4dc57ad7a913f64ad7b49'],
+          title: 'Futures Usdt Move',
+          breadcrumb: 'Futures Usdt Move',
         }
       },
     ]
