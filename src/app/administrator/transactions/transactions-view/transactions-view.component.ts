@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TransactionsService } from 'src/app/_services/transactions.service';
 import { NotificationService } from 'src/app/_services/core/notification.service';
-import {Location} from '@angular/common';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-transactions-view',
@@ -16,7 +16,7 @@ export class TransactionsViewComponent implements OnInit {
   isLoading = true;
   rejectReason: string = '';
   keyword: string = 'Reject Reason';
-  extraStatus:string = '';
+  extraStatus: string = '';
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -32,14 +32,14 @@ export class TransactionsViewComponent implements OnInit {
   }
   populateValue() {
     this.transactionsService
-      .getTransactionsDetails({_id:this._id})
+      .getTransactionsDetails({ _id: this._id })
       .subscribe(
         (result) => {
-          console.log("transactionsDetails:",this.transactionsDetails)
-          if(result.status) {
-            
+          console.log("transactionsDetails:", this.transactionsDetails)
+          if (result.status) {
+
             this.transactionsDetails = result.data && result.data[0];
-            console.log("transactionsDetails:",this.transactionsDetails)
+            console.log("transactionsDetails:", this.transactionsDetails)
             this.keyword = (this.transactionsDetails.currencyDet.curnType == 'Fiat' && this.status == 'Approve') ? 'Transaction Id' : 'Reject Reason';
             this.isLoading = false;
           } else {
@@ -57,11 +57,11 @@ export class TransactionsViewComponent implements OnInit {
     return /\.(jpg|jpeg|png|webp|avif|gif|svg)$/.test(imgURL);
   }
   changeStatus() {
-    if(this.rejectReason == '') {
-      if(this.transactionsDetails.type=='Withdraw' && this.status=='Approve' && this.transactionsDetails.currencyDet.curnType == 'Fiat') {
+    if (this.rejectReason == '') {
+      if (this.transactionsDetails.type == 'Withdraw' && this.status == 'Approve' && this.transactionsDetails.currencyDet.curnType == 'Fiat') {
         this.notify.showError('Enter transaction Id');
         return false;
-      } else if(this.status=='Reject') {
+      } else if (this.status == 'Reject') {
         this.notify.showError('Enter reject reason');
         return false;
       }
@@ -76,7 +76,7 @@ export class TransactionsViewComponent implements OnInit {
       .updateTransactions(data)
       .subscribe(
         (result) => {
-          if(result.status) {
+          if (result.status) {
             this.notify.showSuccess(result.message);
             this.populateValue();
             this.isLoading = false;
@@ -106,7 +106,7 @@ export class TransactionsViewComponent implements OnInit {
           if (result.status) {
             this.notify.showSuccess(result.message);
             this.populateValue();
-            this.transactionsDetails.move='';
+            this.transactionsDetails.move = '';
             this.isLoading = false;
           } else {
             this.notify.showError(result.message);

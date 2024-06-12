@@ -248,7 +248,7 @@
                   fxFlex.md="50"
                   fxFlex.sm="100"
                   fxFlex.xs="100"
-                  (click)="navigateLink('/dashboard/futures-usdt-move', '', '')"
+                  (click)="navigateLink1('/dashboard/futures-usdt-move')"
                 >
                   <div
                     class="justify-content"
@@ -271,8 +271,7 @@
                         src="../../../assets/images/teamphoto-loading.webp"
                       />
                       <div *ngIf="!loader" class="dash-count">
-                        0
-                        <!-- {{ dashboardCount.buycryptoPendingUsers }} -->
+                        {{ dashboardCount.futuresUSDTMovePendingUsers || 0 }}
                       </div>
                     </div>
                   </div>

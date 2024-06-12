@@ -6,9 +6,9 @@
           <div class="">
             <div class="prev-pagediv">
               <button
+                (click)="backRedirectBtn()"
                 mat-button
                 class="mat-button btn-back flot-rt"
-                (click)="backRedirectBtn()"
               >
                 <mat-icon>arrow_left_alt</mat-icon>Back
               </button>
@@ -26,9 +26,7 @@
             >
               <div>User Name :</div>
               <div>
-                Kirill Shramko
-                <!-- {{ transactionsDetails.username }} -->
-                hello
+                {{ transactionsDetails.userDetails.username }}
               </div>
             </div>
 
@@ -40,8 +38,7 @@
             >
               <div>Email :</div>
               <div>
-                <!-- {{ transactionsDetails.email }} -->
-                kirillshramko@gmail.com
+                {{ transactionsDetails.userDetails.email }}
               </div>
             </div>
 
@@ -53,8 +50,9 @@
             >
               <div>Amount :</div>
               <div>
-                1455.24 USDT
-                <!-- {{ transactionsDetails.amount }}
+                <!-- 1455.24 USDT -->
+                {{ transactionsDetails.amount }}
+                <!-- 
                 {{ transactionsDetails.currencyDet.currencySymbol }} -->
               </div>
             </div>
@@ -67,7 +65,9 @@
             >
               <div>Move From :</div>
               <div>
-                Stop [Unitc Exchange]
+                {{ transactionsDetails.from }}
+
+                <!-- Stop [Unitc Exchange] -->
                 <!-- {{ transactionsDetails.currencyDet.currencySymbol
                 }}{{
                   transactionsDetails.currencyDet.basecoin != 'Coin'
@@ -85,7 +85,9 @@
             >
               <div>Move To :</div>
               <div>
-                Futures [Kucoins]
+                {{ transactionsDetails.to }}
+
+                <!-- Futures [Kucoins] -->
                 <!-- {{ transactionsDetails.type }} -->
               </div>
             </div>
@@ -107,34 +109,32 @@
             </div>
 
             <div
+              *ngFor="let wallet of wallets"
               fxLayout="row"
               fxLayoutGap="20px"
               fxLayoutAlign="start center"
               class="outer-row space1"
             >
-              <div>Beo20:</div>
               <div>
-                23j3467457547547575
-                <!-- {{ transactionsDetails.fees }}
-                {{ transactionsDetails.currencyDet.currencySymbol }} -->
+                {{ wallet.chain }}
+              </div>
+              <div>
+                {{ wallet.address }}
               </div>
             </div>
 
             <div
+              *ngIf="transactionsDetails.status !== 'Pending'"
               fxLayout="row"
               fxLayoutGap="20px"
               fxLayoutAlign="start center"
               class="outer-row space1"
             >
-              <div>Trc20 :</div>
-              <div>
-                23j3467457547547575
-                <!-- {{ transactionsDetails.receiveAmount }}
-                {{ transactionsDetails.currencyDet.currencySymbol }} -->
-              </div>
+              <div>Status :</div>
+              <div>{{ transactionsDetails.status }}</div>
             </div>
-
             <div
+              *ngIf="transactionsDetails.status === 'Pending'"
               fxLayout="row"
               fxLayoutGap="20px"
               fxLayoutAlign="start center"
@@ -142,314 +142,19 @@
             >
               <div>Status :</div>
               <div>
-                Approved
-                <mat-icon>keyboard_arrow_down</mat-icon>
-                <!-- {{ transactionsDetails.address }} -->
-              </div>
-            </div>
-          </div>
-          <!-- Without Loading end -->
-
-          <div class="width-100" *ngIf="!isLoading">
-            <div class="headline align-left mrg-botval">
-              Transactions Details
-            </div>
-
-            <div
-              fxLayout="row"
-              fxLayoutGap="20px"
-              fxLayoutAlign="start center"
-              class="outer-row space1"
-            >
-              <div>Username :</div>
-              <div>
-                <!-- {{ transactionsDetails.username }} -->
-                hello
-              </div>
-            </div>
-
-            <div
-              fxLayout="row"
-              fxLayoutGap="20px"
-              fxLayoutAlign="start center"
-              class="outer-row space1"
-            >
-              <div>Email :</div>
-              <div>
-                <!-- {{ transactionsDetails.email }} -->
-                Ohe
-              </div>
-            </div>
-
-            <div
-              fxLayout="row"
-              fxLayoutGap="20px"
-              fxLayoutAlign="start center"
-              class="outer-row space1"
-            >
-              <div>Amount :</div>
-              <div>
-                {{ transactionsDetails.amount }}
-                {{ transactionsDetails.currencyDet.currencySymbol }}
-              </div>
-            </div>
-
-            <div
-              fxLayout="row"
-              fxLayoutGap="20px"
-              fxLayoutAlign="start center"
-              class="outer-row space1"
-            >
-              <div>Currency :</div>
-              <div>
-                {{ transactionsDetails.currencyDet.currencySymbol
-                }}{{
-                  transactionsDetails.currencyDet.basecoin != 'Coin'
-                    ? ' - ' + transactionsDetails.currencyDet.basecoin
-                    : ''
-                }}
-              </div>
-            </div>
-
-            <div
-              fxLayout="row"
-              fxLayoutGap="20px"
-              fxLayoutAlign="start center"
-              class="outer-row space1"
-            >
-              <div>Type :</div>
-              <div>{{ transactionsDetails.type }}</div>
-            </div>
-
-            <div
-              fxLayout="row"
-              fxLayoutGap="20px"
-              fxLayoutAlign="start center"
-              class="outer-row space1"
-            >
-              <div>Transaction Id :</div>
-              <div>
-                {{
-                  transactionsDetails.txnId != ''
-                    ? transactionsDetails.txnId
-                    : '-'
-                }}
-              </div>
-            </div>
-
-            <div
-              *ngIf="transactionsDetails.type == 'Withdraw'"
-              fxLayout="row"
-              fxLayoutGap="20px"
-              fxLayoutAlign="start center"
-              class="outer-row space1"
-            >
-              <div>Fees :</div>
-              <div>
-                {{ transactionsDetails.fees }}
-                {{ transactionsDetails.currencyDet.currencySymbol }}
-              </div>
-            </div>
-
-            <div
-              *ngIf="transactionsDetails.type == 'Withdraw'"
-              fxLayout="row"
-              fxLayoutGap="20px"
-              fxLayoutAlign="start center"
-              class="outer-row space1"
-            >
-              <div>Receive Amount :</div>
-              <div>
-                {{ transactionsDetails.receiveAmount }}
-                {{ transactionsDetails.currencyDet.currencySymbol }}
-              </div>
-            </div>
-
-            <div
-              *ngIf="
-                transactionsDetails.type == 'Withdraw' &&
-                transactionsDetails.address != ''
-              "
-              fxLayout="row"
-              fxLayoutGap="20px"
-              fxLayoutAlign="start center"
-              class="outer-row space1"
-            >
-              <div>Receive Address :</div>
-              <div>{{ transactionsDetails.address }}</div>
-            </div>
-
-            <div
-              *ngIf="
-                transactionsDetails.type == 'Withdraw' &&
-                transactionsDetails.tag != ''
-              "
-              fxLayout="row"
-              fxLayoutGap="20px"
-              fxLayoutAlign="start center"
-              class="outer-row space1"
-            >
-              <div>Tag :</div>
-              <div>{{ transactionsDetails.tag }}</div>
-            </div>
-
-            <div
-              *ngIf="transactionsDetails.attachment != ''"
-              fxLayout="row"
-              fxLayoutGap="20px"
-              fxLayoutAlign="start center"
-              class="outer-row space1"
-            >
-              <div>Attachment :</div>
-              <div *ngIf="showImage(transactionsDetails.attachment)">
-                <img
-                  style="width: 200px"
-                  src="{{ transactionsDetails.attachment }}"
-                  alt=""
-                />
-              </div>
-              <div *ngIf="!showImage(transactionsDetails.attachment)">
-                <a
-                  href="{{ transactionsDetails.attachment }}"
-                  target="_blank"
-                  >{{ transactionsDetails.attachment }}</a
-                >
-              </div>
-            </div>
-
-            <div
-              *ngIf="
-                transactionsDetails.currencyDet.curnType == 'Fiat' &&
-                transactionsDetails.paymentDet &&
-                transactionsDetails.paymentDet.length > 0
-              "
-            >
-              <h1>User Bank Details</h1>
-              <div
-                fxLayout="row"
-                fxLayoutGap="20px"
-                fxLayoutAlign="start center"
-                class="outer-row space1"
-              >
-                <div>Holder Name :</div>
-                <div>{{ transactionsDetails.paymentDet[0].holderName }}</div>
-              </div>
-              <div
-                fxLayout="row"
-                fxLayoutGap="20px"
-                fxLayoutAlign="start center"
-                class="outer-row space1"
-              >
-                <div>Bank Name :</div>
-                <div>{{ transactionsDetails.paymentDet[0].bankName }}</div>
-              </div>
-              <div
-                fxLayout="row"
-                fxLayoutGap="20px"
-                fxLayoutAlign="start center"
-                class="outer-row space1"
-              >
-                <div>Account No :</div>
-                <div>{{ transactionsDetails.paymentDet[0].accountNo }}</div>
-              </div>
-              <div
-                fxLayout="row"
-                fxLayoutGap="20px"
-                fxLayoutAlign="start center"
-                class="outer-row space1"
-              >
-                <div>IFSC Code :</div>
-                <div>{{ transactionsDetails.paymentDet[0].ifscCode }}</div>
-              </div>
-              <div
-                fxLayout="row"
-                fxLayoutGap="20px"
-                fxLayoutAlign="start center"
-                class="outer-row space1"
-              >
-                <div>Account Type :</div>
-                <div>{{ transactionsDetails.paymentDet[0].accountType }}</div>
-              </div>
-            </div>
-            <div
-              *ngIf="transactionsDetails.status == 2"
-              fxLayout="row"
-              fxLayoutGap="20px"
-              fxLayoutAlign="start center"
-              class="outer-row space1"
-            >
-              <div>Reject Reason :</div>
-              <div>{{ transactionsDetails.rejectReason }}</div>
-            </div>
-
-            <div
-              *ngIf="
-                transactionsDetails.status == 0 ||
-                transactionsDetails.status == 3
-              "
-              fxLayout="row"
-              fxLayoutGap="20px"
-              fxLayoutAlign="start center"
-              class="outer-row space1"
-            >
-              <div>Status :</div>
-              <div>
-                <select id="mySelect" (change)="setStatus($event.target.value)">
-                  <option value="">Select</option>
-                  <option value="Reject">Reject</option>
-                  <option value="Approve">Approve</option>
-                </select>
-                <div
-                  *ngIf="
-                    status == 'Reject' ||
-                    (transactionsDetails.type == 'Withdraw' &&
-                      status == 'Approve' &&
-                      transactionsDetails.currencyDet.curnType == 'Fiat')
-                  "
-                >
-                  <textarea
-                    placeholder="{{ keyword }}"
-                    (keyup)="setReason($event.target.value)"
-                  ></textarea>
-                </div>
-                <div>
-                  <button
-                    [disabled]="status == ''"
-                    mat-button
-                    class="mat-button btn-cancel"
-                    (click)="changeStatus()"
+                <mat-form-field appearance="fill">
+                  <mat-select
+                    [(value)]="selectedStatus"
+                    (selectionChange)="onStatusChange($event)"
                   >
-                    Submit
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div
-              *ngIf="
-                transactionsDetails.adminVerify == '' &&
-                transactionsDetails.status == 5
-              "
-              fxLayout="row"
-              fxLayoutGap="20px"
-              fxLayoutAlign="start center"
-              class="outer-row space1"
-            >
-              <div>Admin Verification :</div>
-              <div>
-                <select id="mySelect" (change)="movenew($event.target.value)">
-                  <option value="">Select</option>
-                  <option value="verified">Verify</option>
-                </select>
-                <div>
-                  <button
-                    [disabled]="extraStatus == ''"
-                    mat-button
-                    class="mat-button btn-cancel"
-                    (click)="adminNewChangestatus()"
-                  >
-                    Submit
-                  </button>
-                </div>
+                    <mat-option
+                      *ngFor="let status of statusOptions"
+                      [value]="status"
+                    >
+                      {{ status }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
               </div>
             </div>
           </div>

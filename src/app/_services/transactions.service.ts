@@ -12,15 +12,22 @@ export class TransactionsService {
   constructor(private httpClient: HttpClient) { }
 
   getTransactionsTblDetails(body: any): Observable<TransactionsTblApiResponse> {
-      return this.httpClient.post<TransactionsTblApiResponse>(
-        `${environment.apiUrl}admin/transactions/getTransactions`,
-        body
-      );
+    return this.httpClient.post<TransactionsTblApiResponse>(
+      `${environment.apiUrl}admin/transactions/getTransactions`,
+      body
+    );
   }
-  
+
   getTransactionsDetails(body: any): Observable<any> {
     return this.httpClient.post<any>(
       `${environment.apiUrl}admin/transactions/getTransactionsDetails`,
+      body
+    );
+  }
+
+  getTransactionsDetails1(body: any): Observable<any> {
+    return this.httpClient.post<any>(
+      `${environment.apiUrl}/futures-fund/get-details`,
       body
     );
   }
@@ -42,10 +49,10 @@ export class TransactionsService {
       body
     );
   }
-//   postTransactionsTblDetails(body: any): Observable<TransactionsTblApiResponse> {
-//     return this.httpClient.post<TransactionsTblApiResponse>(
-//       `${environment.apiUrl}admin/transactions/getTransactions?`,
-//       body
-//     );
-// }
+  //   postTransactionsTblDetails(body: any): Observable<TransactionsTblApiResponse> {
+  //     return this.httpClient.post<TransactionsTblApiResponse>(
+  //       `${environment.apiUrl}admin/transactions/getTransactions?`,
+  //       body
+  //     );
+  // }
 }

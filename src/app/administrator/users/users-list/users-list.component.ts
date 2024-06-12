@@ -35,10 +35,10 @@ export class UsersListComponent implements OnInit, AfterViewInit, AfterViewCheck
   PageData: any;
   len: any;
   buttonDisabled = true;
-  limit:number=10;
-  offset:number=0;
-  length:any;
-  queryparams:any;
+  limit: number = 10;
+  offset: number = 0;
+  length: any;
+  queryparams: any;
   currencyTbl = new MatTableDataSource<Users>();
   emptyData = new MatTableDataSource([{ empty: "row" }]);
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
@@ -64,7 +64,7 @@ export class UsersListComponent implements OnInit, AfterViewInit, AfterViewCheck
       'tfaenablekey',
       'action',
     ];
-   }
+  }
 
   ngOnInit(): void {
     this.form = this.fb.group({
@@ -73,34 +73,34 @@ export class UsersListComponent implements OnInit, AfterViewInit, AfterViewCheck
       kycstatus: ['', false],
       bankstatus: ['', false],
       sortOption: ['-1', false],
-      fromdate: ['',false],
-      todate: ['',false]
+      fromdate: ['', false],
+      todate: ['', false]
     });
-    if(typeof this.route.snapshot.queryParamMap.get('status') == 'string') {
-      this.form.patchValue({status:this.route.snapshot.queryParamMap.get('status')});
+    if (typeof this.route.snapshot.queryParamMap.get('status') == 'string') {
+      this.form.patchValue({ status: this.route.snapshot.queryParamMap.get('status') });
     }
-    if(typeof this.route.snapshot.queryParamMap.get('kycstatus') == 'string') {
-      this.form.patchValue({kycstatus:this.route.snapshot.queryParamMap.get('kycstatus')});
+    if (typeof this.route.snapshot.queryParamMap.get('kycstatus') == 'string') {
+      this.form.patchValue({ kycstatus: this.route.snapshot.queryParamMap.get('kycstatus') });
     }
-    if(typeof this.route.snapshot.queryParamMap.get('bankstatus') == 'string') {
-      this.form.patchValue({bankstatus:this.route.snapshot.queryParamMap.get('bankstatus')});
+    if (typeof this.route.snapshot.queryParamMap.get('bankstatus') == 'string') {
+      this.form.patchValue({ bankstatus: this.route.snapshot.queryParamMap.get('bankstatus') });
     }
-    if(typeof this.route.snapshot.queryParamMap.get('searchQuery') == 'string') {
-      this.form.patchValue({searchQuery:this.route.snapshot.queryParamMap.get('searchQuery')});
+    if (typeof this.route.snapshot.queryParamMap.get('searchQuery') == 'string') {
+      this.form.patchValue({ searchQuery: this.route.snapshot.queryParamMap.get('searchQuery') });
     }
-    if(typeof this.route.snapshot.queryParamMap.get('sortOption') == 'string') {
-      this.form.patchValue({sortOption:this.route.snapshot.queryParamMap.get('sortOption')});
+    if (typeof this.route.snapshot.queryParamMap.get('sortOption') == 'string') {
+      this.form.patchValue({ sortOption: this.route.snapshot.queryParamMap.get('sortOption') });
     }
 
-    if(this.route.snapshot.queryParamMap.get('fromdate') !=''){
-        if(typeof this.route.snapshot.queryParamMap.get('fromdate') == 'string') {
-          this.form.patchValue({fromdate:new Date(this.route.snapshot.queryParamMap.get('fromdate'))});
-         }
+    if (this.route.snapshot.queryParamMap.get('fromdate') != '') {
+      if (typeof this.route.snapshot.queryParamMap.get('fromdate') == 'string') {
+        this.form.patchValue({ fromdate: new Date(this.route.snapshot.queryParamMap.get('fromdate')) });
+      }
     }
-    if(this.route.snapshot.queryParamMap.get('todate') !=''){
-        if(typeof this.route.snapshot.queryParamMap.get('todate') == 'string') {
-          this.form.patchValue({todate:new Date(this.route.snapshot.queryParamMap.get('todate'))});
-        }
+    if (this.route.snapshot.queryParamMap.get('todate') != '') {
+      if (typeof this.route.snapshot.queryParamMap.get('todate') == 'string') {
+        this.form.patchValue({ todate: new Date(this.route.snapshot.queryParamMap.get('todate')) });
+      }
     }
     this.populateTable(this.form.value);
     // this.currencyTbl.paginator = this.paginator;
@@ -111,41 +111,42 @@ export class UsersListComponent implements OnInit, AfterViewInit, AfterViewCheck
     //   this.populateTable();
     // });
     this.currencyTbl.sort = this.sort;
-  } 
+  }
   ExportToCsv() {
-    if(this.currencyTbl.data.length>0){
+
+    if (this.currencyTbl.data.length > 0) {
       let data = [];
-    this.currencyTbl.data.forEach((element: any) => {
-      data.push({
-        'Register On' : this.datepipe.transform(element.registerOn ,'MMM dd, y, HH:mm:ss'),
-        'User Name' : element.username,
-        'Email' : element.email ? element.email : "",
-        'Phone' : element.phoneno ? element.phoneno : "",
-        'KYC Status' : element.kycstatus == 1 ? 'Approved' : element.kycstatus == 2 ? 'Rejected' : element.kycstatus == 0 ? 'Pending' : 'Not Uploaded',
-        'Bank Status' : element.bankstatus == 1 ? 'Approved' : element.bankstatus == 2 ? 'Rejected' : element.bankstatus == 0 ? 'Pending' : 'Not Uploaded'
+      this.currencyTbl.data.forEach((element: any) => {
+        data.push({
+          'Register On': this.datepipe.transform(element.registerOn, 'MMM dd, y, HH:mm:ss'),
+          'User Name': element.username,
+          'Email': element.email ? element.email : "",
+          'Phone': element.phoneno ? element.phoneno : "",
+          'KYC Status': element.kycstatus == 1 ? 'Approved' : element.kycstatus == 2 ? 'Rejected' : element.kycstatus == 0 ? 'Pending' : 'Not Uploaded',
+          'Bank Status': element.bankstatus == 1 ? 'Approved' : element.bankstatus == 2 ? 'Rejected' : element.bankstatus == 0 ? 'Pending' : 'Not Uploaded'
+        })
       })
-    })
-    const options = { 
-      fieldSeparator: ',',
-      filename: 'users',
-      quoteStrings: '"',
-      decimalSeparator: '.',
-      showLabels: true, 
-      showTitle: false,
-      useTextFile: false,
-      useBom: true,
-      useKeysAsHeaders: true,
-      //headers: ['Name', 'Age', 'Average', 'Approved', 'Description'] // <-- Won't work with useKeysAsHeaders present!
-    };
+      const options = {
+        fieldSeparator: ',',
+        filename: 'users',
+        quoteStrings: '"',
+        decimalSeparator: '.',
+        showLabels: true,
+        showTitle: false,
+        useTextFile: false,
+        useBom: true,
+        useKeysAsHeaders: true,
+        //headers: ['Name', 'Age', 'Average', 'Approved', 'Description'] // <-- Won't work with useKeysAsHeaders present!
+      };
 
-    const csvExporter = new ExportToCsv(options);
+      const csvExporter = new ExportToCsv(options);
 
-    csvExporter.generateCsv(data);
+      csvExporter.generateCsv(data);
     }
-    
+
   }
   compareItems(i1, i2) {
-    return i1==i2;
+    return i1 == i2;
   }
   ngAfterViewChecked(): void {
     // this.ref.detectChanges();
@@ -157,26 +158,26 @@ export class UsersListComponent implements OnInit, AfterViewInit, AfterViewCheck
     });
   }
   filterTable(): void {
-    this.router.navigate(['dashboard/users-list'], { queryParams: this.form.value});
+    this.router.navigate(['dashboard/users-list'], { queryParams: this.form.value });
     this.populateTable(this.form.value);
     // this.reloadCurrentRoute()
     // window.location.reload()
   }
   populateTable(obj): void {
     this.isLoading = true;
-    var data={
-      limit:obj.limit,
-      offset:obj.offset,
-      formvalue:this.form.value
+    var data = {
+      limit: obj.limit,
+      offset: obj.offset,
+      formvalue: this.form.value
     }
     this.usersService
       .getUsersTblDetails(data)
       .subscribe(
         (result) => {
           // if(result.getUsersTblDetails.length>0)
-          this.currencyTbl.data=result.getUsersTblDetails;
+          this.currencyTbl.data = result.getUsersTblDetails;
           // this.len=result.getUsersTblDetails.length;
-          this.len=result.total;
+          this.len = result.total;
           this.isLoading = false;
         },
         (err) => {
@@ -187,8 +188,8 @@ export class UsersListComponent implements OnInit, AfterViewInit, AfterViewCheck
   ngAfterViewInit(): void {
     // this.populateTable(this.form.value);
   }
-  viewUsers(_id : string): void {
-    this.router.navigate(['dashboard','user-details',_id]);
+  viewUsers(_id: string): void {
+    this.router.navigate(['dashboard', 'user-details', _id]);
   }
   nextPage() {
     const pageNumber = this.page + 1;
@@ -202,46 +203,46 @@ export class UsersListComponent implements OnInit, AfterViewInit, AfterViewCheck
     this.form.value.pageNumber = pageNumber;
     // this.populateTable();
     this.page--
-    if(pageNumber==1){
+    if (pageNumber == 1) {
       this.buttonDisabled = true
     }
-    else{
+    else {
       this.buttonDisabled = false
     }
   }
-  onDate(event){
-    console.log(event.value,"eventvalue>>")
+  onDate(event) {
+    console.log(event.value, "eventvalue>>")
   }
-  refresh(){
+  refresh() {
     this.form = this.fb.group({
       searchQuery: ['', false],
       status: ['', false],
       kycstatus: ['', false],
       bankstatus: ['', false],
       sortOption: ['-1', false],
-      fromdate: ['',false],
-      todate: ['',false]
-    }); 
+      fromdate: ['', false],
+      todate: ['', false]
+    });
     this.paginator.firstPage();
 
-    this.populateTable(this.form.value );
+    this.populateTable(this.form.value);
   }
-  changepage(event){
-    if(event.pageSize!=this.limit){
-      var obj1={
-          offset:event.pageSize*event.pageIndex, 
-          limit:event.pageSize
+  changepage(event) {
+    if (event.pageSize != this.limit) {
+      var obj1 = {
+        offset: event.pageSize * event.pageIndex,
+        limit: event.pageSize
       }
       this.populateTable(obj1)
     }
-    else{
-      var obj={
-        offset:event.pageIndex * this.limit, 
-       limit:this.limit
-     }
-    //  this.currencyTbl = ""
-    
-     this.populateTable(obj)
+    else {
+      var obj = {
+        offset: event.pageIndex * this.limit,
+        limit: this.limit
+      }
+      //  this.currencyTbl = ""
+
+      this.populateTable(obj)
     }
   }
 }
